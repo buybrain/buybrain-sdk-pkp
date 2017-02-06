@@ -1,0 +1,29 @@
+{
+    "name": "buybrain/buybrain-sdk-php",
+    "description": "A PHP SDK for integration with Buybrain",
+    "keywords": [
+        "buybrain"
+    ],
+    "homepage": "https://github.com/buybrain/buybrain-sdk-php",
+    "type": "library",
+    "licence": "MIT",
+    "authors": [
+        {
+            "name": "Ede Meijer",
+            "email": "ede@buybrain.io"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Buybrain\\": "src/Buybrain/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Buybrain\\": "test/Buybrain/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    }
+}

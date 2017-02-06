@@ -1,6 +1,6 @@
 {
     "name": "buybrain/buybrain-sdk-php",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A PHP SDK for integration with Buybrain",
     "keywords": [
         "buybrain"
@@ -25,6 +25,13 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7"
-    }
+        "phpunit/phpunit": "^5.7",
+        "buybrain/nervus-php": "^0.0.4"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@gitlab.com:buybrain/nervus-php.git"
+        }
+    ]
 }

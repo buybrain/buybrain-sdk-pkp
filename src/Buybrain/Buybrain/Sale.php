@@ -8,6 +8,8 @@ use JsonSerializable;
 /**
  * Represents the sale of a particular SKU at a particular date through a sales channel.
  * Can represent a cancellation/return by using a negative quantity.
+ *
+ * @see CustomerOrder
  */
 class Sale implements JsonSerializable
 {

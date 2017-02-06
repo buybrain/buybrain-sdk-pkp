@@ -1,6 +1,8 @@
 <?php
 namespace Buybrain\Buybrain;
 
+use Buybrain\Nervus\Entity;
+use Buybrain\Nervus\EntityId;
 use DateTimeImmutable;
 use PHPUnit_Framework_TestCase;
 
@@ -53,5 +55,8 @@ class CustomerOrderTest extends PHPUnit_Framework_TestCase
 JSON;
 
         $this->assertEquals($expected, json_encode($order, JSON_PRETTY_PRINT));
+
+        $expectedEntity = new Entity(new EntityId('customer.order', '10005234'), json_encode($order));
+        $this->assertEquals($expectedEntity, $order->asNervusEntity());
     }
 }

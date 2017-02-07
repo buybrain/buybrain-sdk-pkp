@@ -30,10 +30,10 @@ class Sale implements JsonSerializable
      */
     public function __construct($sku, DateTimeInterface $date, $quantity, $channel)
     {
-        $this->sku = $sku;
+        $this->sku = (string)$sku;
         $this->date = $date;
-        $this->quantity = $quantity;
-        $this->channel = $channel;
+        $this->quantity = (int)$quantity;
+        $this->channel = (string)$channel;
     }
 
     /**

@@ -15,6 +15,8 @@ class ArticleSellablePeriod implements BuybrainEntity
 
     use AsNervusEntityTrait;
 
+    /** @var string|null */
+    private $id;
     /** @var string */
     private $sku;
     /** @var string|null */
@@ -81,13 +83,30 @@ class ArticleSellablePeriod implements BuybrainEntity
     }
 
     /**
+     * Set a custom ID for this period
+     *
+     * @param string $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getId()
     {
+        if ($this->id !== null) {
+            return $this->id;
+        }
+
         return sprintf(
-            '%s|%s',
+            '%s|%s|%s',
             $this->sku,
+            $this->channel === null ? '' : $this->channel,
             $this->startDate->format(DateTime::W3C)
         );
     }

@@ -27,7 +27,22 @@ JSON;
         $this->assertEquals($expected, json_encode($period, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(
-            new EntityId('article.sellablePeriod', 'abc-123|2017-01-01T00:00:00+00:00'),
+            new EntityId('article.sellablePeriod', 'abc-123||2017-01-01T00:00:00+00:00'),
+            json_encode($period)
+        );
+        $this->assertEquals($expectedEntity, $period->asNervusEntity());
+    }
+
+    public function testToEntityWithCustomId()
+    {
+        $period = (new ArticleSellablePeriod(
+            'abc-123',
+            new DateTimeImmutable('2017-01-01 00:00'),
+            new DateTimeImmutable('2017-01-05 00:00')
+        ))->setId('987');
+        
+        $expectedEntity = new Entity(
+            new EntityId('article.sellablePeriod', '987'),
             json_encode($period)
         );
         $this->assertEquals($expectedEntity, $period->asNervusEntity());
@@ -54,7 +69,7 @@ JSON;
         $this->assertEquals($expected, json_encode($period, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(
-            new EntityId('article.sellablePeriod', 'abc-123|2017-01-01T00:00:00+00:00'),
+            new EntityId('article.sellablePeriod', 'abc-123|webshop/nl|2017-01-01T00:00:00+00:00'),
             json_encode($period)
         );
         $this->assertEquals($expectedEntity, $period->asNervusEntity());

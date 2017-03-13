@@ -2,7 +2,6 @@
 namespace Buybrain\Buybrain;
 
 use Buybrain\Nervus\Entity;
-use Buybrain\Nervus\EntityId;
 use PHPUnit_Framework_TestCase;
 
 class BrandTest extends PHPUnit_Framework_TestCase
@@ -25,5 +24,17 @@ JSON;
 
         $expectedEntity = new Entity(Brand::id(42), json_encode($brand));
         $this->assertEquals($expectedEntity, $brand->asNervusEntity());
+    }
+
+    public function testEntityIDs()
+    {
+        $expected = [
+            Brand::id(1),
+            Brand::id(2),
+            Brand::id(3),
+        ];
+
+        $this->assertEquals($expected,  Brand::ids(1, 2, 3));
+        $this->assertEquals($expected,  Brand::ids([1, 2, 3]));
     }
 }

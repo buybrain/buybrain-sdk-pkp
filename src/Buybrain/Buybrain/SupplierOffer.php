@@ -94,7 +94,7 @@ class SupplierOffer implements BuybrainEntity
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (string)$id;
         return $this;
     }
 

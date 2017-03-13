@@ -2,7 +2,6 @@
 namespace Buybrain\Buybrain;
 
 use Buybrain\Nervus\Entity;
-use Buybrain\Nervus\EntityId;
 
 /**
  * Trait for converting an instance of BuybrainEntity to a nervus entity.
@@ -16,9 +15,6 @@ trait AsNervusEntityTrait
      */
     public function asNervusEntity()
     {
-        return new Entity(
-            new EntityId(self::ENTITY_TYPE, $this->getId()),
-            json_encode($this)
-        );
+        return new Entity(self::id($this->getId()), json_encode($this));
     }
 }

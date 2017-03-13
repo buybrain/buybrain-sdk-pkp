@@ -14,6 +14,7 @@ class CustomerOrder implements BuybrainEntity
     const ENTITY_TYPE = 'customer.order';
 
     use AsNervusEntityTrait;
+    use EntityIdFactoryTrait;
 
     /** @var string */
     private $id;

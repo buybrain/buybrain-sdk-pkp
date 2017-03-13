@@ -23,7 +23,7 @@ JSON;
 
         $this->assertEquals($expected, json_encode($brand, JSON_PRETTY_PRINT));
 
-        $expectedEntity = new Entity(new EntityId('brand', '42'), json_encode($brand));
+        $expectedEntity = new Entity(Brand::id(42), json_encode($brand));
         $this->assertEquals($expectedEntity, $brand->asNervusEntity());
     }
 }

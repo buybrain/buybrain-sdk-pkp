@@ -15,6 +15,7 @@ class SupplierOffer implements BuybrainEntity
     const ENTITY_TYPE = 'supplier.offer';
 
     use AsNervusEntityTrait;
+    use EntityIdFactoryTrait;
 
     /** @var string|null */
     private $id;

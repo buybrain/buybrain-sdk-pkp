@@ -13,8 +13,8 @@ class SupplierOfferTest extends PHPUnit_Framework_TestCase
         $offer = new SupplierOffer(
             'abc-123',
             '1234',
-            new DateTimeImmutable('2017-01-01'),
-            new DateTimeImmutable('2017-02-01'),
+            new DateTimeImmutable('2017-01-01Z'),
+            new DateTimeImmutable('2017-02-01Z'),
             [
                 new SupplierPrice(1, 4, 'EUR', '42.68'),
                 new SupplierPrice(4, null, 'EUR', '32'),
@@ -47,7 +47,7 @@ JSON;
         $this->assertEquals($expected, json_encode($offer, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(
-            new EntityId('supplier.offer', 'abc-123|1234|2017-01-01T00:00:00+00:00'),
+            SupplierOffer::id('abc-123|1234|2017-01-01T00:00:00+00:00'),
             json_encode($offer)
         );
         $this->assertEquals($expectedEntity, $offer->asNervusEntity());
@@ -58,8 +58,8 @@ JSON;
         $offer = (new SupplierOffer(
             'abc-123',
             '1234',
-            new DateTimeImmutable('2017-01-01'),
-            new DateTimeImmutable('2017-02-01'),
+            new DateTimeImmutable('2017-01-01Z'),
+            new DateTimeImmutable('2017-02-01Z'),
             [
                 new SupplierPrice(1, 4, 'EUR', '42.68'),
                 new SupplierPrice(4, null, 'EUR', '32'),
@@ -67,7 +67,7 @@ JSON;
         ))->setId('987');
 
         $expectedEntity = new Entity(
-            new EntityId('supplier.offer', '987'),
+            SupplierOffer::id(987),
             json_encode($offer)
         );
         $this->assertEquals($expectedEntity, $offer->asNervusEntity());

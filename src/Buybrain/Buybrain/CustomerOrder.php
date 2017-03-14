@@ -1,7 +1,7 @@
 <?php
 namespace Buybrain\Buybrain;
 
-use DateTime;
+use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
 /**
@@ -76,7 +76,7 @@ class CustomerOrder implements BuybrainEntity
     {
         return [
             'id' => $this->id,
-            'createDate' => $this->createDate->format(DateTime::W3C),
+            'createDate' => DateTimes::format($this->createDate),
             'sales' => $this->sales,
         ];
     }

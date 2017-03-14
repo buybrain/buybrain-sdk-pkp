@@ -2,7 +2,6 @@
 namespace Buybrain\Buybrain;
 
 use Buybrain\Buybrain\Util\DateTimes;
-use DateTime;
 use DateTimeInterface;
 
 /**
@@ -108,7 +107,7 @@ class ArticleSellablePeriod implements BuybrainEntity
             '%s|%s|%s',
             $this->sku,
             $this->channel === null ? '' : $this->channel,
-            $this->startDate->format(DateTime::W3C)
+            DateTimes::format($this->startDate)
         );
     }
 
@@ -119,8 +118,8 @@ class ArticleSellablePeriod implements BuybrainEntity
     {
         $data = [
             'sku' => $this->sku,
-            'startDate' => $this->startDate->format(DateTime::W3C),
-            'endDate' => DateTimes::format($this->endDate, DateTime::W3C),
+            'startDate' => DateTimes::format($this->startDate),
+            'endDate' => DateTimes::format($this->endDate),
         ];
         if ($this->channel !== null) {
             $data['channel'] = $this->channel;

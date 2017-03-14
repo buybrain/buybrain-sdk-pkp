@@ -2,6 +2,7 @@
 namespace Buybrain\Buybrain\Util;
 
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 
 class DateTimes
@@ -18,5 +19,19 @@ class DateTimes
             return null;
         }
         return $input->format(DateTime::W3C);
+    }
+
+    /**
+     * Parse an ISO formatted date-time, returning null if the input is null
+     *
+     * @param string|null $input
+     * @return DateTimeImmutable|null
+     */
+    public static function parse($input = null)
+    {
+        if ($input === null) {
+            return null;
+        }
+        return new DateTimeImmutable($input);
     }
 }

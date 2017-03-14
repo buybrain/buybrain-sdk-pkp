@@ -7,9 +7,12 @@ use PHPUnit_Framework_TestCase;
 
 class SalesForecastTest extends PHPUnit_Framework_TestCase
 {
-    public function testToJson()
+    /** @var SalesForecast */
+    private $forecast;
+
+    public function setUp()
     {
-        $forecast = new SalesForecast(
+        $this->forecast = new SalesForecast(
             '00000000-00000000-00000000-00000000',
             new DateTimeImmutable('2017-01-01Z'),
             '11111111-11111111-11111111-11111111',
@@ -35,7 +38,10 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
                 )
             ]
         );
+    }
 
+    public function testToJson()
+    {
         $expected = <<<'JSON'
 {
     "id": "00000000-00000000-00000000-00000000",
@@ -89,9 +95,21 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($forecast, JSON_PRETTY_PRINT));
+        $this->assertEquals($expected, json_encode($this->forecast, JSON_PRETTY_PRINT));
 
-        $expectedEntity = new Entity(SalesForecast::id('00000000-00000000-00000000-00000000'), json_encode($forecast));
-        $this->assertEquals($expectedEntity, $forecast->asNervusEntity());
+        $expectedEntity = new Entity(
+            SalesForecast::id('00000000-00000000-00000000-00000000'),
+            json_encode($this->forecast)
+        );
+        $this->assertEquals($expectedEntity, $this->forecast->asNervusEntity());
+    }
+
+    public function testFromJson()
+    {
+        $json = json_encode($this->forecast);
+
+        $restored = SalesForecast::fromJson(json_decode($json, true));
+
+        $this->assertEquals($this->forecast, $restored);
     }
 }

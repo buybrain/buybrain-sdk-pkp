@@ -34,10 +34,10 @@ class SalesForecast implements BuybrainEntity
      */
     public function __construct($id, DateTimeInterface $createDate, $modelId, $sku, array $periods)
     {
-        $this->id = $id;
+        $this->id = (string)$id;
         $this->createDate = $createDate;
-        $this->modelId = $modelId;
-        $this->sku = $sku;
+        $this->modelId = (string)$modelId;
+        $this->sku = (string)$sku;
         $this->periods = $periods;
     }
 
@@ -100,7 +100,7 @@ class SalesForecast implements BuybrainEntity
      * This class can be subclassed, and the subclass will be instantiated.
      *
      * @param array $json
-     * @return SalesForecast
+     * @return static
      */
     public static function fromJson(array $json)
     {

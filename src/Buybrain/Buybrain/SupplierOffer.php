@@ -119,12 +119,16 @@ class SupplierOffer implements BuybrainEntity
      */
     public function jsonSerialize()
     {
-        return [
+        $data = [
             'sku' => $this->sku,
             'supplierId' => $this->supplierId,
             'startDate' => DateTimes::format($this->startDate),
             'endDate' => DateTimes::format($this->endDate),
             'prices' => $this->prices,
         ];
+        if ($this->id !== null) {
+            $data['id'] = $this->id;
+        }
+        return $data;
     }
 }

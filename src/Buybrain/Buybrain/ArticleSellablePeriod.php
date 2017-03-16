@@ -19,7 +19,7 @@ class ArticleSellablePeriod implements BuybrainEntity
     private $id;
     /** @var string */
     private $sku;
-    /** @var string|null */
+    /** @var string */
     private $channel;
     /** @var DateTimeInterface */
     private $startDate;
@@ -30,12 +30,14 @@ class ArticleSellablePeriod implements BuybrainEntity
      * @param string $sku
      * @param DateTimeInterface $startDate
      * @param DateTimeInterface|null $endDate optional end date, set to null if this is the current period
+     * @param string $channel the channel through which the article was sellable
      */
-    public function __construct($sku, DateTimeInterface $startDate, DateTimeInterface $endDate = null)
+    public function __construct($sku, DateTimeInterface $startDate, DateTimeInterface $endDate = null, $channel)
     {
         $this->sku = (string)$sku;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+        $this->channel = (string)$channel;
     }
 
     /**
@@ -52,18 +54,6 @@ class ArticleSellablePeriod implements BuybrainEntity
     public function getChannel()
     {
         return $this->channel;
-    }
-
-    /**
-     * Specify the channel through which the article was sellable
-     *
-     * @param string $channel
-     * @return $this
-     */
-    public function setChannel($channel)
-    {
-        $this->channel = (string)$channel;
-        return $this;
     }
 
     /**
@@ -120,10 +110,8 @@ class ArticleSellablePeriod implements BuybrainEntity
             'sku' => $this->sku,
             'startDate' => DateTimes::format($this->startDate),
             'endDate' => DateTimes::format($this->endDate),
+            'channel' => $this->channel,
         ];
-        if ($this->channel !== null) {
-            $data['channel'] = $this->channel;
-        }
         if ($this->id !== null) {
             $data['id'] = $this->id;
         }

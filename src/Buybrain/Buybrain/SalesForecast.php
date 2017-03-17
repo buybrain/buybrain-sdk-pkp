@@ -128,4 +128,12 @@ class SalesForecast implements BuybrainEntity
             array_map([SalesForecastPeriod::class, 'fromJson'], $json['periods'])
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return self::ENTITY_TYPE;
+    }
 }

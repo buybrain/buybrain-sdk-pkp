@@ -80,4 +80,12 @@ class CustomerOrder implements BuybrainEntity
             'sales' => $this->sales,
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return self::ENTITY_TYPE;
+    }
 }

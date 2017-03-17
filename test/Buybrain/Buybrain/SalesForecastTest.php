@@ -17,6 +17,7 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
             new DateTimeImmutable('2017-01-01Z'),
             '11111111-1111-1111-1111-111111111111',
             'abc-123',
+            'shop',
             [
                 new SalesForecastPeriod(
                     new DateTimeImmutable('2017-01-01Z'),
@@ -58,6 +59,7 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
     "createDate": "2017-01-01T00:00:00+00:00",
     "modelId": "11111111-1111-1111-1111-111111111111",
     "sku": "abc-123",
+    "channel": "shop",
     "periods": [
         {
             "from": "2017-01-01T00:00:00+00:00",

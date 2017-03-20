@@ -25,11 +25,6 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
                     [
                         new SalesForecastQuantityProbability(0, 0, 0.50),
                         new SalesForecastQuantityProbability(1, 2, 0.50),
-                    ],
-                    [
-                        '0' => 0.5,
-                        '1' => 0.75,
-                        '2' => 1.0
                     ]
                 ),
                 new SalesForecastPeriod(
@@ -38,7 +33,22 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
                     [
                         new SalesForecastQuantityProbability(0, 0, 0.50),
                         new SalesForecastQuantityProbability(1, 2, 0.50),
-                    ],
+                    ]
+                )
+            ],
+            [
+                new SalesForecastCertainty(
+                    0,
+                    1,
+                    [
+                        '0' => 0.5,
+                        '1' => 0.75,
+                        '2' => 1.0
+                    ]
+                ),
+                new SalesForecastCertainty(
+                    0,
+                    2,
                     [
                         '0' => 0.25,
                         '1' => 0.5,
@@ -46,7 +56,16 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
                         '3' => 0.9375,
                         '4' => 1.0
                     ]
-                )
+                ),
+                new SalesForecastCertainty(
+                    1,
+                    1,
+                    [
+                        '0' => 0.5,
+                        '1' => 0.75,
+                        '2' => 1.0
+                    ]
+                ),
             ]
         );
     }
@@ -75,12 +94,7 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
                     "max": 2,
                     "p": 0.5
                 }
-            ],
-            "certainties": {
-                "0": 0.5,
-                "1": 0.75,
-                "2": 1
-            }
+            ]
         },
         {
             "from": "2017-01-08T00:00:00+00:00",
@@ -96,13 +110,37 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
                     "max": 2,
                     "p": 0.5
                 }
-            ],
-            "certainties": {
+            ]
+        }
+    ],
+    "certainties": [
+        {
+            "from": 0,
+            "periods": 1,
+            "perQuantity": {
+                "0": 0.5,
+                "1": 0.75,
+                "2": 1
+            }
+        },
+        {
+            "from": 0,
+            "periods": 2,
+            "perQuantity": {
                 "0": 0.25,
                 "1": 0.5,
                 "2": 0.8125,
                 "3": 0.9375,
                 "4": 1
+            }
+        },
+        {
+            "from": 1,
+            "periods": 1,
+            "perQuantity": {
+                "0": 0.5,
+                "1": 0.75,
+                "2": 1
             }
         }
     ]

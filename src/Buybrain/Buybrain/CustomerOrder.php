@@ -3,16 +3,17 @@ namespace Buybrain\Buybrain;
 
 use DateTime;
 use DateTimeInterface;
-use JsonSerializable;
 
 /**
  * Representation of a customer order.
  * A customer order contains one or multiple sales and optionally returns. These can occur at different dates, since
  * orders might be changed after their creation.
  */
-class CustomerOrder implements JsonSerializable
+class CustomerOrder implements BuybrainEntity
 {
     const ENTITY_TYPE = 'customer.order';
+
+    use AsNervusEntityTrait;
 
     /** @var string */
     private $id;

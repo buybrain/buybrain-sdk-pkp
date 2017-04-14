@@ -4,9 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "44bd638c957fd399e69b1b60f8d872a8",
+    "content-hash": "6f0a62bc6b64f6eef8ad190781f207a2",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "buybrain/nervus-php",
+            "version": "0.0.4",
+            "source": {
+                "type": "git",
+                "url": "git@gitlab.com:buybrain/nervus-php.git",
+                "reference": "a729fc7eabbede3cce0ec75b41450364074c3e95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v3/projects/buybrain%2Fnervus%2Dphp/repository/archive.zip?sha=a729fc7eabbede3cce0ec75b41450364074c3e95",
+                "reference": "a729fc7eabbede3cce0ec75b41450364074c3e95",
+                "shasum": ""
+            },
+            "require": {
+                "rybakit/msgpack": "^0.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7"
+            },
+            "suggest": {
+                "msgpack/msgpack-php": "Native MessagePack codec that's more efficient than the default pure PHP version"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Buybrain\\": "src/Buybrain/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Buybrain\\": "test/Buybrain/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Ede Meijer",
+                    "email": "ede@buybrain.io"
+                }
+            ],
+            "description": "A PHP library for creating nervus adapters",
+            "homepage": "https://github.com/buybrain/nervus-php",
+            "keywords": [
+                "nervus"
+            ],
+            "time": "2017-02-06T11:04:37+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
@@ -696,6 +743,48 @@
                 "xunit"
             ],
             "time": "2016-12-08T20:27:08+00:00"
+        },
+        {
+            "name": "rybakit/msgpack",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rybakit/msgpack.php.git",
+                "reference": "3f4682ebf2ed2c02551b83f1b49e7841a2ca0e0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rybakit/msgpack.php/zipball/3f4682ebf2ed2c02551b83f1b49e7841a2ca0e0c",
+                "reference": "3f4682ebf2ed2c02551b83f1b49e7841a2ca0e0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MessagePack\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Leonovich",
+                    "email": "gen.work@gmail.com"
+                }
+            ],
+            "description": "A pure PHP implementation of the MessagePack serialization format.",
+            "keywords": [
+                "messagepack",
+                "msgpack",
+                "pure",
+                "streaming"
+            ],
+            "time": "2016-09-27T20:22:29+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

@@ -29,7 +29,7 @@ class CustomerOrder implements BuybrainEntity
      */
     public function __construct($id, DateTimeInterface $createDate, array $sales = [])
     {
-        $this->id = $id;
+        $this->id = (string)$id;
         $this->createDate = $createDate;
         $this->sales = $sales;
     }

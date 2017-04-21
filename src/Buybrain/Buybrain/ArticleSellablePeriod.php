@@ -17,6 +17,8 @@ class ArticleSellablePeriod implements BuybrainEntity
 
     /** @var string */
     private $sku;
+    /** @var string|null */
+    private $channel;
     /** @var DateTimeInterface */
     private $startDate;
     /** @var DateTimeInterface|null */
@@ -40,6 +42,26 @@ class ArticleSellablePeriod implements BuybrainEntity
     public function getSku()
     {
         return $this->sku;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
+     * Specify the channel through which the article was sellable
+     *
+     * @param string $channel
+     * @return $this
+     */
+    public function setChannel($channel)
+    {
+        $this->channel = $channel;
+        return $this;
     }
 
     /**
@@ -75,10 +97,14 @@ class ArticleSellablePeriod implements BuybrainEntity
      */
     public function jsonSerialize()
     {
-        return [
+        $data = [
             'sku' => $this->sku,
             'startDate' => $this->startDate->format(DateTime::W3C),
             'endDate' => DateTimes::format($this->endDate, DateTime::W3C),
         ];
+        if ($this->channel !== null) {
+            $data['channel'] = $this->channel;
+        }
+        return $data;
     }
 }

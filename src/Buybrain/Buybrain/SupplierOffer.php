@@ -16,6 +16,8 @@ class SupplierOffer implements BuybrainEntity
 
     use AsNervusEntityTrait;
 
+    /** @var string|null */
+    private $id;
     /** @var string */
     private $sku;
     /** @var string */
@@ -84,10 +86,26 @@ class SupplierOffer implements BuybrainEntity
     }
 
     /**
+     * Set a custom ID for this offer
+     *
+     * @param string $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getId()
     {
+        if ($this->id !== null) {
+            return $this->id;
+        }
+
         return sprintf(
             '%s|%s|%s',
             $this->sku,

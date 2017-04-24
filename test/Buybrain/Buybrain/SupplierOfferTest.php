@@ -52,4 +52,24 @@ JSON;
         );
         $this->assertEquals($expectedEntity, $offer->asNervusEntity());
     }
+
+    public function testToEntityWithCustomId()
+    {
+        $offer = (new SupplierOffer(
+            'abc-123',
+            '1234',
+            new DateTimeImmutable('2017-01-01'),
+            new DateTimeImmutable('2017-02-01'),
+            [
+                new SupplierPrice(1, 4, 'EUR', '42.68'),
+                new SupplierPrice(4, null, 'EUR', '32'),
+            ]
+        ))->setId('987');
+
+        $expectedEntity = new Entity(
+            new EntityId('supplier.offer', '987'),
+            json_encode($offer)
+        );
+        $this->assertEquals($expectedEntity, $offer->asNervusEntity());
+    }
 }

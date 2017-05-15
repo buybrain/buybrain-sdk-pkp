@@ -11,6 +11,7 @@ class Article implements BuybrainEntity
     const ENTITY_TYPE = 'article';
 
     use AsNervusEntityTrait;
+    use EntityIdFactoryTrait;
 
     /** @var string */
     private $sku;

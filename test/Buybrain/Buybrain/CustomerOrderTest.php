@@ -56,7 +56,7 @@ JSON;
 
         $this->assertEquals($expected, json_encode($order, JSON_PRETTY_PRINT));
 
-        $expectedEntity = new Entity(new EntityId('customer.order', '10005234'), json_encode($order));
+        $expectedEntity = new Entity(CustomerOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
     }
 }

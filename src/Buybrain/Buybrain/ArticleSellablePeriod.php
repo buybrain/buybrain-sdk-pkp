@@ -14,6 +14,7 @@ class ArticleSellablePeriod implements BuybrainEntity
     const ENTITY_TYPE = 'article.sellablePeriod';
 
     use AsNervusEntityTrait;
+    use EntityIdFactoryTrait;
 
     /** @var string|null */
     private $id;

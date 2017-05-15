@@ -9,6 +9,7 @@ class ArticleType implements BuybrainEntity
     const ENTITY_TYPE = 'article.type';
 
     use AsNervusEntityTrait;
+    use EntityIdFactoryTrait;
 
     /** @var string */
     private $id;

@@ -9,6 +9,7 @@ class Brand implements BuybrainEntity
     const ENTITY_TYPE = 'brand';
 
     use AsNervusEntityTrait;
+    use EntityIdFactoryTrait;
 
     /** @var string */
     private $id;

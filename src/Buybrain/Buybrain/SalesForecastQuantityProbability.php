@@ -63,4 +63,19 @@ class SalesForecastQuantityProbability implements \JsonSerializable
             'p' => $this->probability
         ];
     }
+
+    /**
+     * Create a SalesForecastQuantityProbability instance from parsed JSON
+     *
+     * @param array $json
+     * @return SalesForecastQuantityProbability
+     */
+    public static function fromJson(array $json)
+    {
+        return new self(
+            $json['min'],
+            $json['max'],
+            $json['p']
+        );
+    }
 }

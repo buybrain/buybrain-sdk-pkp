@@ -66,4 +66,20 @@ class SalesForecastPeriod implements JsonSerializable
             'probabilities' => $this->probabilities,
         ];
     }
+
+
+    /**
+     * Create a SalesForecastPeriod instance from parsed JSON
+     *
+     * @param array $json
+     * @return SalesForecastPeriod
+     */
+    public static function fromJson(array $json)
+    {
+        return new self(
+            DateTimes::parse($json['from']),
+            DateTimes::parse($json['to']),
+            array_map([SalesForecastQuantityProbability::class, 'fromJson'], $json['probabilities'])
+        );
+    }
 }

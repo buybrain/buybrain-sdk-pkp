@@ -94,4 +94,21 @@ class SalesForecast implements BuybrainEntity
             'periods' => $this->periods
         ];
     }
+
+    /**
+     * Create a SalesForecast instance from parsed JSON
+     *
+     * @param array $json
+     * @return SalesForecast
+     */
+    public static function fromJson(array $json)
+    {
+        return new self(
+            $json['id'],
+            DateTimes::parse($json['createDate']),
+            $json['modelId'],
+            $json['sku'],
+            array_map([SalesForecastPeriod::class, 'fromJson'], $json['periods'])
+        );
+    }
 }

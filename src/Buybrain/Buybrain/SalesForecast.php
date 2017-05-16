@@ -96,14 +96,15 @@ class SalesForecast implements BuybrainEntity
     }
 
     /**
-     * Create a SalesForecast instance from parsed JSON
+     * Create a SalesForecast instance from parsed JSON.
+     * This class can be subclassed, and the subclass will be instantiated.
      *
      * @param array $json
      * @return SalesForecast
      */
     public static function fromJson(array $json)
     {
-        return new self(
+        return new static(
             $json['id'],
             DateTimes::parse($json['createDate']),
             $json['modelId'],

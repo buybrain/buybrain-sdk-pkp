@@ -1,7 +1,7 @@
 <?php
 namespace Buybrain\Buybrain;
 
-use DateTime;
+use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 use JsonSerializable;
 
@@ -75,7 +75,7 @@ class Sale implements JsonSerializable
     {
         return [
             'sku' => $this->sku,
-            'date' => $this->date->format(DateTime::W3C),
+            'date' => DateTimes::format($this->date),
             'quantity' => $this->quantity,
             'channel' => $this->channel,
         ];

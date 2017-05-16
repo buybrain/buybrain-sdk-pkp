@@ -22,7 +22,7 @@ trait EntityIdFactoryTrait
     /**
      * Create an array of EntityId instances  with the static entity type and the given IDs
      *
-     * @param mixed $ids, [mixed $ids, ...] either a single array of IDs or multiple IDs as variadic argument
+     * @param mixed $ids , [mixed $ids, ...] either a single array of IDs or multiple IDs as variadic argument
      * @return EntityId[]
      */
     public static function ids($ids)

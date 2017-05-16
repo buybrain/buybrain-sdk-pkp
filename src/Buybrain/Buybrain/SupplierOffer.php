@@ -2,7 +2,6 @@
 namespace Buybrain\Buybrain;
 
 use Buybrain\Buybrain\Util\DateTimes;
-use DateTime;
 use DateTimeInterface;
 
 /**
@@ -111,7 +110,7 @@ class SupplierOffer implements BuybrainEntity
             '%s|%s|%s',
             $this->sku,
             $this->supplierId,
-            $this->startDate->format(DateTime::W3C)
+            DateTimes::format($this->startDate)
         );
     }
 
@@ -123,8 +122,8 @@ class SupplierOffer implements BuybrainEntity
         return [
             'sku' => $this->sku,
             'supplierId' => $this->supplierId,
-            'startDate' => $this->startDate->format(DateTime::W3C),
-            'endDate' => DateTimes::format($this->endDate, DateTime::W3C),
+            'startDate' => DateTimes::format($this->startDate),
+            'endDate' => DateTimes::format($this->endDate),
             'prices' => $this->prices,
         ];
     }

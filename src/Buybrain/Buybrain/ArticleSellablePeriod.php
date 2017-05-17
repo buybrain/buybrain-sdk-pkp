@@ -62,7 +62,7 @@ class ArticleSellablePeriod implements BuybrainEntity
      */
     public function setChannel($channel)
     {
-        $this->channel = $channel;
+        $this->channel = (string)$channel;
         return $this;
     }
 
@@ -90,7 +90,7 @@ class ArticleSellablePeriod implements BuybrainEntity
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (string)$id;
         return $this;
     }
 
@@ -123,6 +123,9 @@ class ArticleSellablePeriod implements BuybrainEntity
         ];
         if ($this->channel !== null) {
             $data['channel'] = $this->channel;
+        }
+        if ($this->id !== null) {
+            $data['id'] = $this->id;
         }
         return $data;
     }

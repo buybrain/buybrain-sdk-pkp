@@ -13,9 +13,9 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->forecast = new SalesForecast(
-            '00000000-00000000-00000000-00000000',
+            '00000000-0000-0000-0000-000000000000',
             new DateTimeImmutable('2017-01-01Z'),
-            '11111111-11111111-11111111-11111111',
+            '11111111-1111-1111-1111-111111111111',
             'abc-123',
             [
                 new SalesForecastPeriod(
@@ -44,9 +44,9 @@ class SalesForecastTest extends PHPUnit_Framework_TestCase
     {
         $expected = <<<'JSON'
 {
-    "id": "00000000-00000000-00000000-00000000",
+    "id": "00000000-0000-0000-0000-000000000000",
     "createDate": "2017-01-01T00:00:00+00:00",
-    "modelId": "11111111-11111111-11111111-11111111",
+    "modelId": "11111111-1111-1111-1111-111111111111",
     "sku": "abc-123",
     "periods": [
         {
@@ -98,7 +98,7 @@ JSON;
         $this->assertEquals($expected, json_encode($this->forecast, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(
-            SalesForecast::id('00000000-00000000-00000000-00000000'),
+            SalesForecast::id('00000000-0000-0000-0000-000000000000'),
             json_encode($this->forecast)
         );
         $this->assertEquals($expectedEntity, $this->forecast->asNervusEntity());

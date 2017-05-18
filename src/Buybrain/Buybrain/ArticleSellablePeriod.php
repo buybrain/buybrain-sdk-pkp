@@ -96,7 +96,7 @@ class ArticleSellablePeriod implements BuybrainEntity
         return sprintf(
             '%s|%s|%s',
             $this->sku,
-            $this->channel === null ? '' : $this->channel,
+            $this->channel,
             DateTimes::format($this->startDate)
         );
     }

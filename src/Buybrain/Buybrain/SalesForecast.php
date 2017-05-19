@@ -24,6 +24,8 @@ class SalesForecast implements BuybrainEntity
     private $modelId;
     /** @var string */
     private $sku;
+    /** @var string */
+    private $channel;
     /** @var SalesForecastPeriod[] */
     private $periods;
 
@@ -32,14 +34,16 @@ class SalesForecast implements BuybrainEntity
      * @param DateTimeInterface $createDate
      * @param string $modelId
      * @param string $sku
+     * @param string $channel
      * @param SalesForecastPeriod[] $periods
      */
-    public function __construct($id, DateTimeInterface $createDate, $modelId, $sku, array $periods)
+    public function __construct($id, DateTimeInterface $createDate, $modelId, $sku, $channel, array $periods)
     {
         $this->id = (string)$id;
         $this->createDate = $createDate;
         $this->modelId = (string)$modelId;
         $this->sku = (string)$sku;
+        $this->channel = (string)$channel;
         $this->periods = $periods;
     }
 
@@ -76,6 +80,14 @@ class SalesForecast implements BuybrainEntity
     }
 
     /**
+     * @return string
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
      * @return SalesForecastPeriod[]
      */
     public function getPeriods()
@@ -93,6 +105,7 @@ class SalesForecast implements BuybrainEntity
             'createDate' => DateTimes::format($this->createDate),
             'modelId' => $this->modelId,
             'sku' => $this->sku,
+            'channel' => $this->channel,
             'periods' => $this->periods
         ];
     }
@@ -111,6 +124,7 @@ class SalesForecast implements BuybrainEntity
             DateTimes::parse($json['createDate']),
             $json['modelId'],
             $json['sku'],
+            $json['channel'],
             array_map([SalesForecastPeriod::class, 'fromJson'], $json['periods'])
         );
     }

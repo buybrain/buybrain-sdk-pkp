@@ -52,4 +52,12 @@ class Brand implements BuybrainEntity
             'name' => $this->name,
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return self::ENTITY_TYPE;
+    }
 }

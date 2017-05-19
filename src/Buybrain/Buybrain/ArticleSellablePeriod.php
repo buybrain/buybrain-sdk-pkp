@@ -117,4 +117,12 @@ class ArticleSellablePeriod implements BuybrainEntity
         }
         return $data;
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return self::ENTITY_TYPE;
+    }
 }

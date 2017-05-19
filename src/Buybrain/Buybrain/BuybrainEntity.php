@@ -15,6 +15,11 @@ interface BuybrainEntity extends JsonSerializable
     public function getId();
 
     /**
+     * @return string
+     */
+    public function getType();
+
+    /**
      * @return Entity
      */
     public function asNervusEntity();

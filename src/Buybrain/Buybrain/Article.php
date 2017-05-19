@@ -88,4 +88,12 @@ class Article implements BuybrainEntity
             'brandId' => $this->brandId,
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return self::ENTITY_TYPE;
+    }
 }

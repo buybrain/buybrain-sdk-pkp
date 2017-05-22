@@ -28,6 +28,8 @@ class SalesForecast implements BuybrainEntity
     private $channel;
     /** @var SalesForecastPeriod[] */
     private $periods;
+    /** @var SalesForecastCertainty[] */
+    private $certainties;
 
     /**
      * @param string $id
@@ -36,15 +38,24 @@ class SalesForecast implements BuybrainEntity
      * @param string $sku
      * @param string $channel
      * @param SalesForecastPeriod[] $periods
+     * @param SalesForecastCertainty[] $certainties
      */
-    public function __construct($id, DateTimeInterface $createDate, $modelId, $sku, $channel, array $periods)
-    {
+    public function __construct(
+        $id,
+        DateTimeInterface $createDate,
+        $modelId,
+        $sku,
+        $channel,
+        array $periods,
+        array $certainties
+    ) {
         $this->id = (string)$id;
         $this->createDate = $createDate;
         $this->modelId = (string)$modelId;
         $this->sku = (string)$sku;
         $this->channel = (string)$channel;
         $this->periods = $periods;
+        $this->certainties = $certainties;
     }
 
     /**
@@ -96,6 +107,18 @@ class SalesForecast implements BuybrainEntity
     }
 
     /**
+     * Get the map of the certainties that no more than a specific quantity is sold before the end of the period.
+     * For example, a key of "2" with a value of 0.8125 means that there is a 81.25% chance that no more than 2 items
+     * get sold before the end of the current period, including the amounts sold in previous periods.
+     *
+     * @return SalesForecastCertainty[] certainties between 0.0 and 1.0 indexed by integer quantities
+     */
+    public function getCertainties()
+    {
+        return $this->certainties;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -106,7 +129,8 @@ class SalesForecast implements BuybrainEntity
             'modelId' => $this->modelId,
             'sku' => $this->sku,
             'channel' => $this->channel,
-            'periods' => $this->periods
+            'periods' => $this->periods,
+            'certainties' => $this->certainties
         ];
     }
 
@@ -125,7 +149,8 @@ class SalesForecast implements BuybrainEntity
             $json['modelId'],
             $json['sku'],
             $json['channel'],
-            array_map([SalesForecastPeriod::class, 'fromJson'], $json['periods'])
+            array_map([SalesForecastPeriod::class, 'fromJson'], $json['periods']),
+            array_map([SalesForecastCertainty::class, 'fromJson'], $json['certainties'])
         );
     }
 

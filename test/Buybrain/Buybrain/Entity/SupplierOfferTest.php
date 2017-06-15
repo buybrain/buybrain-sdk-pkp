@@ -1,8 +1,7 @@
 <?php
-namespace Buybrain\Buybrain;
+namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Nervus\Entity;
-use Buybrain\Nervus\EntityId;
 use DateTimeImmutable;
 use PHPUnit_Framework_TestCase;
 

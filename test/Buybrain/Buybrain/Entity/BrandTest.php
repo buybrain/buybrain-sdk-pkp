@@ -1,5 +1,5 @@
 <?php
-namespace Buybrain\Buybrain;
+namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Nervus\Entity;
 use PHPUnit_Framework_TestCase;

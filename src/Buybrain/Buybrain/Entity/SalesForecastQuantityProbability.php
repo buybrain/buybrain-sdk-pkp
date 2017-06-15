@@ -1,5 +1,5 @@
 <?php
-namespace Buybrain\Buybrain;
+namespace Buybrain\Buybrain\Entity;
 
 /**
  * The probability that a certain quantity or quantity range of an article gets sold in a period of time

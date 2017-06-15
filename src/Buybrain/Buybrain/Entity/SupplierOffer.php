@@ -1,16 +1,17 @@
 <?php
-namespace Buybrain\Buybrain;
+namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
 /**
- * Representation of a period of time in which an article was available for selling. This might mean it was orderable
- * on a web shop or physically available on a store shelf.
+ * Representation of the offer prices of a supplier for an article during a period of time.
+ *
+ * @see SupplierPrice
  */
-class ArticleSellablePeriod implements BuybrainEntity
+class SupplierOffer implements BuybrainEntity
 {
-    const ENTITY_TYPE = 'article.sellablePeriod';
+    const ENTITY_TYPE = 'supplier.offer';
 
     use AsNervusEntityTrait;
     use EntityIdFactoryTrait;
@@ -20,24 +21,28 @@ class ArticleSellablePeriod implements BuybrainEntity
     /** @var string */
     private $sku;
     /** @var string */
-    private $channel;
+    private $supplierId;
     /** @var DateTimeInterface */
     private $startDate;
     /** @var DateTimeInterface|null */
     private $endDate;
+    /** @var SupplierPrice[] */
+    private $prices;
 
     /**
      * @param string $sku
+     * @param string $supplierId
      * @param DateTimeInterface $startDate
-     * @param DateTimeInterface|null $endDate optional end date, set to null if this is the current period
-     * @param string $channel the channel through which the article was sellable
+     * @param DateTimeInterface|null $endDate optional end date, null if the price is currently active
+     * @param SupplierPrice[] $prices one or multiple prices depending on whether price varies for different quantities
      */
-    public function __construct($sku, DateTimeInterface $startDate, DateTimeInterface $endDate = null, $channel)
+    public function __construct($sku, $supplierId, DateTimeInterface $startDate, $endDate, array $prices)
     {
         $this->sku = (string)$sku;
+        $this->supplierId = (string)$supplierId;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->channel = (string)$channel;
+        $this->prices = $prices;
     }
 
     /**
@@ -49,11 +54,11 @@ class ArticleSellablePeriod implements BuybrainEntity
     }
 
     /**
-     * @return null|string
+     * @return string
      */
-    public function getChannel()
+    public function getSupplierId()
     {
-        return $this->channel;
+        return $this->supplierId;
     }
 
     /**
@@ -73,7 +78,15 @@ class ArticleSellablePeriod implements BuybrainEntity
     }
 
     /**
-     * Set a custom ID for this period
+     * @return SupplierPrice[]
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+    /**
+     * Set a custom ID for this offer
      *
      * @param string $id
      * @return $this
@@ -96,21 +109,22 @@ class ArticleSellablePeriod implements BuybrainEntity
         return sprintf(
             '%s|%s|%s',
             $this->sku,
-            $this->channel,
+            $this->supplierId,
             DateTimes::format($this->startDate)
         );
     }
 
     /**
-     * @return array
+     * return array
      */
     public function jsonSerialize()
     {
         $data = [
             'sku' => $this->sku,
+            'supplierId' => $this->supplierId,
             'startDate' => DateTimes::format($this->startDate),
             'endDate' => DateTimes::format($this->endDate),
-            'channel' => $this->channel,
+            'prices' => $this->prices,
         ];
         if ($this->id !== null) {
             $data['id'] = $this->id;

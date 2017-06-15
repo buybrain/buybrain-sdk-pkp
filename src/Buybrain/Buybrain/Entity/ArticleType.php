@@ -1,5 +1,5 @@
 <?php
-namespace Buybrain\Buybrain;
+namespace Buybrain\Buybrain\Entity;
 
 /**
  * Representation of an article type.

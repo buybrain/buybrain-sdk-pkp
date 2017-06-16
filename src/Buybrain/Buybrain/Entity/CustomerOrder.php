@@ -6,9 +6,9 @@ use DateTimeInterface;
 
 /**
  * Representation of a customer order.
- * A customer order contains one or multiple sales and optionally returns. These can occur at different dates, since
- * orders might be changed after their creation. Additionally, a customer order contains shipments which indicate when
- * items have been physically shipped to or returned from a customer.
+ * A customer order contains one or multiple sales and optionally cancellations. These can occur at different dates,
+ * since orders might be changed after their creation. Additionally, a customer order contains shipments which indicate
+ * when items have been physically shipped to or returned from a customer.
  */
 class CustomerOrder implements BuybrainEntity
 {

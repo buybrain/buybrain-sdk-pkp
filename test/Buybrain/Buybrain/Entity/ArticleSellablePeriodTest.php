@@ -42,7 +42,7 @@ JSON;
             new DateTimeImmutable('2017-01-05 00:00Z'),
             'shop'
         ))->setId('987');
-        
+
         $expectedEntity = new Entity(
             ArticleSellablePeriod::id('987'),
             json_encode($period)

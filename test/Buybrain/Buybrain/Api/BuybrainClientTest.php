@@ -1,10 +1,10 @@
 <?php
 namespace Buybrain\Buybrain\Api;
 
+use Buybrain\Buybrain\Api\Message\AdviseRequest;
 use Buybrain\Buybrain\Api\Message\AdviseRequestSku;
 use Buybrain\Buybrain\Api\Message\AdviseResponse;
 use Buybrain\Buybrain\Api\Message\AdviseResponseSku;
-use Buybrain\Buybrain\Api\Message\AdviseRequest;
 use Buybrain\Buybrain\Util\DateTimes;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
@@ -27,7 +27,7 @@ class BuybrainClientTest extends PHPUnit_Framework_TestCase
         $this->http = $this->createMock(ClientInterface::class);
         $this->SUT = new BuybrainClient(new BuybrainClientConfig(self::API_KEY), $this->http);
     }
-    
+
     public function testCreateAdvise()
     {
         $request = new AdviseRequest(
@@ -68,7 +68,7 @@ class BuybrainClientTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testGetAdvise()
     {
         $response = new AdviseResponse(
@@ -86,7 +86,7 @@ class BuybrainClientTest extends PHPUnit_Framework_TestCase
             ->method('request')
             ->with(
                 'GET',
-                $this->stringEndsWith( '/advise/' . self::ADVISE_ID),
+                $this->stringEndsWith('/advise/' . self::ADVISE_ID),
                 $this->anything()
             )
             ->willReturn((new Response())->withBody(stream_for(json_encode($response))));

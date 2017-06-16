@@ -10,7 +10,7 @@ class AdviseResponse implements JsonSerializable
 {
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETE = 'complete';
-    
+
     /** @var string */
     private $adviseId;
     /** @var string */

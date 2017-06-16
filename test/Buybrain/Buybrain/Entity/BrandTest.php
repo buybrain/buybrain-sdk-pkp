@@ -34,7 +34,7 @@ JSON;
             Brand::id(3),
         ];
 
-        $this->assertEquals($expected,  Brand::ids(1, 2, 3));
-        $this->assertEquals($expected,  Brand::ids([1, 2, 3]));
+        $this->assertEquals($expected, Brand::ids(1, 2, 3));
+        $this->assertEquals($expected, Brand::ids([1, 2, 3]));
     }
 }

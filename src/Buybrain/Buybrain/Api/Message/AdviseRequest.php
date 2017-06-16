@@ -22,7 +22,7 @@ class AdviseRequest implements JsonSerializable
      * @param DateTimeInterface $targetDate the date until when stock should be sufficient (i.e. next planned delivery)
      * @param AdviseRequestSku[] $skus the SKUs that can potentially included in the order
      */
-    public function __construct(DateTimeInterface $deliveryDate, DateTimeInterface $targetDate, array $skus) 
+    public function __construct(DateTimeInterface $deliveryDate, DateTimeInterface $targetDate, array $skus)
     {
         $this->deliveryDate = $deliveryDate;
         $this->targetDate = $targetDate;

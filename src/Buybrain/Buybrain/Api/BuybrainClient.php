@@ -1,8 +1,8 @@
 <?php
 namespace Buybrain\Buybrain\Api;
 
-use Buybrain\Buybrain\Api\Message\AdviseResponse;
 use Buybrain\Buybrain\Api\Message\AdviseRequest;
+use Buybrain\Buybrain\Api\Message\AdviseResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;

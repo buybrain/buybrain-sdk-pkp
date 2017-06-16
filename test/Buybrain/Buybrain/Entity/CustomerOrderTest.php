@@ -19,7 +19,9 @@ class CustomerOrderTest extends PHPUnit_Framework_TestCase
                 new Sale('126', new DateTimeImmutable('2017-02-05 09:14:12+01:00'), -2),
             ]
         );
-        $order->addSale(new Sale('123', new DateTimeImmutable('2017-02-10 12:00:00+01:00'), 1));
+        $order
+            ->addSale(new Sale('123', new DateTimeImmutable('2017-02-10 12:00:00+01:00'), 1))
+            ->addShipment(new Shipment('126', new DateTimeImmutable('2017-02-06 12:00:00'), 1));
 
         $expected = <<<'JSON'
 {
@@ -45,6 +47,13 @@ class CustomerOrderTest extends PHPUnit_Framework_TestCase
         {
             "sku": "123",
             "date": "2017-02-10T12:00:00+01:00",
+            "quantity": 1
+        }
+    ],
+    "shipments": [
+        {
+            "sku": "126",
+            "date": "2017-02-06T12:00:00+01:00",
             "quantity": 1
         }
     ]

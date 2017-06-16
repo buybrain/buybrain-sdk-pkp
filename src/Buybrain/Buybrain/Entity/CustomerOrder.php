@@ -7,7 +7,8 @@ use DateTimeInterface;
 /**
  * Representation of a customer order.
  * A customer order contains one or multiple sales and optionally returns. These can occur at different dates, since
- * orders might be changed after their creation.
+ * orders might be changed after their creation. Additionally, a customer order contains shipments which indicate when
+ * items have been physically shipped to or returned from a customer.
  */
 class CustomerOrder implements BuybrainEntity
 {
@@ -24,19 +25,23 @@ class CustomerOrder implements BuybrainEntity
     private $channel;
     /** @var Sale[] */
     private $sales;
+    /** @var Shipment[] */
+    private $shipments;
 
     /**
      * @param string $id
      * @param DateTimeInterface $createDate
      * @param string $channel the initial sales channel
      * @param Sale[] $sales
+     * @param Shipment[] $shipments
      */
-    public function __construct($id, DateTimeInterface $createDate, $channel, array $sales = [])
+    public function __construct($id, DateTimeInterface $createDate, $channel, array $sales = [], array $shipments = [])
     {
         $this->id = (string)$id;
         $this->createDate = $createDate;
         $this->channel = $channel;
         $this->sales = $sales;
+        $this->shipments = $shipments;
     }
 
     /**
@@ -82,6 +87,24 @@ class CustomerOrder implements BuybrainEntity
     }
 
     /**
+     * @param Shipment $shipment
+     * @return $this
+     */
+    public function addShipment(Shipment $shipment)
+    {
+        $this->shipments[] = $shipment;
+        return $this;
+    }
+
+    /**
+     * @return Shipment[]
+     */
+    public function getShipments()
+    {
+        return $this->shipments;
+    }
+
+    /**
      * @return array
      */
     function jsonSerialize()
@@ -91,6 +114,7 @@ class CustomerOrder implements BuybrainEntity
             'createDate' => DateTimes::format($this->createDate),
             'channel' => $this->channel,
             'sales' => $this->sales,
+            'shipments' => $this->shipments,
         ];
     }
 

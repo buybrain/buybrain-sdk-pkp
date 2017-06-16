@@ -2,7 +2,7 @@
 namespace Buybrain\Buybrain\Api;
 
 use Buybrain\Buybrain\Api\Message\AdviseResponse;
-use Buybrain\Buybrain\Api\Message\CreateAdviseRequest;
+use Buybrain\Buybrain\Api\Message\AdviseRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -34,10 +34,10 @@ class BuybrainClient
      * object may or may not have a 'completed' state. In case it is not completed, use getAdvise() to poll for
      * completion and the final result.
      *
-     * @param CreateAdviseRequest $request
+     * @param AdviseRequest $request
      * @return AdviseResponse
      */
-    public function createAdvise(CreateAdviseRequest $request)
+    public function createAdvise(AdviseRequest $request)
     {
         $response = $this->request('POST', '/advise', ['json' => $request]);
         return AdviseResponse::fromJson(json_decode($response->getBody(), true));

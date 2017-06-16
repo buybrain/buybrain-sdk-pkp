@@ -8,7 +8,7 @@ use JsonSerializable;
  *
  * @see AdviseResponse
  */
-class AdviseSku implements JsonSerializable
+class AdviseResponseSku implements JsonSerializable
 {
     /** @var string */
     private $sku;
@@ -27,7 +27,7 @@ class AdviseSku implements JsonSerializable
 
     /**
      * @param array $json
-     * @return AdviseSku
+     * @return AdviseResponseSku
      */
     public static function fromJson(array $json)
     {

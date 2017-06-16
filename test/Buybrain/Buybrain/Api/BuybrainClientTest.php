@@ -1,9 +1,10 @@
 <?php
 namespace Buybrain\Buybrain\Api;
 
+use Buybrain\Buybrain\Api\Message\AdviseRequestSku;
 use Buybrain\Buybrain\Api\Message\AdviseResponse;
-use Buybrain\Buybrain\Api\Message\AdviseSku;
-use Buybrain\Buybrain\Api\Message\CreateAdviseRequest;
+use Buybrain\Buybrain\Api\Message\AdviseResponseSku;
+use Buybrain\Buybrain\Api\Message\AdviseRequest;
 use Buybrain\Buybrain\Util\DateTimes;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
@@ -29,13 +30,13 @@ class BuybrainClientTest extends PHPUnit_Framework_TestCase
     
     public function testCreateAdvise()
     {
-        $request = new CreateAdviseRequest(
+        $request = new AdviseRequest(
             DateTimes::parse('2017-01-01'),
             DateTimes::parse('2017-01-05'),
-            true,
             [
-                'shop' => ['1', '2'],
-                'ebay' => ['1', '3']
+                new AdviseRequestSku('1', ['shop', 'ebay'], ['shop']),
+                new AdviseRequestSku('2', ['shop'], ['shop']),
+                new AdviseRequestSku('3', ['ebay']),
             ]
         );
 
@@ -75,9 +76,9 @@ class BuybrainClientTest extends PHPUnit_Framework_TestCase
             AdviseResponse::STATUS_COMPLETE,
             1.0,
             [
-                new AdviseSku('1', ['0' => 0.8, '1' => 0.2]),
-                new AdviseSku('2', ['0' => 0.7, '1' => 0.2, '2' => 0.1]),
-                new AdviseSku('3', ['0' => 0.9, '1' => 0.1])
+                new AdviseResponseSku('1', ['0' => 0.8, '1' => 0.2]),
+                new AdviseResponseSku('2', ['0' => 0.7, '1' => 0.2, '2' => 0.1]),
+                new AdviseResponseSku('3', ['0' => 0.9, '1' => 0.1])
             ]
         );
 

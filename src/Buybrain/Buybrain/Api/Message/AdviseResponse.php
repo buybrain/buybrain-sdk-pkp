@@ -17,14 +17,14 @@ class AdviseResponse implements JsonSerializable
     private $status;
     /** @var float */
     private $progress;
-    /** @var AdviseSku[]|null */
+    /** @var AdviseResponseSku[]|null */
     private $skus;
 
     /**
      * @param string $adviseId v4 UUID
      * @param string $status indicator whether the advise is ready or still being created, one of the STATUS_ constants
      * @param float $progress in case the advise is being created, indicates the progress between 0.0 and 1.0
-     * @param AdviseSku[]|null $skus advise per SKU in case the advise is ready, null if it is being created
+     * @param AdviseResponseSku[]|null $skus advise per SKU in case the advise is ready, null if it is being created
      */
     public function __construct($adviseId, $status, $progress, array $skus = null)
     {
@@ -67,7 +67,7 @@ class AdviseResponse implements JsonSerializable
     }
 
     /**
-     * @return AdviseSku[]|null advise per SKU in case the advise is ready, null if it is being created
+     * @return AdviseResponseSku[]|null advise per SKU in case the advise is ready, null if it is being created
      */
     public function getSkus()
     {
@@ -84,7 +84,7 @@ class AdviseResponse implements JsonSerializable
             $json['adviseId'],
             $json['status'],
             $json['progress'],
-            isset($json['skus']) ? array_map([AdviseSku::class, 'fromJson'], $json['skus']) : null
+            isset($json['skus']) ? array_map([AdviseResponseSku::class, 'fromJson'], $json['skus']) : null
         );
     }
 

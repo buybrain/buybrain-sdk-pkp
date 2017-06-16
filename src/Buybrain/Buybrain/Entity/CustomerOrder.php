@@ -20,18 +20,22 @@ class CustomerOrder implements BuybrainEntity
     private $id;
     /** @var DateTimeInterface */
     private $createDate;
+    /** @var string */
+    private $channel;
     /** @var Sale[] */
     private $sales;
 
     /**
      * @param string $id
      * @param DateTimeInterface $createDate
+     * @param string $channel the initial sales channel
      * @param Sale[] $sales
      */
-    public function __construct($id, DateTimeInterface $createDate, array $sales = [])
+    public function __construct($id, DateTimeInterface $createDate, $channel, array $sales = [])
     {
         $this->id = (string)$id;
         $this->createDate = $createDate;
+        $this->channel = $channel;
         $this->sales = $sales;
     }
 
@@ -49,6 +53,14 @@ class CustomerOrder implements BuybrainEntity
     public function getCreateDate()
     {
         return $this->createDate;
+    }
+
+    /**
+     * @return string the initial sales channel
+     */
+    public function getChannel()
+    {
+        return $this->channel;
     }
 
     /**
@@ -77,6 +89,7 @@ class CustomerOrder implements BuybrainEntity
         return [
             'id' => $this->id,
             'createDate' => DateTimes::format($this->createDate),
+            'channel' => $this->channel,
             'sales' => $this->sales,
         ];
     }

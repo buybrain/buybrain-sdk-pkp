@@ -97,7 +97,7 @@ class AdviseResponseSku implements JsonSerializable
     {
         $json = [
             'sku' => $this->sku,
-            'certainties' => $this->certainties,
+            'certainties' => (object)$this->certainties,
         ];
         if ($this->error !== null) {
             $json['error'] = $this->error;

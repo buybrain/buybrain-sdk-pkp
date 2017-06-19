@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\Assert;
 use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
@@ -38,6 +39,7 @@ class SupplierOffer implements BuybrainEntity
      */
     public function __construct($sku, $supplierId, DateTimeInterface $startDate, $endDate, array $prices)
     {
+        Assert::instancesOf($prices, SupplierPrice::class);
         $this->sku = (string)$sku;
         $this->supplierId = (string)$supplierId;
         $this->startDate = $startDate;

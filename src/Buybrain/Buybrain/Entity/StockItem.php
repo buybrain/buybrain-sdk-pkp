@@ -31,8 +31,8 @@ class StockItem implements BuybrainEntity
      */
     public function __construct($id, $sku, DateTimeInterface $startDate, DateTimeInterface $endDate = null)
     {
-        $this->id = $id;
-        $this->sku = $sku;
+        $this->id = (string)$id;
+        $this->sku = (string)$sku;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
     }

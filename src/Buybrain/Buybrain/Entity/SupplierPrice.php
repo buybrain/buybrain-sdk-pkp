@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\Cast;
 use JsonSerializable;
 
 /**
@@ -27,10 +28,10 @@ class SupplierPrice implements JsonSerializable
      */
     public function __construct($from, $to, $currency, $value)
     {
-        $this->from = $from;
-        $this->to = $to;
-        $this->currency = $currency;
-        $this->value = $value;
+        $this->from = (int)$from;
+        $this->to = Cast::toInt($to);
+        $this->currency = (string)$currency;
+        $this->value = (string)$value;
     }
 
     /**

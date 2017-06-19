@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\Assert;
 use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
@@ -37,9 +38,11 @@ class CustomerOrder implements BuybrainEntity
      */
     public function __construct($id, DateTimeInterface $createDate, $channel, array $sales = [], array $shipments = [])
     {
+        Assert::instancesOf($sales, Sale::class);
+        Assert::instancesOf($shipments, Shipment::class);
         $this->id = (string)$id;
         $this->createDate = $createDate;
-        $this->channel = $channel;
+        $this->channel = (string)$channel;
         $this->sales = $sales;
         $this->shipments = $shipments;
     }

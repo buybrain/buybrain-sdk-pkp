@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\Assert;
 use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
@@ -47,8 +48,11 @@ class SupplierOrder implements BuybrainEntity
         array $deliveries = [],
         array $expectedDeliveries = []
     ) {
-        $this->id = $id;
-        $this->supplierId = $supplierId;
+        Assert::instancesOf($purchases, Purchase::class);
+        Assert::instancesOf($deliveries, Delivery::class);
+        Assert::instancesOf($expectedDeliveries, Delivery::class);
+        $this->id = (string)$id;
+        $this->supplierId = (string)$supplierId;
         $this->createDate = $createDate;
         $this->purchases = $purchases;
         $this->deliveries = $deliveries;

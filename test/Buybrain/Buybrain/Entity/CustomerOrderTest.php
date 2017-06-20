@@ -21,7 +21,7 @@ class CustomerOrderTest extends PHPUnit_Framework_TestCase
         );
         $order
             ->addSale(new Sale('123', new DateTimeImmutable('2017-02-10 12:00:00+01:00'), 1))
-            ->addShipment(new Shipment('126', new DateTimeImmutable('2017-02-06 12:00:00'), 1));
+            ->addReservation(new Reservation('126', new DateTimeImmutable('2017-02-06 12:00:00'), 1));
 
         $expected = <<<'JSON'
 {
@@ -50,7 +50,7 @@ class CustomerOrderTest extends PHPUnit_Framework_TestCase
             "quantity": 1
         }
     ],
-    "shipments": [
+    "reservations": [
         {
             "sku": "126",
             "date": "2017-02-06T12:00:00+01:00",

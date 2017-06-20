@@ -8,8 +8,8 @@ use DateTimeInterface;
 /**
  * Representation of a customer order.
  * A customer order contains one or multiple sales and optionally cancellations. These can occur at different dates,
- * since orders might be changed after their creation. Additionally, a customer order contains shipments which indicate
- * when items have been physically shipped to or returned from a customer.
+ * since orders might be changed after their creation. Additionally, a customer order contains reservations which
+ * indicate a claim on physical stock to be assigned to this order.
  */
 class CustomerOrder implements BuybrainEntity
 {
@@ -26,25 +26,25 @@ class CustomerOrder implements BuybrainEntity
     private $channel;
     /** @var Sale[] */
     private $sales;
-    /** @var Shipment[] */
-    private $shipments;
+    /** @var Reservation[] */
+    private $reservations;
 
     /**
      * @param string $id
      * @param DateTimeInterface $createDate
      * @param string $channel the initial sales channel
      * @param Sale[] $sales
-     * @param Shipment[] $shipments
+     * @param Reservation[] $reservations
      */
-    public function __construct($id, DateTimeInterface $createDate, $channel, array $sales = [], array $shipments = [])
+    public function __construct($id, DateTimeInterface $createDate, $channel, array $sales = [], array $reservations = [])
     {
         Assert::instancesOf($sales, Sale::class);
-        Assert::instancesOf($shipments, Shipment::class);
+        Assert::instancesOf($reservations, Reservation::class);
         $this->id = (string)$id;
         $this->createDate = $createDate;
         $this->channel = (string)$channel;
         $this->sales = $sales;
-        $this->shipments = $shipments;
+        $this->reservations = $reservations;
     }
 
     /**
@@ -90,21 +90,21 @@ class CustomerOrder implements BuybrainEntity
     }
 
     /**
-     * @param Shipment $shipment
+     * @param Reservation $reservation
      * @return $this
      */
-    public function addShipment(Shipment $shipment)
+    public function addReservation(Reservation $reservation)
     {
-        $this->shipments[] = $shipment;
+        $this->reservations[] = $reservation;
         return $this;
     }
 
     /**
-     * @return Shipment[]
+     * @return Reservation[]
      */
-    public function getShipments()
+    public function getReservations()
     {
-        return $this->shipments;
+        return $this->reservations;
     }
 
     /**
@@ -117,7 +117,7 @@ class CustomerOrder implements BuybrainEntity
             'createDate' => DateTimes::format($this->createDate),
             'channel' => $this->channel,
             'sales' => $this->sales,
-            'shipments' => $this->shipments,
+            'reservations' => $this->reservations,
         ];
     }
 

@@ -19,13 +19,13 @@ class BuybrainClientTest extends PHPUnit_Framework_TestCase
 
     /** @var ClientInterface|PHPUnit_Framework_MockObject_MockObject */
     private $http;
-    /** @var BuybrainClient */
+    /** @var HttpBuybrainClient */
     private $SUT;
 
     public function setUp()
     {
         $this->http = $this->createMock(ClientInterface::class);
-        $this->SUT = new BuybrainClient(new BuybrainClientConfig(self::API_KEY), $this->http);
+        $this->SUT = new HttpBuybrainClient(new BuybrainClientConfig(self::API_KEY), $this->http);
     }
 
     public function testCreateAdvise()
@@ -56,7 +56,7 @@ class BuybrainClientTest extends PHPUnit_Framework_TestCase
                         'Accept' => 'application/json',
                         'Apikey' => self::API_KEY
                     ],
-                    'timeout' => BuybrainClient::TIMEOUT,
+                    'timeout' => HttpBuybrainClient::TIMEOUT,
                     'json' => $request
                 ]
             )

@@ -30,6 +30,30 @@ class AdviseRequest implements JsonSerializable
     }
 
     /**
+     * @return DateTimeInterface
+     */
+    public function getDeliveryDate()
+    {
+        return $this->deliveryDate;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getTargetDate()
+    {
+        return $this->targetDate;
+    }
+
+    /**
+     * @return AdviseRequestSku[]
+     */
+    public function getSkus()
+    {
+        return $this->skus;
+    }
+
+    /**
      * @param array $json
      * @return AdviseRequest
      */

@@ -63,4 +63,17 @@ class BuybrainClientConfig
         $this->apiKey = $apiKey;
         return $this;
     }
+
+    /**
+     * @param array $options
+     * @return BuybrainClientConfig
+     */
+    public static function fromOptions(array $options)
+    {
+        $config = new self($options['apiKey']);
+        if (isset($options['baseURI'])) {
+            $config->setBaseURI($options['baseURI']);
+        }
+        return $config;
+    }
 }

@@ -73,4 +73,41 @@ JSON;
         $expectedEntity = new Entity(SupplierOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
     }
+
+    public function testToJsonWithAdviseInfo()
+    {
+        $order = new SupplierOrder(
+            '10005234',
+            '12345',
+            new DateTimeImmutable('2017-02-01 13:59:34+01:00'),
+            [new Purchase('126', new DateTimeImmutable('2017-02-01 13:59:34+01:00'), 3)]
+        );
+        $order->setUsedAdvise(new UsedAdviseInfo('00000000-0000-0000-0000-111111111111', 0.42));
+
+        $expected = <<<'JSON'
+{
+    "id": "10005234",
+    "supplierId": "12345",
+    "createDate": "2017-02-01T13:59:34+01:00",
+    "purchases": [
+        {
+            "sku": "126",
+            "date": "2017-02-01T13:59:34+01:00",
+            "quantity": 3
+        }
+    ],
+    "deliveries": [],
+    "expectedDeliveries": [],
+    "usedAdvise": {
+        "adviseId": "00000000-0000-0000-0000-111111111111",
+        "certainty": 0.42
+    }
+}
+JSON;
+
+        $this->assertEquals($expected, json_encode($order, JSON_PRETTY_PRINT));
+
+        $expectedEntity = new Entity(SupplierOrder::id(10005234), json_encode($order));
+        $this->assertEquals($expectedEntity, $order->asNervusEntity());
+    }
 }

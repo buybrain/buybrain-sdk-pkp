@@ -31,6 +31,8 @@ class SupplierOrder implements BuybrainEntity
     private $deliveries;
     /** @var Delivery[] */
     private $expectedDeliveries;
+    /** @var UsedAdviseInfo|null */
+    private $usedAdvise;
 
     /**
      * @param string $id
@@ -138,11 +140,29 @@ class SupplierOrder implements BuybrainEntity
     }
 
     /**
+     * @return UsedAdviseInfo|null
+     */
+    public function getUsedAdvise()
+    {
+        return $this->usedAdvise;
+    }
+
+    /**
+     * @param UsedAdviseInfo $usedAdvise
+     * @return $this
+     */
+    public function setUsedAdvise(UsedAdviseInfo $usedAdvise)
+    {
+        $this->usedAdvise = $usedAdvise;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     function jsonSerialize()
     {
-        return [
+        $json = [
             'id' => $this->id,
             'supplierId' => $this->supplierId,
             'createDate' => DateTimes::format($this->createDate),
@@ -150,6 +170,10 @@ class SupplierOrder implements BuybrainEntity
             'deliveries' => $this->deliveries,
             'expectedDeliveries' => $this->expectedDeliveries,
         ];
+        if ($this->usedAdvise !== null) {
+            $json['usedAdvise'] = $this->usedAdvise;
+        }
+        return $json;
     }
 
     /**

@@ -25,8 +25,8 @@ class AdviseRequestSku implements JsonSerializable
     public function __construct($sku, array $channels, array $backorderChannels = [])
     {
         $this->sku = $sku;
-        $this->channels = $channels;
-        $this->backorderChannels = $backorderChannels;
+        $this->channels = array_values($channels);
+        $this->backorderChannels = array_values($backorderChannels);
     }
 
     /**

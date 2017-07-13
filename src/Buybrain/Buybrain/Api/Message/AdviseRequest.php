@@ -26,7 +26,7 @@ class AdviseRequest implements JsonSerializable
     {
         $this->deliveryDate = $deliveryDate;
         $this->targetDate = $targetDate;
-        $this->skus = $skus;
+        $this->skus = array_values($skus);
     }
 
     /**

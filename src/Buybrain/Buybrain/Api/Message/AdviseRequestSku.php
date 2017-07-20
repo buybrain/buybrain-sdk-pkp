@@ -1,6 +1,8 @@
 <?php
 namespace Buybrain\Buybrain\Api\Message;
 
+use Buybrain\Buybrain\Util\DateTimes;
+use DateTimeInterface;
 use JsonSerializable;
 
 /**
@@ -16,6 +18,8 @@ class AdviseRequestSku implements JsonSerializable
     private $channels;
     /** @var string[] */
     private $backorderChannels;
+    /** @var DateTimeInterface|null */
+    private $deliveryDate;
 
     /**
      * @param string $sku
@@ -54,12 +58,34 @@ class AdviseRequestSku implements JsonSerializable
     }
 
     /**
+     * @param DateTimeInterface|null $deliveryDate
+     * @return $this
+     */
+    public function setDeliveryDate(DateTimeInterface $deliveryDate = null)
+    {
+        $this->deliveryDate = $deliveryDate;
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getDeliveryDate()
+    {
+        return $this->deliveryDate;
+    }
+
+    /**
      * @param array $json
      * @return AdviseRequestSku
      */
     public static function fromJson(array $json)
     {
-        return new self($json['sku'], $json['chans'], isset($json['boChans']) ? $json['boChans'] : []);
+        $sku = new self($json['sku'], $json['chans'], isset($json['boChans']) ? $json['boChans'] : []);
+        if (isset($json['deliveryDate'])) {
+            $sku->setDeliveryDate(DateTimes::parse($json['deliveryDate']));
+        }
+        return $sku;
     }
 
     /**
@@ -70,6 +96,9 @@ class AdviseRequestSku implements JsonSerializable
         $json = ['sku' => $this->sku, 'chans' => $this->channels];
         if (count($this->backorderChannels) > 0) {
             $json['boChans'] = $this->backorderChannels;
+        }
+        if ($this->deliveryDate !== null) {
+            $json['deliveryDate'] = DateTimes::format($this->deliveryDate);
         }
         return $json;
     }

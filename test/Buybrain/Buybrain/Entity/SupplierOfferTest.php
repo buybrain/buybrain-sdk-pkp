@@ -15,8 +15,8 @@ class SupplierOfferTest extends PHPUnit_Framework_TestCase
             new DateTimeImmutable('2017-01-01Z'),
             new DateTimeImmutable('2017-02-01Z'),
             [
-                new SupplierPrice(1, 4, 'EUR', '42.68'),
-                new SupplierPrice(4, null, 'EUR', '32'),
+                new SupplierPrice(1, 4, new Money('EUR', '42.68')),
+                new SupplierPrice(4, null, new Money('EUR', '32')),
             ]
         );
 
@@ -60,8 +60,8 @@ JSON;
             new DateTimeImmutable('2017-01-01Z'),
             new DateTimeImmutable('2017-02-01Z'),
             [
-                new SupplierPrice(1, 4, 'EUR', '42.68'),
-                new SupplierPrice(4, null, 'EUR', '32'),
+                new SupplierPrice(1, 4, new Money('EUR', '42.68')),
+                new SupplierPrice(4, null, new Money('EUR', '32')),
             ]
         ))->setId('987');
 

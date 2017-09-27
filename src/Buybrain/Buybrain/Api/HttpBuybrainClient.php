@@ -3,9 +3,9 @@ namespace Buybrain\Buybrain\Api;
 
 use Buybrain\Buybrain\Api\Message\AdviseRequest;
 use Buybrain\Buybrain\Api\Message\AdviseResponse;
+use Buybrain\Buybrain\Exception\InvalidArgumentException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Prophecy\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -23,6 +23,7 @@ class HttpBuybrainClient implements BuybrainClient
     /**
      * @param array|BuybrainClientConfig $config
      * @param ClientInterface|null $http optional: the HTTP client instance to use for HTTP requests
+     * @throws InvalidArgumentException
      */
     public function __construct($config, ClientInterface $http = null)
     {

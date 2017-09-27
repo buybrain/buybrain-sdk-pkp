@@ -1,7 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Api;
 
-use InvalidArgumentException;
+use Buybrain\Buybrain\Exception\InvalidArgumentException;
 
 class BuybrainClientConfig
 {
@@ -29,15 +29,13 @@ class BuybrainClientConfig
     /**
      * @param string $baseURI
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setBaseURI($baseURI)
     {
         $baseURI = rtrim($baseURI, '/');
         if (!filter_var($baseURI, FILTER_VALIDATE_URL)) {
-            throw new InvalidArgumentException(sprintf(
-                'Invalid buybrain API base URI (%s)',
-                $baseURI
-            ));
+            throw new InvalidArgumentException('Invalid buybrain API base URI (%s)', $baseURI);
         }
         $this->baseURI = $baseURI;
         return $this;
@@ -54,6 +52,7 @@ class BuybrainClientConfig
     /**
      * @param string $apiKey
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setApiKey($apiKey)
     {

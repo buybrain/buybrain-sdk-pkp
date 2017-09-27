@@ -22,17 +22,21 @@ class Stock implements BuybrainEntity
     private $date;
     /** @var int */
     private $stock;
+    /** @var Money */
+    private $averageValue;
 
     /**
      * @param string $sku
      * @param DateTimeInterface $date
-     * @param int $stock
+     * @param int $stock the total quantity of stock at the given date
+     * @param Money $averageValue the average value of a single stock item at the given date
      */
-    public function __construct($sku, DateTimeInterface $date, $stock)
+    public function __construct($sku, DateTimeInterface $date, $stock, Money $averageValue)
     {
         $this->sku = (string)$sku;
         $this->date = $date;
         $this->stock = (int)$stock;
+        $this->averageValue = $averageValue;
     }
 
     /**
@@ -88,6 +92,14 @@ class Stock implements BuybrainEntity
     }
 
     /**
+     * @return Money
+     */
+    public function getAverageValue()
+    {
+        return $this->averageValue;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -96,6 +108,7 @@ class Stock implements BuybrainEntity
             'sku' => $this->sku,
             'date' => DateTimes::format($this->date),
             'stock' => $this->stock,
+            'avgValue' => $this->averageValue,
         ];
         if ($this->id !== null) {
             $data['id'] = $this->id;

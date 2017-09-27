@@ -1,8 +1,8 @@
 <?php
 namespace Buybrain\Buybrain\Api\Message;
 
+use Buybrain\Buybrain\Exception\RuntimeException;
 use JsonSerializable;
-use RuntimeException;
 
 /**
  * Part of AdviseResponse with the result for a single SKU
@@ -38,15 +38,16 @@ class AdviseResponseSku implements JsonSerializable
 
     /**
      * @return float[] quantities to purchase as keys with the probabilities of having enough as values
+     * @throws RuntimeException
      */
     public function getCertainties()
     {
         if ($this->hasError()) {
-            throw new RuntimeException(sprintf(
+            throw new RuntimeException(
                 'Cannot get certainties for SKU %s because an error occurred (%s)',
                 $this->sku,
                 $this->error
-            ));
+            );
         }
         return $this->certainties;
     }

@@ -1,7 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Api\Mock;
 
-use RuntimeException;
+use Buybrain\Buybrain\Exception\RuntimeException;
 
 class FileSystemMockStorage implements MockStorage
 {
@@ -10,6 +10,7 @@ class FileSystemMockStorage implements MockStorage
 
     /**
      * @param string|null $directory the directory to store advise state in. Creates a directory in /tmp by default.
+     * @throws RuntimeException
      */
     public function __construct($directory = null)
     {
@@ -17,12 +18,12 @@ class FileSystemMockStorage implements MockStorage
             $directory = '/tmp/buybrain-sdk-advise-mocks';
             if (!file_exists($directory)) {
                 if (!mkdir($directory)) {
-                    throw new RuntimeException('Failed to create dir ' . $directory . ' for mock advise storage');
+                    throw new RuntimeException('Failed to create dir %s for mock advise storage', $directory);
                 }
             }
         }
         if (!is_dir($directory)) {
-            throw new RuntimeException($directory . ' is not a directory');
+            throw new RuntimeException('%s is not a directory', $directory);
         }
         $this->directory = $directory;
     }

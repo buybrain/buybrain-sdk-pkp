@@ -12,14 +12,19 @@ class StockTest extends PHPUnit_Framework_TestCase
         $item = new Stock(
             'abc-123',
             new DateTimeImmutable('2017-01-01Z'),
-            42
+            42,
+            new Money('EUR', 10.5)
         );
 
         $expected = <<<'JSON'
 {
     "sku": "abc-123",
     "date": "2017-01-01T00:00:00+00:00",
-    "stock": 42
+    "stock": 42,
+    "avgValue": {
+        "currency": "EUR",
+        "value": "10.5"
+    }
 }
 JSON;
 
@@ -34,7 +39,8 @@ JSON;
         $item = new Stock(
             'abc-123',
             new DateTimeImmutable('2017-01-01Z'),
-            42
+            42,
+            new Money('EUR', 10.5)
         );
         $item->setId('1234');
 
@@ -43,6 +49,10 @@ JSON;
     "sku": "abc-123",
     "date": "2017-01-01T00:00:00+00:00",
     "stock": 42,
+    "avgValue": {
+        "currency": "EUR",
+        "value": "10.5"
+    },
     "id": "1234"
 }
 JSON;

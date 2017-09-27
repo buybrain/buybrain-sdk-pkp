@@ -15,23 +15,19 @@ class SupplierPrice implements JsonSerializable
     private $from;
     /** @var int|null */
     private $to;
-    /** @var string */
-    private $currency;
-    /** @var string */
-    private $value;
+    /** @var Money */
+    private $price;
 
     /**
      * @param int $from the quantity starting from which this price is applicable
      * @param int|null $to the quantity where the price stops being applicable (so, exclusive)
-     * @param string $currency 3 letter ISO currency code
-     * @param string $value decimal notation of the supplier price excluding VAT
+     * @param Money $price the supplier price for this quantity range excluding VAT
      */
-    public function __construct($from, $to, $currency, $value)
+    public function __construct($from, $to, Money $price)
     {
         $this->from = (int)$from;
         $this->to = Cast::toInt($to);
-        $this->currency = (string)$currency;
-        $this->value = (string)$value;
+        $this->price = $price;
     }
 
     /**
@@ -51,19 +47,11 @@ class SupplierPrice implements JsonSerializable
     }
 
     /**
-     * @return string
+     * @return Money
      */
-    public function getCurrency()
+    public function getPrice()
     {
-        return $this->currency;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
+        return $this->price;
     }
 
 
@@ -75,8 +63,8 @@ class SupplierPrice implements JsonSerializable
         return [
             'from' => $this->from,
             'to' => $this->to,
-            'currency' => $this->currency,
-            'value' => $this->value
+            'currency' => $this->price->getCurrency(),
+            'value' => $this->price->getValue()
         ];
     }
 }

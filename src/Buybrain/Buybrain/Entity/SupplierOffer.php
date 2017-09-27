@@ -107,12 +107,24 @@ class SupplierOffer implements BuybrainEntity
         if ($this->id !== null) {
             return $this->id;
         }
+        return self::getAutoId($this->sku, $this->supplierId, $this->startDate);
+    }
 
+    /**
+     * Generate an ID for this entity based on the SKU, supplier and start date
+     *
+     * @param string $sku
+     * @param string $supplierId
+     * @param DateTimeInterface $startDate
+     * @return string
+     */
+    public static function getAutoId($sku, $supplierId, DateTimeInterface $startDate)
+    {
         return sprintf(
             '%s|%s|%s',
-            $this->sku,
-            $this->supplierId,
-            DateTimes::format($this->startDate)
+            $sku,
+            $supplierId,
+            DateTimes::format($startDate)
         );
     }
 

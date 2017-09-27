@@ -92,12 +92,24 @@ class ArticleSellablePeriod implements BuybrainEntity
         if ($this->id !== null) {
             return $this->id;
         }
+        return self::getAutoId($this->sku, $this->channel, $this->startDate);
+    }
 
+    /**
+     * Generate an ID for this entity based on the SKU, channel and start date
+     *
+     * @param string $sku
+     * @param string $channel
+     * @param DateTimeInterface $startDate
+     * @return string
+     */
+    public static function getAutoId($sku, $channel, DateTimeInterface $startDate)
+    {
         return sprintf(
             '%s|%s|%s',
-            $this->sku,
-            $this->channel,
-            DateTimes::format($this->startDate)
+            $sku,
+            $channel,
+            DateTimes::format($startDate)
         );
     }
 

@@ -59,11 +59,22 @@ class Stock implements BuybrainEntity
         if ($this->id !== null) {
             return $this->id;
         }
+        return self::getAutoId($this->sku, $this->date);
+    }
 
+    /**
+     * Generate an ID for this entity based on the SKU and the date
+     *
+     * @param string $sku
+     * @param DateTimeInterface $date
+     * @return string
+     */
+    public static function getAutoId($sku, DateTimeInterface $date)
+    {
         return sprintf(
             '%s|%s',
-            $this->sku,
-            DateTimes::format($this->date)
+            $sku,
+            DateTimes::format($date)
         );
     }
 

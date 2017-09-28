@@ -28,7 +28,7 @@ class Money implements JsonSerializable
             throw new InvalidArgumentException('Invalid currency code "%s"', $this->currency);
         }
         if (!preg_match('~^\\d+(?:\\.\\d+)?$~', $this->value)) {
-            throw new InvalidArgumentException('Invalid currency code "%s"', $this->currency);
+            throw new InvalidArgumentException('Invalid numeric value "%s"', $this->value);
         }
     }
 

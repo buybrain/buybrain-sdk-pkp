@@ -2,13 +2,20 @@
 namespace Buybrain\Buybrain\Entity;
 
 /**
- * Current selling price for an article in a specific channel and optionally sub channel
+ * Information about article pricing for selling.
+ * Pricing is specific for an article and a sales channel, with an option to partition it further by supplying a sub
+ * channel.
+ * Pricing information consists of the total selling price excluding VAT, and additional data about fixed overhead costs
+ * involved with selling a single item, not including the supplier price of the item. This cost is used to determine the
+ * effective net margin during supplier order optimization, where the supplier price dynamically depends on things like
+ * quantity discounts, different suppliers and current stock value. Overhead costs can vary per (sub) channel because
+ * it includes things like costs for shipping to the end customer, which may vary per country.
  *
  * @see Article
  */
-class ArticleSellingPrice implements BuybrainEntity
+class ArticlePricingInfo implements BuybrainEntity
 {
-    const ENTITY_TYPE = 'article.price';
+    const ENTITY_TYPE = 'article.pricing';
 
     use AsNervusEntityTrait;
     use EntityIdFactoryTrait;
@@ -22,20 +29,24 @@ class ArticleSellingPrice implements BuybrainEntity
     /** @var string|null */
     private $subChannel;
     /** @var Money */
-    private $price;
+    private $totalPrice;
+    /** @var Money */
+    private $overheadCost;
 
     /**
      * @param string $sku the unique identifier of the article
      * @param string $channel the sales channel this price applies to
      * @param string|null $subChannel optional further segmentation of sales channel, e.g. different countries
-     * @param Money $price the current selling price for the SKU in this channel, excluding VAT
+     * @param Money $totalPrice the current selling price for the SKU in this channel, excluding VAT
+     * @param Money $overheadCost fixed overhead costs associated with selling one item, not including the buying price
      */
-    public function __construct($sku, $channel, $subChannel, Money $price)
+    public function __construct($sku, $channel, $subChannel, Money $totalPrice, Money $overheadCost)
     {
         $this->sku = $sku;
         $this->channel = $channel;
         $this->subChannel = $subChannel;
-        $this->price = $price;
+        $this->totalPrice = $totalPrice;
+        $this->overheadCost = $overheadCost;
     }
 
     /**
@@ -60,6 +71,22 @@ class ArticleSellingPrice implements BuybrainEntity
     public function getSubChannel()
     {
         return $this->subChannel;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getOverheadCost()
+    {
+        return $this->overheadCost;
     }
 
     /**
@@ -111,7 +138,8 @@ class ArticleSellingPrice implements BuybrainEntity
         $data = [
             'sku' => $this->sku,
             'channel' => $this->channel,
-            'price' => $this->price,
+            'totalPrice' => $this->totalPrice,
+            'overheadCost' => $this->overheadCost
         ];
         if ($this->subChannel !== null) {
             $data['subChannel'] = $this->subChannel;

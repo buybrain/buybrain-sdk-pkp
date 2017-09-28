@@ -6,7 +6,7 @@ use DateTimeInterface;
 use JsonSerializable;
 
 /**
- * Abstract base class for any object that represents a quantity of an SKU at a certain moment in time
+ * Abstract base class for any object that represents a quantity of an article at a certain moment in time
  */
 abstract class TemporalSkuQuantity implements JsonSerializable
 {
@@ -18,7 +18,7 @@ abstract class TemporalSkuQuantity implements JsonSerializable
     private $quantity;
 
     /**
-     * @param string $sku
+     * @param string $sku the unique identifier of the article
      * @param DateTimeInterface $date
      * @param int $quantity
      */

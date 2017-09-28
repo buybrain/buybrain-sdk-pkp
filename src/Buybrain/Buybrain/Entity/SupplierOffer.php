@@ -31,7 +31,7 @@ class SupplierOffer implements BuybrainEntity
     private $prices;
 
     /**
-     * @param string $sku
+     * @param string $sku the unique identifier of the article
      * @param string $supplierId
      * @param DateTimeInterface $startDate
      * @param DateTimeInterface|null $endDate optional end date, null if the price is currently active

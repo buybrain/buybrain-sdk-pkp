@@ -27,7 +27,7 @@ class ArticleSellablePeriod implements BuybrainEntity
     private $endDate;
 
     /**
-     * @param string $sku
+     * @param string $sku the unique identifier of the article
      * @param DateTimeInterface $startDate
      * @param DateTimeInterface|null $endDate optional end date, set to null if this is the current period
      * @param string $channel the channel through which the article was sellable

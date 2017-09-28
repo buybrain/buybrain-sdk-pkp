@@ -26,7 +26,7 @@ class Stock implements BuybrainEntity
     private $averageValue;
 
     /**
-     * @param string $sku
+     * @param string $sku the unique identifier of the article
      * @param DateTimeInterface $date
      * @param int $stock the total quantity of stock at the given date
      * @param Money|null $averageValue the average value of a single stock item at the given date

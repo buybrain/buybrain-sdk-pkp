@@ -62,4 +62,17 @@ JSON;
         $expectedEntity = new Entity(Stock::id('1234'), json_encode($item));
         $this->assertEquals($expectedEntity, $item->asNervusEntity());
     }
+
+    public function testParsingAutoID()
+    {
+        $sku = 'abc-123';
+        $date = new DateTimeImmutable('2017-01-01');
+
+        $id = Stock::getAutoId($sku, $date);
+
+        list($parsedSKU, $parsedDate) = Stock::parseAutoId($id);
+        
+        $this->assertEquals($sku, $parsedSKU);
+        $this->assertEquals($date, $parsedDate);
+    }
 }

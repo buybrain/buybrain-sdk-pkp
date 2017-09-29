@@ -129,6 +129,18 @@ class SupplierOffer implements BuybrainEntity
     }
 
     /**
+     * Parse an auto generated ID back into the original components (SKU, supplier and start date)
+     *
+     * @param string $autoId
+     * @return array of [string, string, DateTimeInterface]
+     */
+    public static function parseAutoId($autoId)
+    {
+        list($sku, $supplier, $date) = explode('|', $autoId);
+        return [$sku, $supplier, DateTimes::parse($date)];
+    }
+
+    /**
      * return array
      */
     public function jsonSerialize()

@@ -114,6 +114,18 @@ class ArticleSellablePeriod implements BuybrainEntity
     }
 
     /**
+     * Parse an auto generated ID back into the original components (SKU, channel and start date)
+     *
+     * @param string $autoId
+     * @return array of [string, string, DateTimeInterface]
+     */
+    public static function parseAutoId($autoId)
+    {
+        list($sku, $channel, $date) = explode('|', $autoId);
+        return [$sku, $channel, DateTimes::parse($date)];
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

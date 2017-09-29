@@ -78,4 +78,19 @@ JSON;
         );
         $this->assertEquals($expectedEntity, $period->asNervusEntity());
     }
+
+    public function testParsingAutoID()
+    {
+        $sku = 'abc-123';
+        $channel = '999';
+        $startDate = new DateTimeImmutable('2017-01-01');
+
+        $id = ArticleSellablePeriod::getAutoId($sku, $channel, $startDate);
+
+        list($parsedSKU, $parsedChannel, $parsedStartDate) = ArticleSellablePeriod::parseAutoId($id);
+
+        $this->assertEquals($sku, $parsedSKU);
+        $this->assertEquals($channel, $parsedChannel);
+        $this->assertEquals($startDate, $parsedStartDate);
+    }
 }

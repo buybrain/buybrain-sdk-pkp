@@ -113,7 +113,7 @@ class ArticlePricingInfo implements BuybrainEntity
     }
 
     /**
-     * Generate an ID for this entity based on the SKU, channel and start date
+     * Generate an ID for this entity based on the SKU, channel and optionally sub channel
      *
      * @param string $sku
      * @param string $channel
@@ -122,12 +122,26 @@ class ArticlePricingInfo implements BuybrainEntity
      */
     public static function getAutoId($sku, $channel, $subChannel = null)
     {
-        return sprintf(
-            '%s|%s|%s',
-            $sku,
-            $channel,
-            $subChannel === null ? '' : $subChannel
-        );
+        $parts = [$sku, $channel];
+        if ($subChannel !== null) {
+            $parts[] = $subChannel;
+        }
+        return implode('|', $parts);
+    }
+
+    /**
+     * Parse an auto generated ID back into the original components (SKU, channel and sub channel)
+     *
+     * @param string $autoId
+     * @return array of [string, string, string|null]
+     */
+    public static function parseAutoId($autoId)
+    {
+        $parts = explode('|', $autoId);
+        if (count($parts) === 2) {
+            $parts[] = null;
+        }
+        return $parts;
     }
 
     /**

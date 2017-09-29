@@ -79,6 +79,18 @@ class Stock implements BuybrainEntity
     }
 
     /**
+     * Parse an auto generated ID back into the original components (SKU and date)
+     *
+     * @param string $autoId
+     * @return array of [string, DateTimeInterface]
+     */
+    public static function parseAutoId($autoId)
+    {
+        list($sku, $date) = explode('|', $autoId);
+        return [$sku, DateTimes::parse($date)];
+    }
+
+    /**
      * @return string
      */
     public function getSku()

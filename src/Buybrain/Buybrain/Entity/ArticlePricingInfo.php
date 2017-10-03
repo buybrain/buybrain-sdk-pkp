@@ -1,6 +1,8 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\Cast;
+
 /**
  * Information about article pricing for selling.
  *
@@ -60,9 +62,9 @@ class ArticlePricingInfo implements BuybrainEntity
         Money $extraFees,
         Money $overheadCost
     ) {
-        $this->sku = $sku;
-        $this->channel = $channel;
-        $this->subChannel = $subChannel;
+        $this->sku = (string)$sku;
+        $this->channel = (string)$channel;
+        $this->subChannel = Cast::toString($subChannel);
         $this->sellingPrice = $sellingPrice;
         $this->extraFees = $extraFees;
         $this->overheadCost = $overheadCost;

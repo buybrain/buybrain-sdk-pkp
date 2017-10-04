@@ -9,10 +9,10 @@ use Buybrain\Buybrain\Util\DateTimes;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use function GuzzleHttp\Psr7\stream_for;
 
-class BuybrainClientTest extends PHPUnit_Framework_TestCase
+class BuybrainClientTest extends TestCase
 {
     const ADVISE_ID = '00000000-0000-0000-0000-000000000000';
     const API_KEY = 'testkey';

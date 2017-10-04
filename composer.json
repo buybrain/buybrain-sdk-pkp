@@ -25,10 +25,11 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
+        "phpunit/phpunit": "~6.0",
         "buybrain/nervus-php": "^0.1.3"
     },
     "require": {
+        "php": "^5.4",
         "guzzlehttp/guzzle": "^6.2"
     }
 }

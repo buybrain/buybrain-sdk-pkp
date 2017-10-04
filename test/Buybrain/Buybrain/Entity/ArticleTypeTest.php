@@ -2,9 +2,9 @@
 namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Nervus\Entity;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ArticleTypeTest extends PHPUnit_Framework_TestCase
+class ArticleTypeTest extends TestCase
 {
     public function testToJson()
     {

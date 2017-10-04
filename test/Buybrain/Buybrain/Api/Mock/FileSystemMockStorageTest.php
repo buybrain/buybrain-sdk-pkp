@@ -3,9 +3,10 @@ namespace Buybrain\Buybrain\Api\Mock;
 
 use Buybrain\Buybrain\Api\Message\AdviseRequest;
 use Buybrain\Buybrain\Util\DateTimes;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class FileSystemMockStorageTest extends PHPUnit_Framework_TestCase
+
+class FileSystemMockStorageTest extends TestCase
 {
     public function testStorage()
     {

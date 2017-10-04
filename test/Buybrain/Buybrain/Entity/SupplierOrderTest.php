@@ -3,9 +3,9 @@ namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Nervus\Entity;
 use DateTimeImmutable;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class SupplierOrderTest extends PHPUnit_Framework_TestCase
+class SupplierOrderTest extends TestCase
 {
     public function testToJson()
     {

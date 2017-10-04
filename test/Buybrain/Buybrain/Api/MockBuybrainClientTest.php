@@ -6,9 +6,9 @@ use Buybrain\Buybrain\Api\Message\AdviseRequestSku;
 use Buybrain\Buybrain\Api\Message\AdviseResponse;
 use Buybrain\Buybrain\Api\Message\AdviseResponseSku;
 use Buybrain\Buybrain\Util\DateTimes;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class MockBuybrainClientTest extends PHPUnit_Framework_TestCase
+class MockBuybrainClientTest extends TestCase
 {
     const ADVISE_ID = '00000000-0000-0000-0000-000000000000';
 

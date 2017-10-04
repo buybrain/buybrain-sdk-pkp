@@ -3,9 +3,9 @@ namespace Buybrain\Buybrain\Api;
 
 use Buybrain\Buybrain\Api\Message\AdviseResponse;
 use Buybrain\Buybrain\Api\Message\AdviseResponseSku;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AdviseResponseTest extends PHPUnit_Framework_TestCase
+class AdviseResponseTest extends TestCase
 {
     public function testJsonSerde()
     {

@@ -11,6 +11,7 @@ class ArticleTest extends TestCase
         $article = new Article(
             'abc-123',
             'Rubber ducky',
+            ['shop'],
             ['123', '456'],
             ['789']
         );
@@ -19,6 +20,9 @@ class ArticleTest extends TestCase
 {
     "sku": "abc-123",
     "name": "Rubber ducky",
+    "stockChannels": [
+        "shop"
+    ],
     "typeIds": [
         "123",
         "456"

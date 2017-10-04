@@ -18,6 +18,8 @@ class Article implements BuybrainEntity
     /** @var string */
     private $name;
     /** @var string[] */
+    private $stockChannels;
+    /** @var string[] */
     private $typeIds;
     /** @var string|null */
     private $brandId;
@@ -25,13 +27,17 @@ class Article implements BuybrainEntity
     /**
      * @param string $sku the unique identifier of this article
      * @param string $name the name of the article
+     * @param string[] $stockChannels the sales channels for which to potentially purchase stock in addition to the
+     *                                minimum amount required for fulfilling reservations. Leave empty if this article
+     *                                is not supposed to be taken in stock at all.
      * @param string[] $typeIds list of article type IDs
      * @param null|string $brandId optional brand ID
      */
-    public function __construct($sku, $name, array $typeIds = [], $brandId = null)
+    public function __construct($sku, $name, array $stockChannels, array $typeIds = [], $brandId = null)
     {
         $this->sku = (string)$sku;
         $this->name = (string)$name;
+        $this->stockChannels = Cast::toString($stockChannels);
         $this->typeIds = Cast::toString($typeIds);
         $this->brandId = Cast::toString($brandId);
     }
@@ -50,6 +56,14 @@ class Article implements BuybrainEntity
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getStockChannels()
+    {
+        return $this->stockChannels;
     }
 
     /**
@@ -84,6 +98,7 @@ class Article implements BuybrainEntity
         return [
             'sku' => $this->sku,
             'name' => $this->name,
+            'stockChannels' => $this->stockChannels,
             'typeIds' => $this->typeIds,
             'brandId' => $this->brandId,
         ];

@@ -29,9 +29,9 @@ class Supplier implements BuybrainEntity
      */
     public function __construct($id, $name, $leadTime)
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->leadTime = $leadTime;
+        $this->id = (string)$id;
+        $this->name = (string)$name;
+        $this->leadTime = (int)$leadTime;
     }
 
     /**

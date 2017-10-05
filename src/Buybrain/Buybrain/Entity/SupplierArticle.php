@@ -25,6 +25,10 @@ class SupplierArticle implements BuybrainEntity
     private $stock;
     /** @var SupplierPrice[] */
     private $prices;
+    /** @var int */
+    private $orderQuantity = 1;
+    /** @var int */
+    private $minimumOrderQuantity = 1;
     /** @var DateTimeInterface|null */
     private $availableFromDate;
 
@@ -80,6 +84,49 @@ class SupplierArticle implements BuybrainEntity
     public function getPrices()
     {
         return $this->prices;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderQuantity()
+    {
+        return $this->orderQuantity;
+    }
+
+    /**
+     * Set the incremental quantity this item is sold by. When ordering this article at this supplier, the purchased
+     * amount must be a multiple of this value. Defaults to 1.
+     *
+     * @param int $orderQuantity
+     * @return $this
+     */
+    public function setOrderQuantity($orderQuantity)
+    {
+        $this->orderQuantity = (int)$orderQuantity;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinimumOrderQuantity()
+    {
+        return $this->minimumOrderQuantity;
+    }
+
+    /**
+     * Set the smallest quantity of this article that may be purchased at this supplier. When combined with an 'order
+     * quantity' (see setOrderQuantity()), the effective smallest quantity that can be purchased is this value rounded
+     * up to the nearest multiple of `order quantity`. Defaults to 1.
+     *
+     * @param int $minimumOrderQuantity
+     * @return $this
+     */
+    public function setMinimumOrderQuantity($minimumOrderQuantity)
+    {
+        $this->minimumOrderQuantity = (int)$minimumOrderQuantity;
+        return $this;
     }
 
     /**
@@ -146,6 +193,8 @@ class SupplierArticle implements BuybrainEntity
             'sku' => $this->sku,
             'stock' => $this->stock,
             'prices' => $this->prices,
+            'orderQuantity' => $this->orderQuantity,
+            'moq' => $this->minimumOrderQuantity,
         ];
         if ($this->availableFromDate !== null) {
             $data['availableFromDate'] = DateTimes::format($this->availableFromDate);

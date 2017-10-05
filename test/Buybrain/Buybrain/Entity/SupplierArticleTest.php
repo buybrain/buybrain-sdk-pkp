@@ -59,16 +59,18 @@ JSON;
 
     public function testToJsonWithStockIndicatorAndAvailabilityDate()
     {
-        $article = new SupplierArticle(
+        $article = (new SupplierArticle(
             '234',
             'abc-123',
             new SupplierStockIndicator(SupplierStockIndicator::HIGH),
             [
                 new SupplierPrice(1, null, new Money('EUR', '42.68')),
-            ],
-            new DateTimeImmutable('2018-01-01T00:00:00Z')
-        );
-        $article->setId('123')->setOrderQuantity(2)->setMinimumOrderQuantity(6);
+            ]
+        ))
+            ->setId('123')
+            ->setOrderQuantity(2)
+            ->setMinimumOrderQuantity(6)
+            ->setAvailableFromDate(new DateTimeImmutable('2018-01-01T00:00:00Z'));
 
         $expected = <<<'JSON'
 {

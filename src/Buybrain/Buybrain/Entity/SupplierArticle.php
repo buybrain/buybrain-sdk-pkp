@@ -37,21 +37,17 @@ class SupplierArticle implements BuybrainEntity
      * @param string $sku the unique identifier of the article
      * @param SupplierStock $stock the current stock of the supplier
      * @param SupplierPrice[] $prices the supplier's selling prices
-     * @param DateTimeInterface|null $availableFromDate optional date indicating when this item becomes available for
-     *                               ordering. Any orders before this date will not be fulfilled until this date.
      */
     public function __construct(
         $supplierId,
         $sku,
         SupplierStock $stock,
-        array $prices,
-        DateTimeInterface $availableFromDate = null
+        array $prices
     ) {
         $this->supplierId = (string)$supplierId;
         $this->sku = (string)$sku;
         $this->stock = $stock;
         $this->prices = $prices;
-        $this->availableFromDate = $availableFromDate;
     }
 
     /**
@@ -126,6 +122,19 @@ class SupplierArticle implements BuybrainEntity
     public function setMinimumOrderQuantity($minimumOrderQuantity)
     {
         $this->minimumOrderQuantity = (int)$minimumOrderQuantity;
+        return $this;
+    }
+
+    /**
+     * Set the date indicating when this item becomes available for ordering. Any orders before this date will not be
+     * fulfilled until this date.
+     *
+     * @param DateTimeInterface $availableFromDate
+     * @return $this
+     */
+    public function setAvailableFromDate(DateTimeInterface $availableFromDate)
+    {
+        $this->availableFromDate = $availableFromDate;
         return $this;
     }
 

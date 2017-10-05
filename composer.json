@@ -1,6 +1,6 @@
 {
     "name": "buybrain/buybrain-sdk",
-    "version": "0.9.5",
+    "version": "0.9.6",
     "description": "A PHP SDK for integration with Buybrain",
     "keywords": [
         "buybrain"

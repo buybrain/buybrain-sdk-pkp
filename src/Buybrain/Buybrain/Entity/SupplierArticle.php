@@ -10,7 +10,7 @@ use DateTimeInterface;
  */
 class SupplierArticle implements BuybrainEntity
 {
-    const ENTITY_TYPE = 'supplier.offer';
+    const ENTITY_TYPE = 'supplier.article';
 
     use AsNervusEntityTrait;
     use EntityIdFactoryTrait;

@@ -23,8 +23,6 @@ class SupplierArticle implements BuybrainEntity
     private $sku;
     /** @var SupplierStock */
     private $stock;
-    /** @var SupplierPrice[] */
-    private $prices;
     /** @var int */
     private $orderQuantity = 1;
     /** @var int */
@@ -36,18 +34,15 @@ class SupplierArticle implements BuybrainEntity
      * @param string $supplierId
      * @param string $sku the unique identifier of the article
      * @param SupplierStock $stock the current stock of the supplier
-     * @param SupplierPrice[] $prices the supplier's selling prices
      */
     public function __construct(
         $supplierId,
         $sku,
-        SupplierStock $stock,
-        array $prices
+        SupplierStock $stock
     ) {
         $this->supplierId = (string)$supplierId;
         $this->sku = (string)$sku;
         $this->stock = $stock;
-        $this->prices = $prices;
     }
 
     /**
@@ -72,14 +67,6 @@ class SupplierArticle implements BuybrainEntity
     public function getStock()
     {
         return $this->stock;
-    }
-
-    /**
-     * @return SupplierPrice[]
-     */
-    public function getPrices()
-    {
-        return $this->prices;
     }
 
     /**
@@ -147,7 +134,7 @@ class SupplierArticle implements BuybrainEntity
     }
 
     /**
-     * Set a custom ID for this price
+     * Set a custom ID for this supplier article
      *
      * @param string $id
      * @return $this
@@ -201,7 +188,6 @@ class SupplierArticle implements BuybrainEntity
             'supplierId' => $this->supplierId,
             'sku' => $this->sku,
             'stock' => $this->stock,
-            'prices' => $this->prices,
             'orderQuantity' => $this->orderQuantity,
             'moq' => $this->minimumOrderQuantity,
         ];

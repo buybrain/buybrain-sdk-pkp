@@ -14,11 +14,7 @@ class SupplierArticleTest extends TestCase
         $article = new SupplierArticle(
             '234',
             'abc-123',
-            new ExactSupplierStock(42),
-            [
-                new SupplierPrice(1, 4, new Money('EUR', '42.68')),
-                new SupplierPrice(4, null, new Money('EUR', '32')),
-            ]
+            new ExactSupplierStock(42)
         );
 
         $expected = <<<'JSON'
@@ -29,20 +25,6 @@ class SupplierArticleTest extends TestCase
         "type": "exact",
         "quantity": 42
     },
-    "prices": [
-        {
-            "from": 1,
-            "to": 4,
-            "currency": "EUR",
-            "value": "42.68"
-        },
-        {
-            "from": 4,
-            "to": null,
-            "currency": "EUR",
-            "value": "32"
-        }
-    ],
     "orderQuantity": 1,
     "moq": 1
 }
@@ -62,10 +44,7 @@ JSON;
         $article = (new SupplierArticle(
             '234',
             'abc-123',
-            new SupplierStockIndicator(SupplierStockIndicator::HIGH),
-            [
-                new SupplierPrice(1, null, new Money('EUR', '42.68')),
-            ]
+            new SupplierStockIndicator(SupplierStockIndicator::HIGH)
         ))
             ->setId('123')
             ->setOrderQuantity(2)
@@ -80,14 +59,6 @@ JSON;
         "type": "indicator",
         "indicator": "high"
     },
-    "prices": [
-        {
-            "from": 1,
-            "to": null,
-            "currency": "EUR",
-            "value": "42.68"
-        }
-    ],
     "orderQuantity": 2,
     "moq": 6,
     "availableFromDate": "2018-01-01T00:00:00+00:00",

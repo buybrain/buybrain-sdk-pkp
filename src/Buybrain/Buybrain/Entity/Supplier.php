@@ -1,6 +1,8 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Entity\Supplier\PaymentCondition;
+
 /**
  * Suppliers sell articles that can be purchased according to supplier offers. Once purchased, articles are a part of
  * supplier orders.
@@ -21,17 +23,21 @@ class Supplier implements BuybrainEntity
     private $name;
     /** @var int */
     private $leadTime;
+    /** @var PaymentCondition[] */
+    private $paymentConditions;
 
     /**
      * @param string $id unique identifier for the supplier
      * @param string $name the name of the supplier
      * @param int $leadTime expected number of working days it takes for the supplier to deliver an order
+     * @param PaymentCondition[] $paymentConditions one or multiple payment periods with their associated discounts
      */
-    public function __construct($id, $name, $leadTime)
+    public function __construct($id, $name, $leadTime, array $paymentConditions)
     {
         $this->id = (string)$id;
         $this->name = (string)$name;
         $this->leadTime = (int)$leadTime;
+        $this->paymentConditions = $paymentConditions;
     }
 
     /**
@@ -75,6 +81,7 @@ class Supplier implements BuybrainEntity
             'id' => $this->id,
             'name' => $this->name,
             'leadTime' => $this->leadTime,
+            'paymentCond' => $this->paymentConditions
         ];
     }
 }

@@ -16,7 +16,7 @@ class Money implements JsonSerializable
 
     /**
      * @param string $currency 3 letter ISO currency code
-     * @param string $value decimal notation of the supplier price excluding VAT
+     * @param string $value decimal notation of the monetary value excluding VAT
      * @throws InvalidArgumentException
      */
     public function __construct($currency, $value)

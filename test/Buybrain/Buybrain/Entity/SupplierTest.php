@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Entity\Supplier\PaymentCondition;
 use Buybrain\Nervus\Entity;
 use PHPUnit\Framework\TestCase;
 
@@ -11,17 +12,27 @@ class SupplierTest extends TestCase
         $supplier = new Supplier(
             '42',
             'Many Things inc.',
-            2
+            2,
+            [new PaymentCondition(30), new PaymentCondition(15, 0.02)]
         );
 
         $expected = <<<'JSON'
 {
     "id": "42",
     "name": "Many Things inc.",
-    "leadTime": 2
+    "leadTime": 2,
+    "paymentCond": [
+        {
+            "period": 30,
+            "discount": 0
+        },
+        {
+            "period": 15,
+            "discount": 0.02
+        }
+    ]
 }
 JSON;
-
         $this->assertEquals($expected, json_encode($supplier, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(Supplier::id(42), json_encode($supplier));

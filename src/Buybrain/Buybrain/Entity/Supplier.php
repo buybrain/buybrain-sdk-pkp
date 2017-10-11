@@ -65,6 +65,14 @@ class Supplier implements BuybrainEntity
     }
 
     /**
+     * @return PaymentCondition[]
+     */
+    public function getPaymentConditions()
+    {
+        return $this->paymentConditions;
+    }
+
+    /**
      * @return string
      */
     public function getType()

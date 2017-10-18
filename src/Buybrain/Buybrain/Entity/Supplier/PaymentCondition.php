@@ -67,4 +67,13 @@ class PaymentCondition implements JsonSerializable
             'discount' => $this->discount,
         ];
     }
+
+    /**
+     * @param array $json
+     * @return PaymentCondition
+     */
+    public static function fromJson(array $json)
+    {
+        return new self($json['period'], $json['discount']);
+    }
 }

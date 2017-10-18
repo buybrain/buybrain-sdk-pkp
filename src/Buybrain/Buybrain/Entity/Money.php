@@ -48,7 +48,6 @@ class Money implements JsonSerializable
         return $this->value;
     }
 
-
     /**
      * @return array
      */
@@ -58,5 +57,14 @@ class Money implements JsonSerializable
             'currency' => $this->currency,
             'value' => $this->value
         ];
+    }
+
+    /**
+     * @param array $json
+     * @return Money
+     */
+    public static function fromJson(array $json)
+    {
+        return new self($json['currency'], $json['value']);
     }
 }

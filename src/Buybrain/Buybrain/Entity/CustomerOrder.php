@@ -7,6 +7,7 @@ use DateTimeInterface;
 
 /**
  * Representation of a customer order.
+ *
  * A customer order contains one or multiple sales and optionally cancellations. These can occur at different dates,
  * since orders might be changed after their creation. Additionally, a customer order contains reservations which
  * indicate a claim on physical stock to be assigned to this order.

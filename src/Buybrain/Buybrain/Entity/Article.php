@@ -37,7 +37,8 @@ class Article implements BuybrainEntity
     {
         $this->sku = (string)$sku;
         $this->name = (string)$name;
-        $this->stockChannels = Cast::toString($stockChannels);
+        $this->stockChannels = array_unique(Cast::toString($stockChannels));
+        sort($this->stockChannels);
         $this->typeIds = Cast::toString($typeIds);
         $this->brandId = Cast::toString($brandId);
     }

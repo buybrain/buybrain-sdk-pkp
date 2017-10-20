@@ -11,7 +11,7 @@ class ArticleTest extends TestCase
         $article = new Article(
             'abc-123',
             'Rubber ducky',
-            ['shop'],
+            ['site', 'shop', 'site'], // Stock channels should get sorted and de-duplicated
             ['123', '456'],
             ['789']
         );
@@ -21,7 +21,8 @@ class ArticleTest extends TestCase
     "sku": "abc-123",
     "name": "Rubber ducky",
     "stockChannels": [
-        "shop"
+        "shop",
+        "site"
     ],
     "typeIds": [
         "123",

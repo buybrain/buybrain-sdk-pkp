@@ -13,7 +13,11 @@ class SupplierTest extends TestCase
             '42',
             'Many Things inc.',
             2,
-            [new PaymentCondition(30), new PaymentCondition(15, 0.02)]
+            [
+                new PaymentCondition(15, 0.02),
+                new PaymentCondition(30),
+                new PaymentCondition(7, 0.05),
+            ]
         );
 
         $expected = <<<'JSON'
@@ -29,6 +33,10 @@ class SupplierTest extends TestCase
         {
             "period": 15,
             "discount": 0.02
+        },
+        {
+            "period": 7,
+            "discount": 0.05
         }
     ]
 }

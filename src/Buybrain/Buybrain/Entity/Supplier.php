@@ -38,6 +38,10 @@ class Supplier implements BuybrainEntity
         $this->name = (string)$name;
         $this->leadTime = (int)$leadTime;
         $this->paymentConditions = $paymentConditions;
+
+        usort($this->paymentConditions, function (PaymentCondition $a, PaymentCondition $b) {
+            return $b->getPaymentPeriodDays() - $a->getPaymentPeriodDays();
+        });
     }
 
     /**

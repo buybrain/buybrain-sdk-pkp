@@ -27,7 +27,7 @@ class Money implements JsonSerializable
         if (!preg_match('~^[A-Z]{3}$~', $this->currency)) {
             throw new InvalidArgumentException('Invalid currency code "%s"', $this->currency);
         }
-        if (!preg_match('~^\\d+(?:\\.\\d+)?$~', $this->value)) {
+        if (!preg_match('~^\\-?\\d+(?:\\.\\d+)?$~', $this->value)) {
             throw new InvalidArgumentException('Invalid numeric value "%s"', $this->value);
         }
     }
@@ -66,5 +66,10 @@ class Money implements JsonSerializable
     public static function fromJson(array $json)
     {
         return new self($json['currency'], $json['value']);
+    }
+
+    public function __toString()
+    {
+        return $this->currency . ' ' . $this->value;
     }
 }

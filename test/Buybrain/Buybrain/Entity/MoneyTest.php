@@ -17,4 +17,10 @@ class MoneyTest extends TestCase
 
         $this->assertEquals($SUT, $restored);
     }
+
+    public function testToString()
+    {
+        $this->assertEquals('GBP 10.0', new Money('GBP', '10.0'));
+        $this->assertEquals('EUR -10', new Money('EUR', '-10'));
+    }
 }

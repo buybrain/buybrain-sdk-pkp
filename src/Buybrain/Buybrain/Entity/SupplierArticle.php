@@ -201,6 +201,32 @@ class SupplierArticle implements BuybrainEntity
     }
 
     /**
+     * @param array $json
+     * @return SupplierArticle
+     */
+    public static function fromJson(array $json)
+    {
+        $res = new self(
+            $json['supplierId'],
+            $json['sku'],
+            SupplierStock::fromJson($json['stock'])
+        );
+
+        $res
+            ->setOrderQuantity($json['orderQuantity'])
+            ->setMinimumOrderQuantity($json['moq']);
+
+        if (isset($json['availableFromDate'])) {
+            $res->setAvailableFromDate(DateTimes::parse($json['availableFromDate']));
+        }
+        if (isset($json['id'])) {
+            $res->setId($json['id']);
+        }
+
+        return $res;
+    }
+
+    /**
      * @return string
      */
     public function getType()

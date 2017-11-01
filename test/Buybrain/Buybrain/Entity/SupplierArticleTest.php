@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class SupplierArticleTest extends TestCase
 {
-    public function testToJsonWithExactStockAndNoAvailabilityDate()
+    public function testToAndFromJsonWithExactStockAndNoAvailabilityDate()
     {
         $article = new SupplierArticle(
             '234',
@@ -17,7 +17,7 @@ class SupplierArticleTest extends TestCase
             new ExactSupplierStock(42)
         );
 
-        $expected = <<<'JSON'
+        $expectedJson = <<<'JSON'
 {
     "supplierId": "234",
     "sku": "abc-123",
@@ -30,16 +30,18 @@ class SupplierArticleTest extends TestCase
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($article, JSON_PRETTY_PRINT));
+        $this->assertEquals($expectedJson, json_encode($article, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(
             SupplierArticle::id('234|abc-123'),
             json_encode($article)
         );
         $this->assertEquals($expectedEntity, $article->asNervusEntity());
+
+        $this->assertEquals($article, SupplierArticle::fromJson(json_decode($expectedJson, true)));
     }
 
-    public function testToJsonWithStockIndicatorAndAvailabilityDate()
+    public function testToAndFromJsonWithStockIndicatorAndAvailabilityDate()
     {
         $article = (new SupplierArticle(
             '234',
@@ -51,7 +53,7 @@ JSON;
             ->setMinimumOrderQuantity(6)
             ->setAvailableFromDate(new DateTimeImmutable('2018-01-01T00:00:00Z'));
 
-        $expected = <<<'JSON'
+        $expectedJson = <<<'JSON'
 {
     "supplierId": "234",
     "sku": "abc-123",
@@ -66,6 +68,8 @@ JSON;
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($article, JSON_PRETTY_PRINT));
+        $this->assertEquals($expectedJson, json_encode($article, JSON_PRETTY_PRINT));
+
+        $this->assertEquals($article, SupplierArticle::fromJson(json_decode($expectedJson, true)));
     }
 }

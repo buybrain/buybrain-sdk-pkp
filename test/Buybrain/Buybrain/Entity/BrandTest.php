@@ -6,24 +6,26 @@ use PHPUnit\Framework\TestCase;
 
 class BrandTest extends TestCase
 {
-    public function testToJson()
+    public function testToAndFromJson()
     {
         $brand = new Brand(
             '42',
             'A.C.M.E.'
         );
 
-        $expected = <<<'JSON'
+        $expectedJson = <<<'JSON'
 {
     "id": "42",
     "name": "A.C.M.E."
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($brand, JSON_PRETTY_PRINT));
+        $this->assertEquals($expectedJson, json_encode($brand, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(Brand::id(42), json_encode($brand));
         $this->assertEquals($expectedEntity, $brand->asNervusEntity());
+
+        $this->assertEquals($brand, Brand::fromJson(json_decode($expectedJson, true)));
     }
 
     public function testEntityIDs()

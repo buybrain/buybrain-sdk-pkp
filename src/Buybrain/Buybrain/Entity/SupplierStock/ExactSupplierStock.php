@@ -4,8 +4,10 @@ namespace Buybrain\Buybrain\Entity\SupplierStock;
 /**
  * Exactly known supplier stock quantity
  */
-class ExactSupplierStock implements SupplierStock
+class ExactSupplierStock extends SupplierStock
 {
+    const JSON_TYPE = 'exact';
+
     /** @var int */
     private $quantity;
 
@@ -31,8 +33,17 @@ class ExactSupplierStock implements SupplierStock
     public function jsonSerialize()
     {
         return [
-            'type' => 'exact',
+            SupplierStock::JSON_FIELD_TYPE => self::JSON_TYPE,
             'quantity' => $this->quantity,
         ];
+    }
+
+    /**
+     * @param array $json
+     * @return ExactSupplierStock
+     */
+    public static function fromJson(array $json)
+    {
+        return new self($json['quantity']);
     }
 }

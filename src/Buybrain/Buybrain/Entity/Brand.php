@@ -54,6 +54,15 @@ class Brand implements BuybrainEntity
     }
 
     /**
+     * @param array $json
+     * @return Brand
+     */
+    public static function fromJson(array $json)
+    {
+        return new self($json['id'], $json['name']);
+    }
+
+    /**
      * @return string
      */
     public function getType()

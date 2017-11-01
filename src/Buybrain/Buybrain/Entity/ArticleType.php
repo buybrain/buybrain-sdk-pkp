@@ -54,6 +54,15 @@ class ArticleType implements BuybrainEntity
     }
 
     /**
+     * @param array $json
+     * @return ArticleType
+     */
+    public static function fromJson(array $json)
+    {
+        return new self($json['id'], $json['name']);
+    }
+
+    /**
      * @return string
      */
     public function getType()

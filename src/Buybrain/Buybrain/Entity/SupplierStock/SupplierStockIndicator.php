@@ -11,8 +11,10 @@ use Buybrain\Buybrain\Exception\InvalidArgumentException;
  * LOW: there is stock available, but the quantity of available stock is relatively low
  * HIGH: the quantity of available stock is relatively high
  */
-class SupplierStockIndicator implements SupplierStock
+class SupplierStockIndicator extends SupplierStock
 {
+    const JSON_TYPE = 'indicator';
+
     const UNKNOWN = 'unknown';
     const SOME = 'some';
     const LOW = 'low';
@@ -47,8 +49,17 @@ class SupplierStockIndicator implements SupplierStock
     public function jsonSerialize()
     {
         return [
-            'type' => 'indicator',
+            SupplierStock::JSON_FIELD_TYPE => self::JSON_TYPE,
             'indicator' => $this->indicator,
         ];
+    }
+
+    /**
+     * @param array $json
+     * @return SupplierStockIndicator
+     */
+    public static function fromJson(array $json)
+    {
+        return new self($json['indicator']);
     }
 }

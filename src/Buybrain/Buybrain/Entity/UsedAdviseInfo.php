@@ -44,11 +44,23 @@ class UsedAdviseInfo implements JsonSerializable
     /**
      * @return array
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'adviseId' => $this->adviseId,
             'certainty' => $this->certainty,
         ];
+    }
+
+    /**
+     * @param array $json
+     * @return UsedAdviseInfo
+     */
+    public static function fromJson(array $json)
+    {
+        return new self(
+            $json['adviseId'],
+            $json['certainty']
+        );
     }
 }

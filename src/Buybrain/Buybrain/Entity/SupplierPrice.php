@@ -54,7 +54,6 @@ class SupplierPrice implements JsonSerializable
         return $this->price;
     }
 
-
     /**
      * @return array
      */

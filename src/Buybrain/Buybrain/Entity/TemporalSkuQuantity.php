@@ -56,12 +56,25 @@ abstract class TemporalSkuQuantity implements JsonSerializable
     /**
      * @return array
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'sku' => $this->sku,
             'date' => DateTimes::format($this->date),
-            'quantity' => $this->quantity
+            'quantity' => $this->quantity,
         ];
+    }
+
+    /**
+     * @param array $json
+     * @return static
+     */
+    public static function fromJson(array $json)
+    {
+        return new static(
+            $json['sku'],
+            DateTimes::parse($json['date']),
+            $json['quantity']
+        );
     }
 }

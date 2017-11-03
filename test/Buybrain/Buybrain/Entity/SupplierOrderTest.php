@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SupplierOrderTest extends TestCase
 {
-    public function testToJson()
+    public function testToAndFromJson()
     {
         $order = new SupplierOrder(
             '10005234',
@@ -24,7 +24,7 @@ class SupplierOrderTest extends TestCase
             ->addExpectedDelivery(new Delivery('123', new DateTimeImmutable('2017-02-11 12:00:00'), 1))
             ->addExpectedDelivery(new Delivery('123', new DateTimeImmutable('2017-02-12 12:00:00'), 1));
 
-        $expected = <<<'JSON'
+        $expectedJson = <<<'JSON'
 {
     "id": "10005234",
     "supplierId": "12345",
@@ -68,13 +68,15 @@ class SupplierOrderTest extends TestCase
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($order, JSON_PRETTY_PRINT));
+        $this->assertEquals($expectedJson, json_encode($order, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(SupplierOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
+
+        $this->assertEquals($order, SupplierOrder::fromJson(json_decode($expectedJson, true)));
     }
 
-    public function testToJsonWithAdviseInfo()
+    public function testToAndFromJsonWithAdviseInfo()
     {
         $order = new SupplierOrder(
             '10005234',
@@ -84,7 +86,7 @@ JSON;
         );
         $order->setUsedAdvise(new UsedAdviseInfo('00000000-0000-0000-0000-111111111111', 0.42));
 
-        $expected = <<<'JSON'
+        $expectedJson = <<<'JSON'
 {
     "id": "10005234",
     "supplierId": "12345",
@@ -105,9 +107,11 @@ JSON;
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($order, JSON_PRETTY_PRINT));
+        $this->assertEquals($expectedJson, json_encode($order, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(SupplierOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
+
+        $this->assertEquals($order, SupplierOrder::fromJson(json_decode($expectedJson, true)));
     }
 }

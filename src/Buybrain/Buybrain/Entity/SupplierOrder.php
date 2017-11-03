@@ -160,7 +160,7 @@ class SupplierOrder implements BuybrainEntity
     /**
      * @return array
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         $json = [
             'id' => $this->id,
@@ -174,6 +174,26 @@ class SupplierOrder implements BuybrainEntity
             $json['usedAdvise'] = $this->usedAdvise;
         }
         return $json;
+    }
+
+    /**
+     * @param array $json
+     * @return SupplierOrder
+     */
+    public static function fromJson(array $json)
+    {
+        $res = new self(
+            $json['id'],
+            $json['supplierId'],
+            DateTimes::parse($json['createDate']),
+            array_map([Purchase::class, 'fromJson'], $json['purchases']),
+            array_map([Delivery::class, 'fromJson'], $json['deliveries']),
+            array_map([Delivery::class, 'fromJson'], $json['expectedDeliveries'])
+        );
+        if (isset($json['usedAdvise'])) {
+            $res->setUsedAdvise(UsedAdviseInfo::fromJson($json['usedAdvise']));
+        }
+        return $res;
     }
 
     /**

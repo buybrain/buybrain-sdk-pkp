@@ -25,6 +25,8 @@ class CustomerOrder implements BuybrainEntity
     private $createDate;
     /** @var string */
     private $channel;
+    /** @var string|null */
+    private $subChannel;
     /** @var Sale[] */
     private $sales;
     /** @var Reservation[] */
@@ -37,8 +39,13 @@ class CustomerOrder implements BuybrainEntity
      * @param Sale[] $sales
      * @param Reservation[] $reservations
      */
-    public function __construct($id, DateTimeInterface $createDate, $channel, array $sales = [], array $reservations = [])
-    {
+    public function __construct(
+        $id,
+        DateTimeInterface $createDate,
+        $channel,
+        array $sales = [],
+        array $reservations = []
+    ) {
         Assert::instancesOf($sales, Sale::class);
         Assert::instancesOf($reservations, Reservation::class);
         $this->id = (string)$id;
@@ -70,6 +77,24 @@ class CustomerOrder implements BuybrainEntity
     public function getChannel()
     {
         return $this->channel;
+    }
+
+    /**
+     * @param null|string $subChannel
+     * @return $this
+     */
+    public function setSubChannel($subChannel)
+    {
+        $this->subChannel = $subChannel;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSubChannel()
+    {
+        return $this->subChannel;
     }
 
     /**
@@ -111,15 +136,38 @@ class CustomerOrder implements BuybrainEntity
     /**
      * @return array
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
-        return [
+        $json = [
             'id' => $this->id,
             'createDate' => DateTimes::format($this->createDate),
             'channel' => $this->channel,
             'sales' => $this->sales,
             'reservations' => $this->reservations,
         ];
+        if ($this->subChannel !== null) {
+            $json['subChannel'] = $this->subChannel;
+        }
+        return $json;
+    }
+
+    /**
+     * @param array $json
+     * @return CustomerOrder
+     */
+    public static function fromJson(array $json)
+    {
+        $res = new self(
+            $json['id'],
+            DateTimes::parse($json['createDate']),
+            $json['channel'],
+            array_map([Sale::class, 'fromJson'], $json['sales']),
+            array_map([Reservation::class, 'fromJson'], $json['reservations'])
+        );
+        if (isset($json['subChannel'])) {
+            $res->setSubChannel($json['subChannel']);
+        }
+        return $res;
     }
 
     /**

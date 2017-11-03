@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class CustomerOrderTest extends TestCase
 {
-    public function testToJson()
+    public function testToAndFromJson()
     {
         $order = new CustomerOrder(
             '10005234',
@@ -23,7 +23,7 @@ class CustomerOrderTest extends TestCase
             ->addSale(new Sale('123', new DateTimeImmutable('2017-02-10 12:00:00+01:00'), 1))
             ->addReservation(new Reservation('126', new DateTimeImmutable('2017-02-06 12:00:00'), 1));
 
-        $expected = <<<'JSON'
+        $expectedJson = <<<'JSON'
 {
     "id": "10005234",
     "createDate": "2017-02-01T13:59:34+01:00",
@@ -60,9 +60,11 @@ class CustomerOrderTest extends TestCase
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($order, JSON_PRETTY_PRINT));
+        $this->assertEquals($expectedJson, json_encode($order, JSON_PRETTY_PRINT));
 
         $expectedEntity = new Entity(CustomerOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
+
+        $this->assertEquals($order, CustomerOrder::fromJson(json_decode($expectedJson, true)));
     }
 }

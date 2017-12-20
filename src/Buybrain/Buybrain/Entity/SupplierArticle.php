@@ -21,6 +21,8 @@ class SupplierArticle implements BuybrainEntity
     private $supplierId;
     /** @var string */
     private $sku;
+    /** @var string */
+    private $supplierReference;
     /** @var SupplierStock */
     private $stock;
     /** @var int */
@@ -33,15 +35,14 @@ class SupplierArticle implements BuybrainEntity
     /**
      * @param string $supplierId
      * @param string $sku the unique identifier of the article
+     * @param string $supplierReference the unique identifier the supplier uses to refer to the article
      * @param SupplierStock $stock the current stock of the supplier
      */
-    public function __construct(
-        $supplierId,
-        $sku,
-        SupplierStock $stock
-    ) {
+    public function __construct($supplierId, $sku, $supplierReference, SupplierStock $stock)
+    {
         $this->supplierId = (string)$supplierId;
         $this->sku = (string)$sku;
+        $this->supplierReference = (string)$supplierReference;
         $this->stock = $stock;
     }
 
@@ -59,6 +60,14 @@ class SupplierArticle implements BuybrainEntity
     public function getSku()
     {
         return $this->sku;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSupplierReference()
+    {
+        return $this->supplierReference;
     }
 
     /**
@@ -187,6 +196,7 @@ class SupplierArticle implements BuybrainEntity
         $data = [
             'supplierId' => $this->supplierId,
             'sku' => $this->sku,
+            'supplierRef' => $this->supplierReference,
             'stock' => $this->stock,
             'orderQuantity' => $this->orderQuantity,
             'moq' => $this->minimumOrderQuantity,
@@ -209,6 +219,7 @@ class SupplierArticle implements BuybrainEntity
         $res = new self(
             $json['supplierId'],
             $json['sku'],
+            $json['supplierRef'],
             SupplierStock::fromJson($json['stock'])
         );
 

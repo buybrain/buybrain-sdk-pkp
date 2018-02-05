@@ -14,6 +14,7 @@ class SupplierArticleTest extends TestCase
         $article = new SupplierArticle(
             '234',
             'abc-123',
+            'qux-3',
             new ExactSupplierStock(42)
         );
 
@@ -21,6 +22,7 @@ class SupplierArticleTest extends TestCase
 {
     "supplierId": "234",
     "sku": "abc-123",
+    "supplierRef": "qux-3",
     "stock": {
         "type": "exact",
         "quantity": 42
@@ -46,6 +48,7 @@ JSON;
         $article = (new SupplierArticle(
             '234',
             'abc-123',
+            'qux-3',
             new SupplierStockIndicator(SupplierStockIndicator::HIGH)
         ))
             ->setId('123')
@@ -57,6 +60,7 @@ JSON;
 {
     "supplierId": "234",
     "sku": "abc-123",
+    "supplierRef": "qux-3",
     "stock": {
         "type": "indicator",
         "indicator": "high"

@@ -26,9 +26,9 @@ class SupplierOrderTest extends TestCase
         );
         $order
             ->addPurchase(new Purchase('123', new DateTimeImmutable('2017-02-10 12:00:00+01:00'), 2))
-            ->addDelivery(new Delivery('126', new DateTimeImmutable('2017-02-06 12:00:00'), 1))
-            ->addExpectedDelivery(new Delivery('123', new DateTimeImmutable('2017-02-11 12:00:00'), 1))
-            ->addExpectedDelivery(new Delivery('123', new DateTimeImmutable('2017-02-12 12:00:00'), 1));
+            ->addDelivery(new Delivery('126', new DateTimeImmutable('2017-02-06 12:00:00+01:00'), 1))
+            ->addExpectedDelivery(new Delivery('123', new DateTimeImmutable('2017-02-11 12:00:00+01:00'), 1))
+            ->addExpectedDelivery(new Delivery('123', new DateTimeImmutable('2017-02-12 12:00:00+01:00'), 1));
 
         $expectedJson = <<<'JSON'
 {

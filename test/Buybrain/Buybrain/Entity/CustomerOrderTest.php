@@ -21,7 +21,7 @@ class CustomerOrderTest extends TestCase
         );
         $order
             ->addSale(new Sale('123', new DateTimeImmutable('2017-02-10 12:00:00+01:00'), 1))
-            ->addReservation(new Reservation('126', new DateTimeImmutable('2017-02-06 12:00:00'), 1));
+            ->addReservation(new Reservation('126', new DateTimeImmutable('2017-02-06 12:00:00+01:00'), 1));
 
         $expectedJson = <<<'JSON'
 {

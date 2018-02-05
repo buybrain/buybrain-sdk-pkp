@@ -16,6 +16,12 @@ class SupplierOrderTest extends TestCase
             [
                 new Purchase('126', new DateTimeImmutable('2017-02-01 13:59:34+01:00'), 3),
                 new Purchase('126', new DateTimeImmutable('2017-02-05 09:14:12+01:00'), -2),
+            ],
+            [],
+            [],
+            [
+                new SupplierOrderPrice('126', new Money('EUR', '10.0')),
+                new SupplierOrderPrice('123', new Money('EUR', '11.0')),
             ]
         );
         $order
@@ -64,6 +70,22 @@ class SupplierOrderTest extends TestCase
             "date": "2017-02-12T12:00:00+01:00",
             "quantity": 1
         }
+    ],
+    "prices": [
+        {
+            "sku": "126",
+            "price": {
+                "currency": "EUR",
+                "value": "10.0"
+            }
+        },
+        {
+            "sku": "123",
+            "price": {
+                "currency": "EUR",
+                "value": "11.0"
+            }
+        }
     ]
 }
 JSON;
@@ -100,6 +122,7 @@ JSON;
     ],
     "deliveries": [],
     "expectedDeliveries": [],
+    "prices": [],
     "usedAdvise": {
         "adviseId": "00000000-0000-0000-0000-111111111111",
         "certainty": 0.42

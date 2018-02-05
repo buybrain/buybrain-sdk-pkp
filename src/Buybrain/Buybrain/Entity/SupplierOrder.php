@@ -31,6 +31,8 @@ class SupplierOrder implements BuybrainEntity
     private $deliveries;
     /** @var Delivery[] */
     private $expectedDeliveries;
+    /** @var SupplierOrderPrice[] */
+    private $prices;
     /** @var UsedAdviseInfo|null */
     private $usedAdvise;
 
@@ -41,6 +43,7 @@ class SupplierOrder implements BuybrainEntity
      * @param Purchase[] $purchases
      * @param Delivery[] $deliveries
      * @param Delivery[] $expectedDeliveries
+     * @param SupplierOrderPrice[] $prices
      */
     public function __construct(
         $id,
@@ -48,7 +51,8 @@ class SupplierOrder implements BuybrainEntity
         DateTimeInterface $createDate,
         array $purchases = [],
         array $deliveries = [],
-        array $expectedDeliveries = []
+        array $expectedDeliveries = [],
+        array $prices = []
     ) {
         Assert::instancesOf($purchases, Purchase::class);
         Assert::instancesOf($deliveries, Delivery::class);
@@ -59,6 +63,7 @@ class SupplierOrder implements BuybrainEntity
         $this->purchases = $purchases;
         $this->deliveries = $deliveries;
         $this->expectedDeliveries = $expectedDeliveries;
+        $this->prices = $prices;
     }
 
     /**
@@ -140,6 +145,14 @@ class SupplierOrder implements BuybrainEntity
     }
 
     /**
+     * @return SupplierOrderPrice[]
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+    /**
      * @return UsedAdviseInfo|null
      */
     public function getUsedAdvise()
@@ -169,6 +182,7 @@ class SupplierOrder implements BuybrainEntity
             'purchases' => $this->purchases,
             'deliveries' => $this->deliveries,
             'expectedDeliveries' => $this->expectedDeliveries,
+            'prices' => $this->prices,
         ];
         if ($this->usedAdvise !== null) {
             $json['usedAdvise'] = $this->usedAdvise;
@@ -188,7 +202,8 @@ class SupplierOrder implements BuybrainEntity
             DateTimes::parse($json['createDate']),
             array_map([Purchase::class, 'fromJson'], $json['purchases']),
             array_map([Delivery::class, 'fromJson'], $json['deliveries']),
-            array_map([Delivery::class, 'fromJson'], $json['expectedDeliveries'])
+            array_map([Delivery::class, 'fromJson'], $json['expectedDeliveries']),
+            array_map([SupplierOrderPrice::class, 'fromJson'], $json['prices'])
         );
         if (isset($json['usedAdvise'])) {
             $res->setUsedAdvise(UsedAdviseInfo::fromJson($json['usedAdvise']));

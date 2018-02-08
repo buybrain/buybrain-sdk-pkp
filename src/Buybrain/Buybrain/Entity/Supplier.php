@@ -25,19 +25,23 @@ class Supplier implements BuybrainEntity
     private $leadTime;
     /** @var PaymentCondition[] */
     private $paymentConditions;
+    /** @var bool */
+    private $assumeStockWhenUnknown;
 
     /**
      * @param string $id unique identifier for the supplier
      * @param string $name the name of the supplier
      * @param int $leadTime expected number of working days it takes for the supplier to deliver an order
      * @param PaymentCondition[] $paymentConditions one or multiple payment periods with their associated discounts
+     * @param bool $assumeStockWhenUnknown whether to assume stock is available when no information is available
      */
-    public function __construct($id, $name, $leadTime, array $paymentConditions)
+    public function __construct($id, $name, $leadTime, array $paymentConditions, $assumeStockWhenUnknown)
     {
         $this->id = (string)$id;
         $this->name = (string)$name;
         $this->leadTime = (int)$leadTime;
         $this->paymentConditions = $paymentConditions;
+        $this->assumeStockWhenUnknown = (bool)$assumeStockWhenUnknown;
 
         usort($this->paymentConditions, function (PaymentCondition $a, PaymentCondition $b) {
             return $b->getPaymentPeriodDays() - $a->getPaymentPeriodDays();
@@ -77,6 +81,14 @@ class Supplier implements BuybrainEntity
     }
 
     /**
+     * @return bool
+     */
+    public function assumeStockWhenUnknown()
+    {
+        return $this->assumeStockWhenUnknown;
+    }
+
+    /**
      * @return string
      */
     public function getType()
@@ -93,7 +105,8 @@ class Supplier implements BuybrainEntity
             'id' => $this->id,
             'name' => $this->name,
             'leadTime' => $this->leadTime,
-            'paymentCond' => $this->paymentConditions
+            'paymentCond' => $this->paymentConditions,
+            'assumeStock' => $this->assumeStockWhenUnknown,
         ];
     }
 }

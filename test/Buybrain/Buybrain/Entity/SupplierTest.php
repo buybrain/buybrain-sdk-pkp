@@ -17,7 +17,8 @@ class SupplierTest extends TestCase
                 new PaymentCondition(15, 0.02),
                 new PaymentCondition(30),
                 new PaymentCondition(7, 0.05),
-            ]
+            ],
+            false
         );
 
         $expected = <<<'JSON'
@@ -38,7 +39,8 @@ class SupplierTest extends TestCase
             "period": 7,
             "discount": 0.05
         }
-    ]
+    ],
+    "assumeStock": false
 }
 JSON;
         $this->assertEquals($expected, json_encode($supplier, JSON_PRETTY_PRINT));

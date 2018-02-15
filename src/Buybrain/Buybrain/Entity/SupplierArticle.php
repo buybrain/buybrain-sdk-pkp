@@ -2,6 +2,7 @@
 namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Buybrain\Entity\SupplierStock\SupplierStock;
+use Buybrain\Buybrain\Util\Assert;
 use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
@@ -95,7 +96,10 @@ class SupplierArticle implements BuybrainEntity
      */
     public function setOrderQuantity($orderQuantity)
     {
-        $this->orderQuantity = (int)$orderQuantity;
+        $orderQuantity = (int)$orderQuantity;
+        Assert::greaterThan($orderQuantity, 0);
+
+        $this->orderQuantity = $orderQuantity;
         return $this;
     }
 
@@ -117,7 +121,10 @@ class SupplierArticle implements BuybrainEntity
      */
     public function setMinimumOrderQuantity($minimumOrderQuantity)
     {
-        $this->minimumOrderQuantity = (int)$minimumOrderQuantity;
+        $minimumOrderQuantity = (int)$minimumOrderQuantity;
+        Assert::greaterThan($minimumOrderQuantity, 0);
+
+        $this->minimumOrderQuantity = $minimumOrderQuantity;
         return $this;
     }
 

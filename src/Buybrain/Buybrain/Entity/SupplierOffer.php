@@ -42,7 +42,7 @@ class SupplierOffer implements BuybrainEntity
         Assert::instanceOfOrNull($endDate, DateTimeInterface::class);
         Assert::instancesOf($prices, SupplierPrice::class);
         if ($endDate !== null) {
-            Assert::lessThan($startDate, $endDate);
+            Assert::lessThan($startDate, $endDate, 'Invalid dates for supplier offer');
         }
 
         $this->sku = (string)$sku;

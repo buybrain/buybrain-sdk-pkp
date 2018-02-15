@@ -9,6 +9,10 @@ class Exception extends \Exception
     public function __construct($message)
     {
         $args = func_get_args();
-        parent::__construct(vsprintf($message, array_slice($args, 1)));
+        $templateArgs = array_slice($args, 1);
+        if (count($templateArgs) === 1 && is_array($templateArgs[0])) {
+            $templateArgs = $templateArgs[0];
+        }
+        parent::__construct(vsprintf($message, $templateArgs));
     }
 }

@@ -97,7 +97,7 @@ class SupplierArticle implements BuybrainEntity
     public function setOrderQuantity($orderQuantity)
     {
         $orderQuantity = (int)$orderQuantity;
-        Assert::greaterThan($orderQuantity, 0);
+        Assert::greaterThan($orderQuantity, 0, 'Invalid order quantity');
 
         $this->orderQuantity = $orderQuantity;
         return $this;
@@ -122,7 +122,7 @@ class SupplierArticle implements BuybrainEntity
     public function setMinimumOrderQuantity($minimumOrderQuantity)
     {
         $minimumOrderQuantity = (int)$minimumOrderQuantity;
-        Assert::greaterThan($minimumOrderQuantity, 0);
+        Assert::greaterThan($minimumOrderQuantity, 0, 'Invalid minimum order quantity');
 
         $this->minimumOrderQuantity = $minimumOrderQuantity;
         return $this;

@@ -18,7 +18,7 @@ class Assert
         foreach ($instances as $instance) {
             if (!$instance instanceof $expectedType) {
                 throw new InvalidArgumentException(
-                    'Failed to assert all elements are instances of %s (got %s)',
+                    'Failed to assert that all elements are instances of %s (got %s)',
                     $expectedType,
                     get_class($instance)
                 );
@@ -37,7 +37,7 @@ class Assert
     {
         if ($instance !== null && !$instance instanceof $expectedType) {
             throw new InvalidArgumentException(
-                'Failed to assert the element is null or an instance of %s (got %s)',
+                'Failed to assert that the element is null or an instance of %s (got %s)',
                 $expectedType,
                 get_class($instance)
             );
@@ -49,16 +49,13 @@ class Assert
      *
      * @param mixed $left
      * @param mixed $right
+     * @param string|null $message optional extra description of what went wrong in case the assertion fails
      * @throws InvalidArgumentException
      */
-    public static function lessThan($left, $right)
+    public static function lessThan($left, $right, $message = null)
     {
         if (!($left < $right)) {
-            throw new InvalidArgumentException(
-                'Failed to assert that %s is less than %s',
-                self::stringify($left),
-                self::stringify($right)
-            );
+            self::raise($message, '%s is less than %s', $left, $right);
         }
     }
 
@@ -67,17 +64,32 @@ class Assert
      *
      * @param mixed $left
      * @param mixed $right
+     * @param string|null $message optional extra description of what went wrong in case the assertion fails
      * @throws InvalidArgumentException
      */
-    public static function greaterThan($left, $right)
+    public static function greaterThan($left, $right, $message = null)
     {
         if (!($left > $right)) {
-            throw new InvalidArgumentException(
-                'Failed to assert that %s is greater than %s',
-                self::stringify($left),
-                self::stringify($right)
-            );
+            self::raise($message, '%s is greater than %s', $left, $right);
         }
+    }
+
+    /**
+     * @param $message
+     * @param $description
+     * @throws InvalidArgumentException
+     */
+    private static function raise($message, $description)
+    {
+        $args = func_get_args();
+        $templateArgs = array_map(function ($arg) {
+            return self::stringify($arg);
+        }, array_slice($args, 2));
+
+        $prefix = $message === null ? 'Failed to assert that' : $message . ': failed to assert that';
+        $template = $prefix . ' ' . $description;
+
+        throw new InvalidArgumentException($template, $templateArgs);
     }
 
     private static function stringify($obj)

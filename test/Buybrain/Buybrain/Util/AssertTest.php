@@ -23,7 +23,7 @@ class AssertTest extends TestCase
     {
         $this->expectException('Buybrain\Buybrain\Exception\InvalidArgumentException');
         $this->expectExceptionMessage(
-            'Failed to assert all elements are instances of Buybrain\Buybrain\Entity\ArticleType ' .
+            'Failed to assert that all elements are instances of Buybrain\Buybrain\Entity\ArticleType ' .
             '(got Buybrain\Buybrain\Entity\Brand)'
         );
 
@@ -46,7 +46,7 @@ class AssertTest extends TestCase
     {
         $this->expectException('Buybrain\Buybrain\Exception\InvalidArgumentException');
         $this->expectExceptionMessage(
-            'Failed to assert the element is null or an instance of Buybrain\Buybrain\Entity\Brand ' .
+            'Failed to assert that the element is null or an instance of Buybrain\Buybrain\Entity\Brand ' .
             '(got Buybrain\Buybrain\Entity\ArticleType)'
         );
 
@@ -69,5 +69,13 @@ class AssertTest extends TestCase
         $this->expectExceptionMessage('Failed to assert that 2 is less than 1');
 
         Assert::lessThan(2, 1);
+    }
+
+    public function testAssertLessThanWithExtraMessasge()
+    {
+        $this->expectException('Buybrain\Buybrain\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Custom error: failed to assert that 2 is less than 1');
+
+        Assert::lessThan(2, 1, 'Custom error');
     }
 }

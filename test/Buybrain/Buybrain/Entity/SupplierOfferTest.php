@@ -91,7 +91,8 @@ JSON;
     {
         $this->expectException('Buybrain\Buybrain\Exception\InvalidArgumentException');
         $this->expectExceptionMessage(
-            'Failed to assert that 2018-02-01T00:00:00+01:00 is less than 2018-01-01T00:00:00+01:00'
+            'Invalid dates for supplier offer: ' .
+            'failed to assert that 2018-02-01T00:00:00+01:00 is less than 2018-01-01T00:00:00+01:00'
         );
 
         new SupplierOffer(

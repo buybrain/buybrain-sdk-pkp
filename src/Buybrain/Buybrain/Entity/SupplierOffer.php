@@ -39,7 +39,12 @@ class SupplierOffer implements BuybrainEntity
      */
     public function __construct($sku, $supplierId, DateTimeInterface $startDate, $endDate, array $prices)
     {
+        Assert::instanceOfOrNull($endDate, DateTimeInterface::class);
         Assert::instancesOf($prices, SupplierPrice::class);
+        if ($endDate !== null) {
+            Assert::lessThan($startDate, $endDate);
+        }
+
         $this->sku = (string)$sku;
         $this->supplierId = (string)$supplierId;
         $this->startDate = $startDate;

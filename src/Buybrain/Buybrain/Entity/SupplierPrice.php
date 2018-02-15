@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\Assert;
 use Buybrain\Buybrain\Util\Cast;
 use JsonSerializable;
 
@@ -25,6 +26,8 @@ class SupplierPrice implements JsonSerializable
      */
     public function __construct($from, $to, Money $price)
     {
+        Assert::greaterThan((float)$price->getValue(), 0.0);
+
         $this->from = (int)$from;
         $this->to = Cast::toInt($to);
         $this->price = $price;

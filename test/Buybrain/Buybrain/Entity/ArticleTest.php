@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArticleTest extends TestCase
 {
-    public function testToJson()
+    public function testToAndFromJson()
     {
         $article = new Article(
             'abc-123',
@@ -16,7 +16,7 @@ class ArticleTest extends TestCase
             ['789']
         );
 
-        $expected = <<<'JSON'
+        $json = <<<'JSON'
 {
     "sku": "abc-123",
     "name": "Rubber ducky",
@@ -34,7 +34,8 @@ class ArticleTest extends TestCase
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($article, JSON_PRETTY_PRINT));
+        $this->assertEquals($json, json_encode($article, JSON_PRETTY_PRINT));
+        $this->assertEquals($article, Article::fromJson(json_decode($json, true)));
 
         $expectedEntity = new Entity(Article::id('abc-123'), json_encode($article));
         $this->assertEquals($expectedEntity, $article->asNervusEntity());

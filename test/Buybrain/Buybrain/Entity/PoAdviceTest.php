@@ -11,9 +11,9 @@ class PoAdviceTest extends TestCase
         $advice = new PoAdvice(
             '123',
             '456',
-            DateTimes::parse('2018-01-01'),
-            DateTimes::parse('2018-02-01'),
-            DateTimes::parse('2018-03-01'),
+            DateTimes::parse('2018-01-01Z'),
+            DateTimes::parse('2018-02-01Z'),
+            DateTimes::parse('2018-03-01Z'),
             new Money('EUR', 5),
             [
                 new PoAdviceArticle('1', 1, new Money('EUR', 1)),
@@ -25,9 +25,9 @@ class PoAdviceTest extends TestCase
 {
     "id": "123",
     "supplierId": "456",
-    "createDate": "2018-01-01T00:00:00+01:00",
-    "deliveryDate": "2018-02-01T00:00:00+01:00",
-    "nextDeliveryDate": "2018-03-01T00:00:00+01:00",
+    "createDate": "2018-01-01T00:00:00+00:00",
+    "deliveryDate": "2018-02-01T00:00:00+00:00",
+    "nextDeliveryDate": "2018-03-01T00:00:00+00:00",
     "shippingCost": {
         "currency": "EUR",
         "value": "5"

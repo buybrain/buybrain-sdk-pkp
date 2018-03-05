@@ -106,6 +106,21 @@ class Article implements BuybrainEntity
     }
 
     /**
+     * @param array $json
+     * @return Article
+     */
+    public static function fromJson(array $json)
+    {
+        return new self(
+            $json['sku'],
+            $json['name'],
+            $json['stockChannels'],
+            $json['typeIds'],
+            $json['brandId']
+        );
+    }
+
+    /**
      * @return string
      */
     public function getType()

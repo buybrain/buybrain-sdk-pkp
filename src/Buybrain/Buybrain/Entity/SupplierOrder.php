@@ -29,7 +29,7 @@ class SupplierOrder implements BuybrainEntity
     private $purchases;
     /** @var Delivery[] */
     private $deliveries;
-    /** @var Delivery[] */
+    /** @var ExpectedDelivery[] */
     private $expectedDeliveries;
     /** @var SupplierOrderPrice[] */
     private $prices;
@@ -42,7 +42,7 @@ class SupplierOrder implements BuybrainEntity
      * @param DateTimeInterface $createDate
      * @param Purchase[] $purchases
      * @param Delivery[] $deliveries
-     * @param Delivery[] $expectedDeliveries
+     * @param ExpectedDelivery[] $expectedDeliveries
      * @param SupplierOrderPrice[] $prices
      */
     public function __construct(
@@ -56,7 +56,7 @@ class SupplierOrder implements BuybrainEntity
     ) {
         Assert::instancesOf($purchases, Purchase::class);
         Assert::instancesOf($deliveries, Delivery::class);
-        Assert::instancesOf($expectedDeliveries, Delivery::class);
+        Assert::instancesOf($expectedDeliveries, ExpectedDelivery::class);
         $this->id = (string)$id;
         $this->supplierId = (string)$supplierId;
         $this->createDate = $createDate;
@@ -127,17 +127,17 @@ class SupplierOrder implements BuybrainEntity
     }
 
     /**
-     * @param Delivery $delivery
+     * @param ExpectedDelivery $delivery
      * @return $this
      */
-    public function addExpectedDelivery(Delivery $delivery)
+    public function addExpectedDelivery(ExpectedDelivery $delivery)
     {
         $this->expectedDeliveries[] = $delivery;
         return $this;
     }
 
     /**
-     * @return Delivery[]
+     * @return ExpectedDelivery[]
      */
     public function getExpectedDeliveries()
     {
@@ -202,7 +202,7 @@ class SupplierOrder implements BuybrainEntity
             DateTimes::parse($json['createDate']),
             array_map([Purchase::class, 'fromJson'], $json['purchases']),
             array_map([Delivery::class, 'fromJson'], $json['deliveries']),
-            array_map([Delivery::class, 'fromJson'], $json['expectedDeliveries']),
+            array_map([ExpectedDelivery::class, 'fromJson'], $json['expectedDeliveries']),
             array_map([SupplierOrderPrice::class, 'fromJson'], $json['prices'])
         );
         if (isset($json['usedAdvise'])) {

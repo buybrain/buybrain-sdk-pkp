@@ -75,6 +75,21 @@ class Assert
     }
 
     /**
+     * Assert that the first parameter is greater than or equal to the second parameter using the >= operator
+     *
+     * @param mixed $left
+     * @param mixed $right
+     * @param string|null $message optional extra description of what went wrong in case the assertion fails
+     * @throws InvalidArgumentException
+     */
+    public static function greaterThanOrEqual($left, $right, $message = null)
+    {
+        if (!($left >= $right)) {
+            self::raise($message, '%s is greater than or equal to %s', $left, $right);
+        }
+    }
+
+    /**
      * @param $message
      * @param $description
      * @throws InvalidArgumentException

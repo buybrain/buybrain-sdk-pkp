@@ -26,6 +26,10 @@ class PoAdvice implements BuybrainEntity
     private $shippingCost;
     /** @var PoAdviceArticle[] */
     private $articles;
+    /** @var float */
+    private $efficiency;
+    /** @var float */
+    private $zeroItemsEfficiency;
 
     /**
      * @param string $id
@@ -35,6 +39,8 @@ class PoAdvice implements BuybrainEntity
      * @param DateTimeInterface $nextDeliveryDate
      * @param Money $shippingCost
      * @param PoAdviceArticle[] $articles
+     * @param float $efficiency
+     * @param float $zeroItemsEfficiency
      */
     public function __construct(
         $id,
@@ -43,7 +49,9 @@ class PoAdvice implements BuybrainEntity
         DateTimeInterface $deliveryDate,
         DateTimeInterface $nextDeliveryDate,
         Money $shippingCost,
-        array $articles
+        array $articles,
+        $efficiency,
+        $zeroItemsEfficiency
     ) {
         Assert::instancesOf($articles, PoAdviceArticle::class);
 
@@ -54,6 +62,8 @@ class PoAdvice implements BuybrainEntity
         $this->nextDeliveryDate = $nextDeliveryDate;
         $this->shippingCost = $shippingCost;
         $this->articles = $articles;
+        $this->efficiency = $efficiency;
+        $this->zeroItemsEfficiency = $zeroItemsEfficiency;
     }
 
     /**
@@ -113,6 +123,22 @@ class PoAdvice implements BuybrainEntity
     }
 
     /**
+     * @return float
+     */
+    public function getEfficiency()
+    {
+        return $this->efficiency;
+    }
+
+    /**
+     * @return float
+     */
+    public function getZeroItemsEfficiency()
+    {
+        return $this->zeroItemsEfficiency;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -125,6 +151,8 @@ class PoAdvice implements BuybrainEntity
             'nextDeliveryDate' => DateTimes::format($this->nextDeliveryDate),
             'shippingCost' => $this->shippingCost,
             'articles' => $this->articles,
+            'efficiency' => $this->efficiency,
+            'zeroItemsEfficiency' => $this->zeroItemsEfficiency,
         ];
     }
 
@@ -141,7 +169,9 @@ class PoAdvice implements BuybrainEntity
             DateTimes::parse($json['deliveryDate']),
             DateTimes::parse($json['nextDeliveryDate']),
             Money::fromJson($json['shippingCost']),
-            array_map([PoAdviceArticle::class, 'fromJson'], $json['articles'])
+            array_map([PoAdviceArticle::class, 'fromJson'], $json['articles']),
+            $json['efficiency'],
+            $json['zeroItemsEfficiency']
         );
     }
 

@@ -23,24 +23,35 @@ class Article implements BuybrainEntity
     private $typeIds;
     /** @var string|null */
     private $brandId;
+    /** @var bool */
+    private $endOfLife;
 
     /**
      * @param string $sku the unique identifier of this article
      * @param string $name the name of the article
      * @param string[] $stockChannels the sales channels for which to potentially purchase stock in addition to the
-     *                                minimum amount required for fulfilling reservations. Leave empty if this article
-     *                                is not supposed to be taken in stock at all.
+     *      minimum amount required for fulfilling reservations. Leave empty if this article is not supposed to be
+     *      taken in stock at all.
      * @param string[] $typeIds list of article type IDs
-     * @param null|string $brandId optional brand ID
+     * @param null|string $brandId optional brand ID,
+     * @param bool $endOfLife articles marked as end-of-life will not be purchased or sold anymore. End-of-life articles
+     *      will under no circumstance be included in future PO advice, even if there are pending reservations.
      */
-    public function __construct($sku, $name, array $stockChannels, array $typeIds = [], $brandId = null)
-    {
+    public function __construct(
+        $sku,
+        $name,
+        array $stockChannels,
+        array $typeIds = [],
+        $brandId = null,
+        $endOfLife = false
+    ) {
         $this->sku = (string)$sku;
         $this->name = (string)$name;
         $this->stockChannels = array_unique(Cast::toString($stockChannels));
         sort($this->stockChannels);
         $this->typeIds = Cast::toString($typeIds);
         $this->brandId = Cast::toString($brandId);
+        $this->endOfLife = (bool)$endOfLife;
     }
 
     /**
@@ -92,6 +103,14 @@ class Article implements BuybrainEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isEndOfLife()
+    {
+        return $this->endOfLife;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -102,6 +121,7 @@ class Article implements BuybrainEntity
             'stockChannels' => $this->stockChannels,
             'typeIds' => $this->typeIds,
             'brandId' => $this->brandId,
+            'endOfLife' => $this->endOfLife,
         ];
     }
 
@@ -116,7 +136,8 @@ class Article implements BuybrainEntity
             $json['name'],
             $json['stockChannels'],
             $json['typeIds'],
-            $json['brandId']
+            $json['brandId'],
+            $json['endOfLife']
         );
     }
 

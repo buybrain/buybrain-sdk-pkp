@@ -30,7 +30,8 @@ class ArticleTest extends TestCase
     ],
     "brandId": [
         "789"
-    ]
+    ],
+    "endOfLife": false
 }
 JSON;
 

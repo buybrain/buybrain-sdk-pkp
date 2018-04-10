@@ -8,7 +8,7 @@ namespace Buybrain\Buybrain\Entity;
  *
  * Positive reservations claim that amount of stock, negative reservations release it.
  *
- * @see CustomerOrder
+ * @see SalesOrder
  */
 class Reservation extends TemporalSkuQuantity
 {

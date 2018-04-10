@@ -6,13 +6,13 @@ use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
 /**
- * Representation of a customer order.
+ * Representation of a sales order.
  *
- * A customer order contains one or multiple sales and optionally cancellations. These can occur at different dates,
- * since orders might be changed after their creation. Additionally, a customer order contains reservations which
+ * A order order contains one or multiple sales and optionally cancellations. These can occur at different dates,
+ * since orders might be changed after their creation. Additionally, a order order contains reservations which
  * indicate a claim on physical stock to be assigned to this order.
  */
-class CustomerOrder implements BuybrainEntity
+class SalesOrder implements BuybrainEntity
 {
     const ENTITY_TYPE = 'customer.order';
 
@@ -153,7 +153,7 @@ class CustomerOrder implements BuybrainEntity
 
     /**
      * @param array $json
-     * @return CustomerOrder
+     * @return SalesOrder
      */
     public static function fromJson(array $json)
     {

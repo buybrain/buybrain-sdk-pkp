@@ -5,11 +5,11 @@ use Buybrain\Nervus\Entity;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
-class SupplierOrderTest extends TestCase
+class PurchaseOrderTest extends TestCase
 {
     public function testToAndFromJson()
     {
-        $order = new SupplierOrder(
+        $order = new PurchaseOrder(
             '10005234',
             '12345',
             new DateTimeImmutable('2017-02-01 13:59:34+01:00'),
@@ -20,8 +20,8 @@ class SupplierOrderTest extends TestCase
             [],
             [],
             [
-                new SupplierOrderPrice('126', new Money('EUR', '10.0')),
-                new SupplierOrderPrice('123', new Money('EUR', '11.0')),
+                new PurchaseOrderPrice('126', new Money('EUR', '10.0')),
+                new PurchaseOrderPrice('123', new Money('EUR', '11.0')),
             ]
         );
         $order
@@ -102,15 +102,15 @@ JSON;
 
         $this->assertEquals($expectedJson, json_encode($order, JSON_PRETTY_PRINT));
 
-        $expectedEntity = new Entity(SupplierOrder::id(10005234), json_encode($order));
+        $expectedEntity = new Entity(PurchaseOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
 
-        $this->assertEquals($order, SupplierOrder::fromJson(json_decode($expectedJson, true)));
+        $this->assertEquals($order, PurchaseOrder::fromJson(json_decode($expectedJson, true)));
     }
 
     public function testToAndFromJsonWithAdviseInfo()
     {
-        $order = new SupplierOrder(
+        $order = new PurchaseOrder(
             '10005234',
             '12345',
             new DateTimeImmutable('2017-02-01 13:59:34+01:00'),
@@ -142,9 +142,9 @@ JSON;
 
         $this->assertEquals($expectedJson, json_encode($order, JSON_PRETTY_PRINT));
 
-        $expectedEntity = new Entity(SupplierOrder::id(10005234), json_encode($order));
+        $expectedEntity = new Entity(PurchaseOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
 
-        $this->assertEquals($order, SupplierOrder::fromJson(json_decode($expectedJson, true)));
+        $this->assertEquals($order, PurchaseOrder::fromJson(json_decode($expectedJson, true)));
     }
 }

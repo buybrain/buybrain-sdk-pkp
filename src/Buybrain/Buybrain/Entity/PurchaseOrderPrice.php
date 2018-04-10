@@ -4,11 +4,11 @@ namespace Buybrain\Buybrain\Entity;
 use JsonSerializable;
 
 /**
- * The effective purchase price for an article in a supplier order
+ * The effective purchase price for an article in a purchase order
  *
- * @see SupplierOrder
+ * @see PurchaseOrder
  */
-class SupplierOrderPrice implements JsonSerializable
+class PurchaseOrderPrice implements JsonSerializable
 {
     /** @var string */
     private $sku;

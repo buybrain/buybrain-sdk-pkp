@@ -9,7 +9,7 @@ use JsonSerializable;
  * Represents a quantity of an SKU from a purchase order that is expected to be delivered in the future. Contains
  * information useful for estimating when the delivery will take place.
  *
- * @see SupplierOrder
+ * @see PurchaseOrder
  */
 class ExpectedDelivery implements JsonSerializable
 {

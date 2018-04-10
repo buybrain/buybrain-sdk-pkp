@@ -12,7 +12,7 @@ use DateTimeInterface;
  * when items have been physically received from or returned to a supplier. Finally, for purchased items that have not
  * been received yet, expected deliveries indicate when the items are expected to be received.
  */
-class SupplierOrder implements BuybrainEntity
+class PurchaseOrder implements BuybrainEntity
 {
     const ENTITY_TYPE = 'supplier.order';
 
@@ -31,7 +31,7 @@ class SupplierOrder implements BuybrainEntity
     private $deliveries;
     /** @var ExpectedDelivery[] */
     private $expectedDeliveries;
-    /** @var SupplierOrderPrice[] */
+    /** @var PurchaseOrderPrice[] */
     private $prices;
     /** @var UsedAdviseInfo|null */
     private $usedAdvise;
@@ -43,7 +43,7 @@ class SupplierOrder implements BuybrainEntity
      * @param Purchase[] $purchases
      * @param Delivery[] $deliveries
      * @param ExpectedDelivery[] $expectedDeliveries
-     * @param SupplierOrderPrice[] $prices
+     * @param PurchaseOrderPrice[] $prices
      */
     public function __construct(
         $id,
@@ -145,7 +145,7 @@ class SupplierOrder implements BuybrainEntity
     }
 
     /**
-     * @return SupplierOrderPrice[]
+     * @return PurchaseOrderPrice[]
      */
     public function getPrices()
     {
@@ -192,7 +192,7 @@ class SupplierOrder implements BuybrainEntity
 
     /**
      * @param array $json
-     * @return SupplierOrder
+     * @return PurchaseOrder
      */
     public static function fromJson(array $json)
     {
@@ -203,7 +203,7 @@ class SupplierOrder implements BuybrainEntity
             array_map([Purchase::class, 'fromJson'], $json['purchases']),
             array_map([Delivery::class, 'fromJson'], $json['deliveries']),
             array_map([ExpectedDelivery::class, 'fromJson'], $json['expectedDeliveries']),
-            array_map([SupplierOrderPrice::class, 'fromJson'], $json['prices'])
+            array_map([PurchaseOrderPrice::class, 'fromJson'], $json['prices'])
         );
         if (isset($json['usedAdvise'])) {
             $res->setUsedAdvise(UsedAdviseInfo::fromJson($json['usedAdvise']));

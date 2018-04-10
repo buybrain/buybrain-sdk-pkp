@@ -5,11 +5,11 @@ use Buybrain\Nervus\Entity;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
-class CustomerOrderTest extends TestCase
+class SalesOrderTest extends TestCase
 {
     public function testToAndFromJson()
     {
-        $order = new CustomerOrder(
+        $order = new SalesOrder(
             '10005234',
             new DateTimeImmutable('2017-02-01 13:59:34+01:00'),
             'webshop',
@@ -62,9 +62,9 @@ JSON;
 
         $this->assertEquals($expectedJson, json_encode($order, JSON_PRETTY_PRINT));
 
-        $expectedEntity = new Entity(CustomerOrder::id(10005234), json_encode($order));
+        $expectedEntity = new Entity(SalesOrder::id(10005234), json_encode($order));
         $this->assertEquals($expectedEntity, $order->asNervusEntity());
 
-        $this->assertEquals($order, CustomerOrder::fromJson(json_decode($expectedJson, true)));
+        $this->assertEquals($order, SalesOrder::fromJson(json_decode($expectedJson, true)));
     }
 }

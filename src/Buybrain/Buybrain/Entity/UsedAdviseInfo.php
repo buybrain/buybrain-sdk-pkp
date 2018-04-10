@@ -6,7 +6,7 @@ use JsonSerializable;
 /**
  * Details about the way Buybrain advise was used when creating a supplier order
  *
- * @see SupplierOrder
+ * @see PurchaseOrder
  */
 class UsedAdviseInfo implements JsonSerializable
 {

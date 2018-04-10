@@ -8,7 +8,7 @@ use Buybrain\Buybrain\Entity\Supplier\PaymentCondition;
  * supplier orders.
  *
  * @see SupplierOffer
- * @see SupplierOrder
+ * @see PurchaseOrder
  */
 class Supplier implements BuybrainEntity
 {

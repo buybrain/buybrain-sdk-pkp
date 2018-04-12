@@ -46,7 +46,8 @@ class ConceptPurchaseOrderTest extends TestCase
     "shippingCost": {
         "currency": "EUR",
         "value": "5"
-    }
+    },
+    "status": "pending"
 }
 JSON;
 

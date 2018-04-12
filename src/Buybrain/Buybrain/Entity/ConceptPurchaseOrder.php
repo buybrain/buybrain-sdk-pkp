@@ -15,6 +15,10 @@ class ConceptPurchaseOrder implements BuybrainEntity
 {
     const ENTITY_TYPE = 'conceptPurchaseOrder';
 
+    const STATUS_PENDING = 'pending';
+    const STATUS_CREATED = 'created';
+    const STATUS_PLACED = 'placed';
+
     use AsNervusEntityTrait;
     use EntityIdFactoryTrait;
 
@@ -28,6 +32,8 @@ class ConceptPurchaseOrder implements BuybrainEntity
     private $articles;
     /** @var Money */
     private $shippingCost;
+    /** @var string */
+    private $status = self::STATUS_PENDING;
 
     /**
      * @param string $id
@@ -85,6 +91,24 @@ class ConceptPurchaseOrder implements BuybrainEntity
         return $this->shippingCost;
     }
 
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
     public function jsonSerialize()
     {
         return [
@@ -93,6 +117,7 @@ class ConceptPurchaseOrder implements BuybrainEntity
             'createDate' => DateTimes::format($this->createDate),
             'articles' => $this->articles,
             'shippingCost' => $this->shippingCost,
+            'status' => $this->status,
         ];
     }
 
@@ -102,13 +127,14 @@ class ConceptPurchaseOrder implements BuybrainEntity
      */
     public static function fromJson(array $json)
     {
-        return new self(
+        $concept = new self(
             $json['id'],
             $json['supplierId'],
             DateTimes::parse($json['createDate']),
             array_map([ConceptPurchaseOrderArticle::class, 'fromJson'], $json['articles']),
             Money::fromJson($json['shippingCost'])
         );
+        return $concept->setStatus($json['status']);
     }
 
     /**

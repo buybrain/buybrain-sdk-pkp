@@ -54,7 +54,7 @@ class MockBuybrainClientTest extends TestCase
 
     public function testDefaultError()
     {
-        $err ='Not good';
+        $err = 'Not good';
         $this->SUT->setDefaultSkuError($err);
 
         $expected = new AdviseResponse(
@@ -74,7 +74,7 @@ class MockBuybrainClientTest extends TestCase
     public function testSpecificSkuResponse()
     {
         $dist = [0 => 0.5, 1 => 1.0];
-        $err ='Not good';
+        $err = 'Not good';
         $this->SUT->setSkuSuccessResponse('1', $dist);
         $this->SUT->setSkuErrorResponse('2', $err);
 

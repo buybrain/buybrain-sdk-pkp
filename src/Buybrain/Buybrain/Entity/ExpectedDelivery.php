@@ -85,7 +85,7 @@ class ExpectedDelivery implements JsonSerializable
         ];
         if ($this->supplierAcceptDate !== null) {
             $json['supplierAcceptDate'] = DateTimes::format($this->supplierAcceptDate);
-    }
+        }
         return $json;
     }
 

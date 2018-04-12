@@ -71,7 +71,7 @@ JSON;
         $id = Stock::getAutoId($sku, $date);
 
         list($parsedSKU, $parsedDate) = Stock::parseAutoId($id);
-        
+
         $this->assertEquals($sku, $parsedSKU);
         $this->assertEquals($date, $parsedDate);
     }

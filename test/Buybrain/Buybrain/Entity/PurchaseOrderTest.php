@@ -108,7 +108,7 @@ JSON;
         $this->assertEquals($order, PurchaseOrder::fromJson(json_decode($expectedJson, true)));
     }
 
-    public function testToAndFromJsonWithAdviseInfo()
+    public function testToAndFromJsonWithExtraInfo()
     {
         $order = new PurchaseOrder(
             '10005234',
@@ -117,6 +117,7 @@ JSON;
             [new Purchase('126', new DateTimeImmutable('2017-02-01 13:59:34+01:00'), 3)]
         );
         $order->setUsedAdvise(new UsedAdviseInfo('00000000-0000-0000-0000-111111111111', 0.42));
+        $order->setConceptId('00000000-0000-0000-0000-222222222222');
 
         $expectedJson = <<<'JSON'
 {
@@ -136,7 +137,8 @@ JSON;
     "usedAdvise": {
         "adviseId": "00000000-0000-0000-0000-111111111111",
         "certainty": 0.42
-    }
+    },
+    "conceptId": "00000000-0000-0000-0000-222222222222"
 }
 JSON;
 

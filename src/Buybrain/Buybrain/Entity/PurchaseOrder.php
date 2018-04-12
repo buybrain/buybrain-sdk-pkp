@@ -2,6 +2,7 @@
 namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Buybrain\Util\Assert;
+use Buybrain\Buybrain\Util\Cast;
 use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
@@ -35,6 +36,8 @@ class PurchaseOrder implements BuybrainEntity
     private $prices;
     /** @var UsedAdviseInfo|null */
     private $usedAdvise;
+    /** @var string|null */
+    private $conceptId;
 
     /**
      * @param string $id
@@ -171,6 +174,24 @@ class PurchaseOrder implements BuybrainEntity
     }
 
     /**
+     * @return null|string
+     */
+    public function getConceptId()
+    {
+        return $this->conceptId;
+    }
+
+    /**
+     * @param null|string $conceptId
+     * @return $this
+     */
+    public function setConceptId($conceptId = null)
+    {
+        $this->conceptId = Cast::toString($conceptId);
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -186,6 +207,9 @@ class PurchaseOrder implements BuybrainEntity
         ];
         if ($this->usedAdvise !== null) {
             $json['usedAdvise'] = $this->usedAdvise;
+        }
+        if ($this->conceptId !== null) {
+            $json['conceptId'] = $this->conceptId;
         }
         return $json;
     }
@@ -207,6 +231,9 @@ class PurchaseOrder implements BuybrainEntity
         );
         if (isset($json['usedAdvise'])) {
             $res->setUsedAdvise(UsedAdviseInfo::fromJson($json['usedAdvise']));
+        }
+        if (isset($json['conceptId'])) {
+            $res->setConceptId($json['conceptId']);
         }
         return $res;
     }

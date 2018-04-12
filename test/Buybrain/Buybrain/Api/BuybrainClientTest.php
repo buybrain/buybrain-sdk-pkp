@@ -8,8 +8,8 @@ use Buybrain\Buybrain\Api\Message\AdviseResponseSku;
 use Buybrain\Buybrain\Util\DateTimes;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 use function GuzzleHttp\Psr7\stream_for;
 
 class BuybrainClientTest extends TestCase

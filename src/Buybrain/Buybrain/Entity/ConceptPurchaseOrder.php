@@ -19,6 +19,9 @@ class ConceptPurchaseOrder implements BuybrainEntity
     const STATUS_CREATED = 'created';
     const STATUS_PLACED = 'placed';
 
+    const PROCESSING_MANUAL = 'manual';
+    const PROCESSING_AUTOMATIC = 'automatic';
+
     use AsNervusEntityTrait;
     use EntityIdFactoryTrait;
 
@@ -33,7 +36,9 @@ class ConceptPurchaseOrder implements BuybrainEntity
     /** @var Money */
     private $shippingCost;
     /** @var string */
-    private $status = self::STATUS_PENDING;
+    private $status;
+    /** @var string */
+    private $processing;
 
     /**
      * @param string $id
@@ -41,14 +46,26 @@ class ConceptPurchaseOrder implements BuybrainEntity
      * @param DateTimeInterface $createDate
      * @param ConceptPurchaseOrderArticle[] $articles
      * @param Money $shippingCost
+     * @param string $status one of the STATUS_ constants
+     * @param string $processing one of the PROCESSING_ constants. Indicates whether the receiving system is expected
+     *     to automatically place the order at the supplier, or if the order should be placed manually.
      */
-    public function __construct($id, $supplierId, DateTimeInterface $createDate, array $articles, Money $shippingCost)
-    {
+    public function __construct(
+        $id,
+        $supplierId,
+        DateTimeInterface $createDate,
+        array $articles,
+        Money $shippingCost,
+        $status,
+        $processing
+    ) {
         $this->id = (string)$id;
         $this->supplierId = (string)$supplierId;
         $this->createDate = $createDate;
         $this->articles = $articles;
         $this->shippingCost = $shippingCost;
+        $this->status = $status;
+        $this->processing = $processing;
     }
 
     /**
@@ -100,13 +117,11 @@ class ConceptPurchaseOrder implements BuybrainEntity
     }
 
     /**
-     * @param string $status
-     * @return $this
+     * @return string
      */
-    public function setStatus($status)
+    public function getProcessing()
     {
-        $this->status = $status;
-        return $this;
+        return $this->processing;
     }
 
     public function jsonSerialize()
@@ -118,6 +133,7 @@ class ConceptPurchaseOrder implements BuybrainEntity
             'articles' => $this->articles,
             'shippingCost' => $this->shippingCost,
             'status' => $this->status,
+            'processing' => $this->processing,
         ];
     }
 
@@ -127,14 +143,15 @@ class ConceptPurchaseOrder implements BuybrainEntity
      */
     public static function fromJson(array $json)
     {
-        $concept = new self(
+        return new self(
             $json['id'],
             $json['supplierId'],
             DateTimes::parse($json['createDate']),
             array_map([ConceptPurchaseOrderArticle::class, 'fromJson'], $json['articles']),
-            Money::fromJson($json['shippingCost'])
+            Money::fromJson($json['shippingCost']),
+            $json['status'],
+            $json['processing']
         );
-        return $concept->setStatus($json['status']);
     }
 
     /**

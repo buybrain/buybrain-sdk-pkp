@@ -17,7 +17,9 @@ class ConceptPurchaseOrderTest extends TestCase
                 new ConceptPurchaseOrderArticle('123', 1, new Money('EUR', 2.23)),
                 new ConceptPurchaseOrderArticle('234', '5', new Money('EUR', 3.34))
             ],
-            new Money('EUR', 5)
+            new Money('EUR', 5),
+            ConceptPurchaseOrder::STATUS_PENDING,
+            ConceptPurchaseOrder::PROCESSING_AUTOMATIC
         );
 
         $expectedJson = <<<'JSON'
@@ -47,7 +49,8 @@ class ConceptPurchaseOrderTest extends TestCase
         "currency": "EUR",
         "value": "5"
     },
-    "status": "pending"
+    "status": "pending",
+    "processing": "automatic"
 }
 JSON;
 

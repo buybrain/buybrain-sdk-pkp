@@ -117,6 +117,16 @@ class ConceptPurchaseOrder implements BuybrainEntity
     }
 
     /**
+     * @param string $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getProcessing()

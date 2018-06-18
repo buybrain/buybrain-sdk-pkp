@@ -43,7 +43,7 @@ JSON;
         $this->assertEquals($article, SupplierArticle::fromJson(json_decode($expectedJson, true)));
     }
 
-    public function testToAndFromJsonWithStockIndicatorAndAvailabilityDate()
+    public function testToAndFromJsonWithStockIndicatorAndOptionalFields()
     {
         $article = (new SupplierArticle(
             '234',
@@ -54,6 +54,7 @@ JSON;
             ->setId('123')
             ->setOrderQuantity(2)
             ->setMinimumOrderQuantity(6)
+            ->setLastStockCheck(new DateTimeImmutable('2018-02-01T00:00:00Z'))
             ->setAvailableFromDate(new DateTimeImmutable('2018-01-01T00:00:00Z'));
 
         $expectedJson = <<<'JSON'
@@ -67,6 +68,7 @@ JSON;
     },
     "orderQuantity": 2,
     "moq": 6,
+    "lastStockCheck": "2018-02-01T00:00:00+00:00",
     "availableFromDate": "2018-01-01T00:00:00+00:00",
     "id": "123"
 }

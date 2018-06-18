@@ -26,6 +26,8 @@ class SupplierArticle implements BuybrainEntity
     private $supplierReference;
     /** @var SupplierStock */
     private $stock;
+    /** @var DateTimeInterface|null */
+    private $lastStockCheck;
     /** @var int */
     private $orderQuantity = 1;
     /** @var int */
@@ -77,6 +79,24 @@ class SupplierArticle implements BuybrainEntity
     public function getStock()
     {
         return $this->stock;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getLastStockCheck()
+    {
+        return $this->lastStockCheck;
+    }
+
+    /**
+     * @param DateTimeInterface $lastStockCheck
+     * @return $this
+     */
+    public function setLastStockCheck(DateTimeInterface $lastStockCheck)
+    {
+        $this->lastStockCheck = $lastStockCheck;
+        return $this;
     }
 
     /**
@@ -208,6 +228,9 @@ class SupplierArticle implements BuybrainEntity
             'orderQuantity' => $this->orderQuantity,
             'moq' => $this->minimumOrderQuantity,
         ];
+        if ($this->lastStockCheck !== null) {
+            $data['lastStockCheck'] = DateTimes::format($this->lastStockCheck);
+        }
         if ($this->availableFromDate !== null) {
             $data['availableFromDate'] = DateTimes::format($this->availableFromDate);
         }
@@ -234,6 +257,9 @@ class SupplierArticle implements BuybrainEntity
             ->setOrderQuantity($json['orderQuantity'])
             ->setMinimumOrderQuantity($json['moq']);
 
+        if (isset($json['lastStockCheck'])) {
+            $res->setLastStockCheck(DateTimes::parse($json['lastStockCheck']));
+        }
         if (isset($json['availableFromDate'])) {
             $res->setAvailableFromDate(DateTimes::parse($json['availableFromDate']));
         }

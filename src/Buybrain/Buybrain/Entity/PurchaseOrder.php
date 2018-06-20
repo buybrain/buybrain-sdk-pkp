@@ -32,8 +32,10 @@ class PurchaseOrder implements BuybrainEntity
     private $deliveries;
     /** @var ExpectedDelivery[] */
     private $expectedDeliveries;
-    /** @var PurchaseOrderPrice[] */
+    /** @var OrderSkuPrice[] */
     private $prices;
+    /** @var Money|null */
+    private $extraFees;
     /** @var UsedAdviseInfo|null */
     private $usedAdvise;
     /** @var string|null */
@@ -46,7 +48,8 @@ class PurchaseOrder implements BuybrainEntity
      * @param Purchase[] $purchases
      * @param Delivery[] $deliveries
      * @param ExpectedDelivery[] $expectedDeliveries
-     * @param PurchaseOrderPrice[] $prices
+     * @param OrderSkuPrice[] $prices
+     * @param Money|null $extraFees
      */
     public function __construct(
         $id,
@@ -55,11 +58,14 @@ class PurchaseOrder implements BuybrainEntity
         array $purchases = [],
         array $deliveries = [],
         array $expectedDeliveries = [],
-        array $prices = []
+        array $prices = [],
+        Money $extraFees = null
     ) {
         Assert::instancesOf($purchases, Purchase::class);
         Assert::instancesOf($deliveries, Delivery::class);
         Assert::instancesOf($expectedDeliveries, ExpectedDelivery::class);
+        Assert::instancesOf($prices, OrderSkuPrice::class);
+
         $this->id = (string)$id;
         $this->supplierId = (string)$supplierId;
         $this->createDate = $createDate;
@@ -67,6 +73,7 @@ class PurchaseOrder implements BuybrainEntity
         $this->deliveries = $deliveries;
         $this->expectedDeliveries = $expectedDeliveries;
         $this->prices = $prices;
+        $this->extraFees = $extraFees;
     }
 
     /**
@@ -148,11 +155,39 @@ class PurchaseOrder implements BuybrainEntity
     }
 
     /**
-     * @return PurchaseOrderPrice[]
+     * @param OrderSkuPrice $price
+     * @return $this
+     */
+    public function addPrice(OrderSkuPrice $price)
+    {
+        $this->prices[] = $price;
+        return $this;
+    }
+
+    /**
+     * @return OrderSkuPrice[]
      */
     public function getPrices()
     {
         return $this->prices;
+    }
+
+    /**
+     * @return Money|null
+     */
+    public function getExtraFees()
+    {
+        return $this->extraFees;
+    }
+
+    /**
+     * @param Money $extraFees
+     * @return $this
+     */
+    public function setExtraFees(Money $extraFees)
+    {
+        $this->extraFees = $extraFees;
+        return $this;
     }
 
     /**
@@ -205,6 +240,9 @@ class PurchaseOrder implements BuybrainEntity
             'expectedDeliveries' => $this->expectedDeliveries,
             'prices' => $this->prices,
         ];
+        if ($this->extraFees !== null) {
+            $json['extraFees'] = $this->extraFees;
+        }
         if ($this->usedAdvise !== null) {
             $json['usedAdvise'] = $this->usedAdvise;
         }
@@ -227,8 +265,11 @@ class PurchaseOrder implements BuybrainEntity
             array_map([Purchase::class, 'fromJson'], $json['purchases']),
             array_map([Delivery::class, 'fromJson'], $json['deliveries']),
             array_map([ExpectedDelivery::class, 'fromJson'], $json['expectedDeliveries']),
-            array_map([PurchaseOrderPrice::class, 'fromJson'], $json['prices'])
+            array_map([OrderSkuPrice::class, 'fromJson'], $json['prices'])
         );
+        if (isset($json['extraFees'])) {
+            $res->setExtraFees(Money::fromJson($json['extraFees']));
+        }
         if (isset($json['usedAdvise'])) {
             $res->setUsedAdvise(UsedAdviseInfo::fromJson($json['usedAdvise']));
         }

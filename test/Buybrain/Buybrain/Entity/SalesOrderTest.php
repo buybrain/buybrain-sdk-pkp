@@ -17,11 +17,21 @@ class SalesOrderTest extends TestCase
                 new Sale('126', new DateTimeImmutable('2017-02-01 13:59:34+01:00'), 3),
                 new Sale('62353', new DateTimeImmutable('2017-02-05 09:14:12+01:00'), 2),
                 new Sale('126', new DateTimeImmutable('2017-02-05 09:14:12+01:00'), -2),
+            ],
+            [
+                new Reservation('62353', new DateTimeImmutable('2017-02-05 09:14:12+01:00'), 1)
+            ],
+            [
+                new OrderSkuPrice('126', new Money('EUR', 104.95)),
+                new OrderSkuPrice('62353', new Money('EUR', 43)),
             ]
         );
         $order
             ->addSale(new Sale('123', new DateTimeImmutable('2017-02-10 12:00:00+01:00'), 1))
-            ->addReservation(new Reservation('126', new DateTimeImmutable('2017-02-06 12:00:00+01:00'), 1));
+            ->addReservation(new Reservation('126', new DateTimeImmutable('2017-02-06 12:00:00+01:00'), 1))
+            ->addPrice(new OrderSkuPrice('123', new Money('EUR', 1.5)))
+            ->setOverheadCost(new Money('EUR', 4.2))
+            ->setExtraFees(new Money('EUR', 4.95));
 
         $expectedJson = <<<'JSON'
 {
@@ -52,11 +62,47 @@ class SalesOrderTest extends TestCase
     ],
     "reservations": [
         {
+            "sku": "62353",
+            "date": "2017-02-05T09:14:12+01:00",
+            "quantity": 1
+        },
+        {
             "sku": "126",
             "date": "2017-02-06T12:00:00+01:00",
             "quantity": 1
         }
-    ]
+    ],
+    "prices": [
+        {
+            "sku": "126",
+            "price": {
+                "currency": "EUR",
+                "value": "104.95"
+            }
+        },
+        {
+            "sku": "62353",
+            "price": {
+                "currency": "EUR",
+                "value": "43"
+            }
+        },
+        {
+            "sku": "123",
+            "price": {
+                "currency": "EUR",
+                "value": "1.5"
+            }
+        }
+    ],
+    "extraFees": {
+        "currency": "EUR",
+        "value": "4.95"
+    },
+    "overheadCost": {
+        "currency": "EUR",
+        "value": "4.2"
+    }
 }
 JSON;
 

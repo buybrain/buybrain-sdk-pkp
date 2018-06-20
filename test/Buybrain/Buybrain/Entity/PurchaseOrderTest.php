@@ -20,8 +20,8 @@ class PurchaseOrderTest extends TestCase
             [],
             [],
             [
-                new PurchaseOrderPrice('126', new Money('EUR', '10.0')),
-                new PurchaseOrderPrice('123', new Money('EUR', '11.0')),
+                new OrderSkuPrice('126', new Money('EUR', '10.0')),
+                new OrderSkuPrice('123', new Money('EUR', '11.0')),
             ]
         );
         $order
@@ -116,6 +116,7 @@ JSON;
             new DateTimeImmutable('2017-02-01 13:59:34+01:00'),
             [new Purchase('126', new DateTimeImmutable('2017-02-01 13:59:34+01:00'), 3)]
         );
+        $order->setExtraFees(new Money('EUR', 10.0));
         $order->setUsedAdvise(new UsedAdviseInfo('00000000-0000-0000-0000-111111111111', 0.42));
         $order->setConceptId('00000000-0000-0000-0000-222222222222');
 
@@ -134,6 +135,10 @@ JSON;
     "deliveries": [],
     "expectedDeliveries": [],
     "prices": [],
+    "extraFees": {
+        "currency": "EUR",
+        "value": "10"
+    },
     "usedAdvise": {
         "adviseId": "00000000-0000-0000-0000-111111111111",
         "certainty": 0.42

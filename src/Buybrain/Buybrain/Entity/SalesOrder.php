@@ -31,6 +31,12 @@ class SalesOrder implements BuybrainEntity
     private $sales;
     /** @var Reservation[] */
     private $reservations;
+    /** @var OrderSkuPrice[] */
+    private $prices;
+    /** @var Money|null */
+    private $extraFees;
+    /** @var Money|null */
+    private $overheadCost;
 
     /**
      * @param string $id
@@ -38,21 +44,32 @@ class SalesOrder implements BuybrainEntity
      * @param string $channel the initial sales channel
      * @param Sale[] $sales
      * @param Reservation[] $reservations
+     * @param OrderSkuPrice[] $prices
+     * @param Money|null $extraFees
+     * @param Money|null $overheadCost
      */
     public function __construct(
         $id,
         DateTimeInterface $createDate,
         $channel,
         array $sales = [],
-        array $reservations = []
+        array $reservations = [],
+        array $prices = [],
+        Money $extraFees = null,
+        Money $overheadCost = null
     ) {
         Assert::instancesOf($sales, Sale::class);
         Assert::instancesOf($reservations, Reservation::class);
+        Assert::instancesOf($prices, OrderSkuPrice::class);
+
         $this->id = (string)$id;
         $this->createDate = $createDate;
         $this->channel = (string)$channel;
         $this->sales = $sales;
         $this->reservations = $reservations;
+        $this->prices = $prices;
+        $this->extraFees = $extraFees;
+        $this->overheadCost = $overheadCost;
     }
 
     /**
@@ -134,6 +151,60 @@ class SalesOrder implements BuybrainEntity
     }
 
     /**
+     * @param OrderSkuPrice $price
+     * @return $this
+     */
+    public function addPrice(OrderSkuPrice $price)
+    {
+        $this->prices[] = $price;
+        return $this;
+    }
+
+    /**
+     * @return OrderSkuPrice[]
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+    /**
+     * @return Money|null
+     */
+    public function getExtraFees()
+    {
+        return $this->extraFees;
+    }
+
+    /**
+     * @param Money $extraFees
+     * @return $this
+     */
+    public function setExtraFees(Money $extraFees)
+    {
+        $this->extraFees = $extraFees;
+        return $this;
+    }
+
+    /**
+     * @return Money|null
+     */
+    public function getOverheadCost()
+    {
+        return $this->overheadCost;
+    }
+
+    /**
+     * @param Money $overheadCost
+     * @return $this
+     */
+    public function setOverheadCost(Money $overheadCost)
+    {
+        $this->overheadCost = $overheadCost;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -144,9 +215,16 @@ class SalesOrder implements BuybrainEntity
             'channel' => $this->channel,
             'sales' => $this->sales,
             'reservations' => $this->reservations,
+            'prices' => $this->prices,
         ];
         if ($this->subChannel !== null) {
             $json['subChannel'] = $this->subChannel;
+        }
+        if ($this->extraFees !== null) {
+            $json['extraFees'] = $this->extraFees;
+        }
+        if ($this->overheadCost !== null) {
+            $json['overheadCost'] = $this->overheadCost;
         }
         return $json;
     }
@@ -162,10 +240,17 @@ class SalesOrder implements BuybrainEntity
             DateTimes::parse($json['createDate']),
             $json['channel'],
             array_map([Sale::class, 'fromJson'], $json['sales']),
-            array_map([Reservation::class, 'fromJson'], $json['reservations'])
+            array_map([Reservation::class, 'fromJson'], $json['reservations']),
+            array_map([OrderSkuPrice::class, 'fromJson'], $json['prices'])
         );
         if (isset($json['subChannel'])) {
             $res->setSubChannel($json['subChannel']);
+        }
+        if (isset($json['extraFees'])) {
+            $res->setExtraFees(Money::fromJson($json['extraFees']));
+        }
+        if (isset($json['overheadCost'])) {
+            $res->setOverheadCost(Money::fromJson($json['overheadCost']));
         }
         return $res;
     }

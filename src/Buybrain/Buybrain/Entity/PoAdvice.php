@@ -9,6 +9,9 @@ class PoAdvice implements BuybrainEntity
 {
     const ENTITY_TYPE = 'poAdvice';
 
+    const STATUS_LIVE = 'live';
+    const STATUS_STAGING = 'staging';
+
     use AsNervusEntityTrait;
     use EntityIdFactoryTrait;
 
@@ -16,6 +19,8 @@ class PoAdvice implements BuybrainEntity
     private $id;
     /** @var string */
     private $supplierId;
+    /** @var string */
+    private $status;
     /** @var DateTimeInterface */
     private $createDate;
     /** @var DateTimeInterface */
@@ -34,6 +39,7 @@ class PoAdvice implements BuybrainEntity
     /**
      * @param string $id
      * @param string $supplierId
+     * @param string $status one of the self::STATUS_ constants
      * @param DateTimeInterface $createDate
      * @param DateTimeInterface $deliveryDate
      * @param DateTimeInterface $nextDeliveryDate
@@ -45,6 +51,7 @@ class PoAdvice implements BuybrainEntity
     public function __construct(
         $id,
         $supplierId,
+        $status,
         DateTimeInterface $createDate,
         DateTimeInterface $deliveryDate,
         DateTimeInterface $nextDeliveryDate,
@@ -57,13 +64,14 @@ class PoAdvice implements BuybrainEntity
 
         $this->id = (string)$id;
         $this->supplierId = (string)$supplierId;
+        $this->status = (string)$status;
         $this->createDate = $createDate;
         $this->deliveryDate = $deliveryDate;
         $this->nextDeliveryDate = $nextDeliveryDate;
         $this->shippingCost = $shippingCost;
         $this->articles = $articles;
-        $this->efficiency = $efficiency;
-        $this->zeroItemsEfficiency = $zeroItemsEfficiency;
+        $this->efficiency = (float)$efficiency;
+        $this->zeroItemsEfficiency = (float)$zeroItemsEfficiency;
     }
 
     /**
@@ -80,6 +88,14 @@ class PoAdvice implements BuybrainEntity
     public function getSupplierId()
     {
         return $this->supplierId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
@@ -146,6 +162,7 @@ class PoAdvice implements BuybrainEntity
         return [
             'id' => $this->id,
             'supplierId' => $this->supplierId,
+            'status' => $this->status,
             'createDate' => DateTimes::format($this->createDate),
             'deliveryDate' => DateTimes::format($this->deliveryDate),
             'nextDeliveryDate' => DateTimes::format($this->nextDeliveryDate),
@@ -165,6 +182,7 @@ class PoAdvice implements BuybrainEntity
         return new self(
             $json['id'],
             $json['supplierId'],
+            $json['status'],
             DateTimes::parse($json['createDate']),
             DateTimes::parse($json['deliveryDate']),
             DateTimes::parse($json['nextDeliveryDate']),

@@ -11,6 +11,7 @@ class PoAdviceTest extends TestCase
         $advice = new PoAdvice(
             '123',
             '456',
+            PoAdvice::STATUS_STAGING,
             DateTimes::parse('2018-01-01Z'),
             DateTimes::parse('2018-02-01Z'),
             DateTimes::parse('2018-03-01Z'),
@@ -27,6 +28,7 @@ class PoAdviceTest extends TestCase
 {
     "id": "123",
     "supplierId": "456",
+    "status": "staging",
     "createDate": "2018-01-01T00:00:00+00:00",
     "deliveryDate": "2018-02-01T00:00:00+00:00",
     "nextDeliveryDate": "2018-03-01T00:00:00+00:00",

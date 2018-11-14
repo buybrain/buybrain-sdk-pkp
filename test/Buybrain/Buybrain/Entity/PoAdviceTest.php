@@ -17,8 +17,8 @@ class PoAdviceTest extends TestCase
             DateTimes::parse('2018-03-01Z'),
             new Money('EUR', 5),
             [
-                new PoAdviceArticle('1', 1, 0, new Money('EUR', 1)),
-                new PoAdviceArticle('2', 2, 1, new Money('EUR', 2)),
+                new PoAdviceArticle('1', 1, new Money('EUR', 1)),
+                new PoAdviceArticle('2', 2, new Money('EUR', 2)),
             ],
             0.90,
             0.85
@@ -40,7 +40,6 @@ class PoAdviceTest extends TestCase
         {
             "sku": "1",
             "quantity": 1,
-            "minimumQuantity": 0,
             "price": {
                 "currency": "EUR",
                 "value": "1"
@@ -49,7 +48,6 @@ class PoAdviceTest extends TestCase
         {
             "sku": "2",
             "quantity": 2,
-            "minimumQuantity": 1,
             "price": {
                 "currency": "EUR",
                 "value": "2"

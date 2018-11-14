@@ -13,26 +13,21 @@ class PoAdviceArticle implements JsonSerializable
     private $sku;
     /** @var int */
     private $quantity;
-    /** @var int */
-    private $minimumQuantity;
     /** @var Money */
     private $price;
 
     /**
      * @param string $sku
      * @param int $quantity
-     * @param int $minimumQuantity
      * @param Money $price
      */
-    public function __construct($sku, $quantity, $minimumQuantity, Money $price)
+    public function __construct($sku, $quantity, Money $price)
     {
         $this->sku = (string)$sku;
         $this->quantity = (int)$quantity;
-        $this->minimumQuantity = (int)$minimumQuantity;
         $this->price = $price;
 
         Assert::greaterThan($this->quantity, 0, 'Invalid PO advice article quantity');
-        Assert::greaterThanOrEqual($this->minimumQuantity, 0, 'Invalid PO advice article minimum quantity');
         Assert::greaterThan((float)$this->price->getValue(), 0, 'Invalid PO advice article price');
     }
 
@@ -53,14 +48,6 @@ class PoAdviceArticle implements JsonSerializable
     }
 
     /**
-     * @return int
-     */
-    public function getMinimumQuantity()
-    {
-        return $this->minimumQuantity;
-    }
-
-    /**
      * @return Money
      */
     public function getPrice()
@@ -76,7 +63,6 @@ class PoAdviceArticle implements JsonSerializable
         return [
             'sku' => $this->sku,
             'quantity' => $this->quantity,
-            'minimumQuantity' => $this->minimumQuantity,
             'price' => $this->price,
         ];
     }
@@ -90,7 +76,6 @@ class PoAdviceArticle implements JsonSerializable
         return new PoAdviceArticle(
             $json['sku'],
             $json['quantity'],
-            $json['minimumQuantity'],
             Money::fromJson($json['price'])
         );
     }

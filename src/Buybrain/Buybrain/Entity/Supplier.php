@@ -89,6 +89,16 @@ class Supplier implements BuybrainEntity
     }
 
     /**
+     * @param bool $assumeStockWhenUnknown
+     * @return $this
+     */
+    public function setAssumeStockWhenUnknown($assumeStockWhenUnknown)
+    {
+        $this->assumeStockWhenUnknown = (bool)$assumeStockWhenUnknown;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getType()

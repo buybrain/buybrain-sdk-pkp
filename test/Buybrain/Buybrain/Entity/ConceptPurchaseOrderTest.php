@@ -13,6 +13,8 @@ class ConceptPurchaseOrderTest extends TestCase
             '00000000-0000-0000-0000-222222222222',
             '12345',
             new DateTimeImmutable('2017-02-01 13:59:34+01:00'),
+            '00000000-0000-0000-0000-333333333333',
+            ConceptPurchaseOrder::CREATION_AUTOMATIC,
             [
                 new ConceptPurchaseOrderArticle('123', 1, new Money('EUR', 2.23)),
                 new ConceptPurchaseOrderArticle('234', '5', new Money('EUR', 3.34))
@@ -27,6 +29,8 @@ class ConceptPurchaseOrderTest extends TestCase
     "id": "00000000-0000-0000-0000-222222222222",
     "supplierId": "12345",
     "createDate": "2017-02-01T13:59:34+01:00",
+    "createdBy": "00000000-0000-0000-0000-333333333333",
+    "createMethod": "automatic",
     "articles": [
         {
             "sku": "123",

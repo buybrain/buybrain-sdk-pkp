@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\Cast;
 use Buybrain\Buybrain\Util\DateTimes;
 use DateTimeInterface;
 
@@ -19,6 +20,9 @@ class ConceptPurchaseOrder implements BuybrainEntity
     const STATUS_CREATED = 'created';
     const STATUS_PLACED = 'placed';
 
+    const CREATION_MANUAL = 'manual';
+    const CREATION_AUTOMATIC = 'automatic';
+    
     const PROCESSING_MANUAL = 'manual';
     const PROCESSING_AUTOMATIC = 'automatic';
 
@@ -31,29 +35,40 @@ class ConceptPurchaseOrder implements BuybrainEntity
     private $supplierId;
     /** @var DateTimeInterface */
     private $createDate;
+    /** @var string|null */
+    private $createdBy;
+    /** @var string */
+    private $createMethod;
     /** @var ConceptPurchaseOrderArticle[] */
     private $articles;
     /** @var Money */
     private $shippingCost;
     /** @var string */
     private $status;
-    /** @var string */
+    /** @var string  */
     private $processing;
 
     /**
      * @param string $id
      * @param string $supplierId
      * @param DateTimeInterface $createDate
+     * @param string|null $createdBy the UUID of the agent that created this concept when created manually, or the UUID
+     *        of the responsible agent on whose behalf the order was automatically created by Orderbot. The
+     *        corresponding User entity can be obtained with the API.
+     * @param string $createMethod one of the CREATION_ constants. Indicates whether this concept was created manually
+     *        by an agent, or automatically by the Orderbot system.
      * @param ConceptPurchaseOrderArticle[] $articles
      * @param Money $shippingCost
      * @param string $status one of the STATUS_ constants
      * @param string $processing one of the PROCESSING_ constants. Indicates whether the receiving system is expected
-     *     to automatically place the order at the supplier, or if the order should be placed manually.
+     *        to automatically place the order at the supplier, or if the order should be placed manually.
      */
     public function __construct(
         $id,
         $supplierId,
         DateTimeInterface $createDate,
+        $createdBy,
+        $createMethod,
         array $articles,
         Money $shippingCost,
         $status,
@@ -62,10 +77,12 @@ class ConceptPurchaseOrder implements BuybrainEntity
         $this->id = (string)$id;
         $this->supplierId = (string)$supplierId;
         $this->createDate = $createDate;
+        $this->createdBy = Cast::toString($createdBy);
+        $this->createMethod = (string)$createMethod;
         $this->articles = $articles;
         $this->shippingCost = $shippingCost;
-        $this->status = $status;
-        $this->processing = $processing;
+        $this->status = (string)$status;
+        $this->processing = (string)$processing;
     }
 
     /**
@@ -90,6 +107,22 @@ class ConceptPurchaseOrder implements BuybrainEntity
     public function getCreateDate()
     {
         return $this->createDate;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreateMethod()
+    {
+        return $this->createMethod;
     }
 
     /**
@@ -134,12 +167,17 @@ class ConceptPurchaseOrder implements BuybrainEntity
         return $this->processing;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize()
     {
         return [
             'id' => $this->id,
             'supplierId' => $this->supplierId,
             'createDate' => DateTimes::format($this->createDate),
+            'createdBy' => $this->createdBy,
+            'createMethod' => $this->createMethod,
             'articles' => $this->articles,
             'shippingCost' => $this->shippingCost,
             'status' => $this->status,
@@ -157,6 +195,8 @@ class ConceptPurchaseOrder implements BuybrainEntity
             $json['id'],
             $json['supplierId'],
             DateTimes::parse($json['createDate']),
+            $json['createdBy'],
+            $json['createMethod'],
             array_map([ConceptPurchaseOrderArticle::class, 'fromJson'], $json['articles']),
             Money::fromJson($json['shippingCost']),
             $json['status'],

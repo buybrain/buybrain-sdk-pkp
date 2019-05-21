@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class StockTest extends TestCase
 {
-    public function testToJson()
+    public function testToAndFromJson()
     {
         $item = new Stock(
             'abc-123',
@@ -16,7 +16,7 @@ class StockTest extends TestCase
             new Money('EUR', 10.5)
         );
 
-        $expected = <<<'JSON'
+        $json = <<<'JSON'
 {
     "sku": "abc-123",
     "date": "2017-01-01T00:00:00+00:00",
@@ -28,36 +28,33 @@ class StockTest extends TestCase
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($item, JSON_PRETTY_PRINT));
+        $this->assertEquals($json, json_encode($item, JSON_PRETTY_PRINT));
+        $this->assertEquals($item, Stock::fromJson(json_decode($json, true)));
 
         $expectedEntity = new Entity(Stock::id('abc-123|2017-01-01T00:00:00+00:00'), json_encode($item));
         $this->assertEquals($expectedEntity, $item->asNervusEntity());
     }
 
-    public function testToJsonWithCustomId()
+    public function testToAndFromJsonNoValueAndCustomID()
     {
         $item = new Stock(
             'abc-123',
             new DateTimeImmutable('2017-01-01Z'),
-            42,
-            new Money('EUR', 10.5)
+            42
         );
         $item->setId('1234');
 
-        $expected = <<<'JSON'
+        $json = <<<'JSON'
 {
     "sku": "abc-123",
     "date": "2017-01-01T00:00:00+00:00",
     "stock": 42,
-    "avgValue": {
-        "currency": "EUR",
-        "value": "10.5"
-    },
     "id": "1234"
 }
 JSON;
 
-        $this->assertEquals($expected, json_encode($item, JSON_PRETTY_PRINT));
+        $this->assertEquals($json, json_encode($item, JSON_PRETTY_PRINT));
+        $this->assertEquals($item, Stock::fromJson(json_decode($json, true)));
 
         $expectedEntity = new Entity(Stock::id('1234'), json_encode($item));
         $this->assertEquals($expectedEntity, $item->asNervusEntity());

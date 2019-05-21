@@ -142,6 +142,29 @@ class Stock implements BuybrainEntity
     }
 
     /**
+     * @param array $json
+     * @return Stock
+     */
+    public static function fromJson(array $json)
+    {
+        if (isset($json['avgValue'])) {
+            $avgValue = Money::fromJson($json['avgValue']);
+        } else {
+            $avgValue = null;
+        }
+        $stock = new self(
+            $json['sku'],
+            DateTimes::parse($json['date']),
+            $json['stock'],
+            $avgValue
+        );
+        if (isset($json['id'])) {
+            $stock->setId($json['id']);
+        }
+        return $stock;
+    }
+
+    /**
      * @return string
      */
     public function getType()

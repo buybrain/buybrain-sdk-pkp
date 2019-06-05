@@ -219,10 +219,12 @@ class SalesOrder implements BuybrainEntity
 
     /**
      * @param DateTimeInterface|null $maxShippingDate
+     * @return $this
      */
     public function setMaxShippingDate(DateTimeInterface $maxShippingDate = null)
     {
         $this->maxShippingDate = $maxShippingDate;
+        return $this;
     }
 
     /**

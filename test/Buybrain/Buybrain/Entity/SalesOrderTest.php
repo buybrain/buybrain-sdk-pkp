@@ -31,7 +31,8 @@ class SalesOrderTest extends TestCase
             ->addReservation(new Reservation('126', new DateTimeImmutable('2017-02-06 12:00:00+01:00'), 1))
             ->addPrice(new OrderSkuPrice('123', new Money('EUR', 1.5)))
             ->setOverheadCost(new Money('EUR', 4.2))
-            ->setExtraFees(new Money('EUR', 4.95));
+            ->setExtraFees(new Money('EUR', 4.95))
+            ->setMaxShippingDate(new DateTimeImmutable('2017-02-10 00:00:00+01:00'));
 
         $expectedJson = <<<'JSON'
 {
@@ -102,7 +103,8 @@ class SalesOrderTest extends TestCase
     "overheadCost": {
         "currency": "EUR",
         "value": "4.2"
-    }
+    },
+    "maxShippingDate": "2017-02-10T00:00:00+01:00"
 }
 JSON;
 

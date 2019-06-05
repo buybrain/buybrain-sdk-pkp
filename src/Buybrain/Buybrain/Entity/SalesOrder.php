@@ -37,6 +37,8 @@ class SalesOrder implements BuybrainEntity
     private $extraFees;
     /** @var Money|null */
     private $overheadCost;
+    /** @var DateTimeInterface|null */
+    private $maxShippingDate;
 
     /**
      * @param string $id
@@ -47,6 +49,7 @@ class SalesOrder implements BuybrainEntity
      * @param OrderSkuPrice[] $prices
      * @param Money|null $extraFees
      * @param Money|null $overheadCost
+     * @param DateTimeInterface|null $maxShippingDate the (optional) latest date this order should be shipped
      */
     public function __construct(
         $id,
@@ -56,7 +59,8 @@ class SalesOrder implements BuybrainEntity
         array $reservations = [],
         array $prices = [],
         Money $extraFees = null,
-        Money $overheadCost = null
+        Money $overheadCost = null,
+        DateTimeInterface $maxShippingDate = null
     ) {
         Assert::instancesOf($sales, Sale::class);
         Assert::instancesOf($reservations, Reservation::class);
@@ -70,6 +74,7 @@ class SalesOrder implements BuybrainEntity
         $this->prices = $prices;
         $this->extraFees = $extraFees;
         $this->overheadCost = $overheadCost;
+        $this->maxShippingDate = $maxShippingDate;
     }
 
     /**
@@ -205,6 +210,22 @@ class SalesOrder implements BuybrainEntity
     }
 
     /**
+     * @return DateTimeInterface|null
+     */
+    public function getMaxShippingDate()
+    {
+        return $this->maxShippingDate;
+    }
+
+    /**
+     * @param DateTimeInterface|null $maxShippingDate
+     */
+    public function setMaxShippingDate(DateTimeInterface $maxShippingDate = null)
+    {
+        $this->maxShippingDate = $maxShippingDate;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -225,6 +246,9 @@ class SalesOrder implements BuybrainEntity
         }
         if ($this->overheadCost !== null) {
             $json['overheadCost'] = $this->overheadCost;
+        }
+        if ($this->maxShippingDate !== null) {
+            $json['maxShippingDate'] = DateTimes::format($this->maxShippingDate);
         }
         return $json;
     }
@@ -251,6 +275,9 @@ class SalesOrder implements BuybrainEntity
         }
         if (isset($json['overheadCost'])) {
             $res->setOverheadCost(Money::fromJson($json['overheadCost']));
+        }
+        if (isset($json['maxShippingDate'])) {
+            $res->setMaxShippingDate(DateTimes::parse($json['maxShippingDate']));
         }
         return $res;
     }

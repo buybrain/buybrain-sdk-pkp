@@ -1,6 +1,7 @@
 <?php
 namespace Buybrain\Buybrain\Entity;
 
+use Buybrain\Buybrain\Util\LocalDate;
 use Buybrain\Nervus\Entity;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -32,7 +33,7 @@ class SalesOrderTest extends TestCase
             ->addPrice(new OrderSkuPrice('123', new Money('EUR', 1.5)))
             ->setOverheadCost(new Money('EUR', 4.2))
             ->setExtraFees(new Money('EUR', 4.95))
-            ->setMaxShippingDate(new DateTimeImmutable('2017-02-10 00:00:00+01:00'));
+            ->setMaxShippingDate(LocalDate::parse('2017-02-10'));
 
         $expectedJson = <<<'JSON'
 {
@@ -104,7 +105,7 @@ class SalesOrderTest extends TestCase
         "currency": "EUR",
         "value": "4.2"
     },
-    "maxShippingDate": "2017-02-10T00:00:00+01:00"
+    "maxShippingDate": "2017-02-10"
 }
 JSON;
 

@@ -3,6 +3,7 @@ namespace Buybrain\Buybrain\Entity;
 
 use Buybrain\Buybrain\Util\Assert;
 use Buybrain\Buybrain\Util\DateTimes;
+use Buybrain\Buybrain\Util\LocalDate;
 use DateTimeInterface;
 
 /**
@@ -37,7 +38,7 @@ class SalesOrder implements BuybrainEntity
     private $extraFees;
     /** @var Money|null */
     private $overheadCost;
-    /** @var DateTimeInterface|null */
+    /** @var LocalDate|null */
     private $maxShippingDate;
 
     /**
@@ -49,7 +50,7 @@ class SalesOrder implements BuybrainEntity
      * @param OrderSkuPrice[] $prices
      * @param Money|null $extraFees
      * @param Money|null $overheadCost
-     * @param DateTimeInterface|null $maxShippingDate the (optional) latest date this order should be shipped
+     * @param LocalDate|null $maxShippingDate the (optional) latest date this order should be shipped
      */
     public function __construct(
         $id,
@@ -60,7 +61,7 @@ class SalesOrder implements BuybrainEntity
         array $prices = [],
         Money $extraFees = null,
         Money $overheadCost = null,
-        DateTimeInterface $maxShippingDate = null
+        LocalDate $maxShippingDate = null
     ) {
         Assert::instancesOf($sales, Sale::class);
         Assert::instancesOf($reservations, Reservation::class);
@@ -210,7 +211,7 @@ class SalesOrder implements BuybrainEntity
     }
 
     /**
-     * @return DateTimeInterface|null
+     * @return LocalDate|null
      */
     public function getMaxShippingDate()
     {
@@ -218,10 +219,10 @@ class SalesOrder implements BuybrainEntity
     }
 
     /**
-     * @param DateTimeInterface|null $maxShippingDate
+     * @param LocalDate|null $maxShippingDate
      * @return $this
      */
-    public function setMaxShippingDate(DateTimeInterface $maxShippingDate = null)
+    public function setMaxShippingDate(LocalDate $maxShippingDate = null)
     {
         $this->maxShippingDate = $maxShippingDate;
         return $this;
@@ -250,7 +251,7 @@ class SalesOrder implements BuybrainEntity
             $json['overheadCost'] = $this->overheadCost;
         }
         if ($this->maxShippingDate !== null) {
-            $json['maxShippingDate'] = DateTimes::format($this->maxShippingDate);
+            $json['maxShippingDate'] = $this->maxShippingDate->format();
         }
         return $json;
     }
@@ -279,7 +280,7 @@ class SalesOrder implements BuybrainEntity
             $res->setOverheadCost(Money::fromJson($json['overheadCost']));
         }
         if (isset($json['maxShippingDate'])) {
-            $res->setMaxShippingDate(DateTimes::parse($json['maxShippingDate']));
+            $res->setMaxShippingDate(LocalDate::parse($json['maxShippingDate']));
         }
         return $res;
     }

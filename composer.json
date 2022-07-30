@@ -29,8 +29,8 @@
         "buybrain/nervus-php": "^0.2.0"
     },
     "require": {
-        "guzzlehttp/guzzle": "^6.2|^7.4",
-        "php": "^7.4|^8.0",
-        "ext-json": "*"
+        "php": "^7.4||^8.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.2||^7.4"
     }
 }

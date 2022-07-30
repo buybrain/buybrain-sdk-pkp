@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bd6f0f95cf83a36a754df1e71141ce2",
+    "content-hash": "87459010e8577a41106db57299ce1058",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -69,6 +69,10 @@
                 "rest",
                 "web service"
             ],
+            "support": {
+                "issues": "https://github.com/guzzle/guzzle/issues",
+                "source": "https://github.com/guzzle/guzzle/tree/master"
+            },
             "time": "2018-04-22T15:46:56+00:00"
         },
         {
@@ -98,12 +102,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Promise\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -120,6 +124,10 @@
             "keywords": [
                 "promise"
             ],
+            "support": {
+                "issues": "https://github.com/guzzle/promises/issues",
+                "source": "https://github.com/guzzle/promises/tree/master"
+            },
             "time": "2016-12-20T10:07:11+00:00"
         },
         {
@@ -153,12 +161,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Psr7\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -185,6 +193,10 @@
                 "uri",
                 "url"
             ],
+            "support": {
+                "issues": "https://github.com/guzzle/psr7/issues",
+                "source": "https://github.com/guzzle/psr7/tree/1.4.2"
+            },
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
@@ -235,25 +247,29 @@
                 "request",
                 "response"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/http-message/tree/master"
+            },
             "time": "2016-08-06T14:39:51+00:00"
         }
     ],
     "packages-dev": [
         {
             "name": "buybrain/nervus-php",
-            "version": "0.1.6",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buybrain/nervus-php.git",
-                "reference": "d47b7ffcd54f9ceb1d0fec743bc24f53cc68a1f5"
+                "reference": "0dd9e4dcec9004f3bb2e12e4ff7b4d5cf0431250"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buybrain/nervus-php/zipball/d47b7ffcd54f9ceb1d0fec743bc24f53cc68a1f5",
-                "reference": "d47b7ffcd54f9ceb1d0fec743bc24f53cc68a1f5",
+                "url": "https://api.github.com/repos/buybrain/nervus-php/zipball/0dd9e4dcec9004f3bb2e12e4ff7b4d5cf0431250",
+                "reference": "0dd9e4dcec9004f3bb2e12e4ff7b4d5cf0431250",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "rybakit/msgpack": "^0.9.0"
             },
             "require-dev": {
@@ -285,9 +301,9 @@
             ],
             "support": {
                 "issues": "https://github.com/buybrain/nervus-php/issues",
-                "source": "https://github.com/buybrain/nervus-php/tree/0.1.6"
+                "source": "https://github.com/buybrain/nervus-php/tree/0.2.0"
             },
-            "time": "2021-12-23T16:51:55+00:00"
+            "time": "2022-07-30T14:55:53+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -374,9 +390,6 @@
             },
             "require": {
                 "php": "^7.1 || ^8.0"
-            },
-            "replace": {
-                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
@@ -2291,12 +2304,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2454,9 +2467,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5",
+        "php": "^7.4|^8.0",
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

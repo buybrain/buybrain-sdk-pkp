@@ -48,10 +48,7 @@ class Money implements JsonSerializable
         return $this->value;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'currency' => $this->currency,

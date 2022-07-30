@@ -41,10 +41,7 @@ class UsedAdviseInfo implements JsonSerializable
         return $this->certainty;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'adviseId' => $this->adviseId,

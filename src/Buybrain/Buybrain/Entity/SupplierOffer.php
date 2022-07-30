@@ -145,10 +145,7 @@ class SupplierOffer implements BuybrainEntity
         return [$sku, $supplier, DateTimes::parse($date)];
     }
 
-    /**
-     * return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [
             'sku' => $this->sku,

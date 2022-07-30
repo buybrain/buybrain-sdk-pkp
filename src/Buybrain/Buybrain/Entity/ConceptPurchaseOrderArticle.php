@@ -51,7 +51,7 @@ class ConceptPurchaseOrderArticle implements JsonSerializable
         return $this->itemPrice;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'sku' => $this->sku,

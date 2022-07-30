@@ -173,10 +173,7 @@ class ArticlePricingInfo implements BuybrainEntity
         return $parts;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [
             'sku' => $this->sku,

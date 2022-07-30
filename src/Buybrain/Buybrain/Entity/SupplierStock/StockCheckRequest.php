@@ -74,10 +74,7 @@ class StockCheckRequest implements BuybrainEntity
         return $this->createDate;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,

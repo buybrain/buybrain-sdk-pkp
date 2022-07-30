@@ -27,10 +27,7 @@ class ExactSupplierStock extends SupplierStock
         return $this->quantity;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             SupplierStock::JSON_FIELD_TYPE => self::JSON_TYPE,

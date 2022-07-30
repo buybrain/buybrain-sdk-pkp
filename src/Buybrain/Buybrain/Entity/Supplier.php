@@ -106,10 +106,7 @@ class Supplier implements BuybrainEntity
         return self::ENTITY_TYPE;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,

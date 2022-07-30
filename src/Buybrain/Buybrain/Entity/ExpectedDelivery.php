@@ -73,10 +73,7 @@ class ExpectedDelivery implements JsonSerializable
         return $this->supplierAcceptDate;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $json = [
             'sku' => $this->sku,

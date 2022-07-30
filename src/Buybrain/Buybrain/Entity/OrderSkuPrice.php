@@ -42,10 +42,7 @@ class OrderSkuPrice implements JsonSerializable
         return $this->price;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'sku' => $this->sku,

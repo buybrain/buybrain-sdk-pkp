@@ -154,10 +154,7 @@ class PoAdvice implements BuybrainEntity
         return $this->zeroItemsEfficiency;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,

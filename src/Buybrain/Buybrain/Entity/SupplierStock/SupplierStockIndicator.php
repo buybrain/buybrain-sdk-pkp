@@ -43,10 +43,7 @@ class SupplierStockIndicator extends SupplierStock
         return $this->indicator;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             SupplierStock::JSON_FIELD_TYPE => self::JSON_TYPE,

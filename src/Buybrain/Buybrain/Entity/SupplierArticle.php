@@ -215,10 +215,7 @@ class SupplierArticle implements BuybrainEntity
         return explode('|', $autoId);
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [
             'supplierId' => $this->supplierId,

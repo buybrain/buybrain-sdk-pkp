@@ -57,10 +57,7 @@ class PaymentCondition implements JsonSerializable
         return $this->discount;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'period' => $this->paymentPeriodDays,

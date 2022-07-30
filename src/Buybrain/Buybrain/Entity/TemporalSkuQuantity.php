@@ -53,10 +53,7 @@ abstract class TemporalSkuQuantity implements JsonSerializable
         return $this->quantity;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'sku' => $this->sku,

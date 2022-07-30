@@ -122,10 +122,7 @@ class Stock implements BuybrainEntity
         return $this->averageValue;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [
             'sku' => $this->sku,

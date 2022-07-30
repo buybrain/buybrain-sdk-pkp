@@ -228,10 +228,7 @@ class SalesOrder implements BuybrainEntity
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $json = [
             'id' => $this->id,
